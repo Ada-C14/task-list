@@ -2,7 +2,6 @@ require "date"
 
 class TasksController < ApplicationController
   def index
-    puts "did it work?"
     @tasks = Task.all
   end
 
