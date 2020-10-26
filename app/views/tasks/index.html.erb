@@ -1,0 +1,11 @@
+<h1>Tasks</h1>
+
+
+<ul>
+  <% @tasks.each do |tasks|%>
+    <li>
+      <%= tasks[:description] %>,  Date: <%= tasks[:date] %> , priority: <%= tasks[:priority] %>
+    </li>
+  <% end %>
+</ul>
+
