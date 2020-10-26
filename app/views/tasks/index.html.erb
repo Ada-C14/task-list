@@ -1,0 +1,13 @@
+<h1>Tasks</h1>
+<ul>
+  <% if @tasks.length > 0 %>
+    <% @tasks.each do |task| %>
+      <li>
+        <%= "task: #{task[:task]} ||" %>
+        <%= "\tcomplete?: #{task[:checkbox]}" %>
+     </li>
+    <% end %>
+  <% else %>
+    No tasks
+  <% end %>
+</ul>
