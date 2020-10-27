@@ -1,8 +1,8 @@
-<h1>Books</h1>
+<h1>Tasks</h1>
 <ul>
-  <% @books.each do |book|  %>
+  <% @tasks.each do |task|  %>
     <li>
-      <%= book[:title] %> By: <%= book[:author] %>
+      Task: <%= task[:name] %> Description: <%= task[:description] %> Date completed: <%= task[:date_completed] %>
     </li>
   <% end %>
 </ul>
