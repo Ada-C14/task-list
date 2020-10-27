@@ -2,7 +2,7 @@
 <ul>
   <% @tasks.each do |task| %>
     <li>
-      <%= task.type %> || priority: <%= task.priority %>
+      <%= task[:type] %> || priority: <%= task[:priority] %>
     </li>
   <% end %>
 </ul>
