@@ -1,9 +1,20 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  get '/tasks', to: 'tasks#index'
+  # add routes that have to do with the collection of tasks
+  get '/tasks', to: 'tasks#index', as: 'tasks'
   root to: 'tasks#index'
+  get '/tasks/new', to: 'tasks#new', as: 'new_task' # gets a form for a new task
+  post '/books', to: 'tasks#create' # don't need to make a nickname
 
-  get '/tasks/:id', to: 'tasks#show'
+  # routes that deal with a specific task
+  get '/tasks/:id', to: 'tasks#show', as: 'task' # shows details for 1 task
+  get '/tasks/:id/edit', to: 'tasks#edit', as: 'edit_book' # brings up the form to edit a book
+  patch '/tasks/:id', to: 'tasks#update'
+  delete '/tasks/:id', to: 'tasks#destroy'
+
+  # mark completed custom path
+  patch '/tasks/:id/mark_completed', to: "tasks#mark_completed"
+
 
 end

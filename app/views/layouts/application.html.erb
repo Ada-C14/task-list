@@ -15,7 +15,8 @@
       <nav>
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="/tasks">Tasks</a></li>
+          <li><%= link_to "All Tasks", tasks_path %>
+          <li><%= link_to "Create New Task", new_task_path %></li>
         </ul>
       </nav>
     </header>
