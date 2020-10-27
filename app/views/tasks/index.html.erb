@@ -1,0 +1,14 @@
+<h1>TASK APP OF ALL TASK APPS</h1>
+<h2>DO YOU HAVE A LIST?</h2>
+<h2>THIS APP WILL STORE YOUR LIST</h2>
+
+
+<% if @tasks.length > 0 %>
+  <ul>
+    <% @tasks.each do |task| %>
+    <li> <%= task %></li>
+    <% end %>
+  </ul>
+<%else %>
+  <h3>No tasks in the system yet😥 time to add some tasks!</h3>
+<% end %>
