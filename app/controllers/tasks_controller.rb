@@ -1,10 +1,15 @@
-TASKS = [
-    { task: "Clean kitchen", checkbox: "Complete"},
-    { task: "Organize files", checkbox: "Not-complete"},
-    { task: "Bathe Hugo", checkbox: "Not-complete"}
-]
 class TasksController < ApplicationController
   def index
-    @tasks = TASKS
+    @tasks = Task.all
+  end
+
+  def show
+    task_id = params[:id].to_i
+    @task = Task.find_by(id: task_id)
+
+    if @task.nil?
+      head :redirect
+      return
+    end
   end
 end

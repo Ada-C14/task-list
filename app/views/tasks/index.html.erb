@@ -3,8 +3,9 @@
   <% if @tasks.length > 0 %>
     <% @tasks.each do |task| %>
       <li>
-        <%= "task: #{task[:task]} ||" %>
-        <%= "\tcomplete?: #{task[:checkbox]}" %>
+        Task: <%= task.name %> ||
+        Description: <%= task.description %> ||
+        Completed at: <%= task.completed_at %>
      </li>
     <% end %>
   <% else %>
