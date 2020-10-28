@@ -2,7 +2,12 @@
 <ul>
   <% @tasks.each do |task|  %>
     <li>
-      <%= task[:description] %> Completed: <%= task[:completed] %>
+      Task id: <%= task.id %>
+      Name: <%= task.name %>
+      Description: <%= task.description %>
+      Completed_at: <%= task.completed_at %>
+      Created_at: <%= task.created_at.strftime("%-m/%-d/%y") %>
+      Updated_at: <%= task.updated_at.strftime("%-m/%-d/%y") %>
     </li>
   <% end %>
 </ul>
