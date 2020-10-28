@@ -2,9 +2,10 @@
 <% if @tasks.length > 0 %>
     <ul>
         <% @tasks.each do |task|  %>
-            <li><%= task %></li>
+            <li><%= task.name %>: <%= task.description %>, completed at: <%= task.completed_at %></li>
         <% end %>
     </ul>
 <% else %>
     <p>No tasks in the system</p>
 <% end %>
+
