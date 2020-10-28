@@ -3,7 +3,7 @@
 <ul>
   <% @tasks.each do |tasks|%>
     <li>
-      <%= tasks[:description] %>,  Date: <%= tasks[:date] %> , priority: <%= tasks[:priority] %>
+      name: <%= tasks[:name] %>,  description: <%= tasks[:description] %> , completed_at: <%= tasks[:completed_at] %>
     </li>
   <% end %>
 </ul>
