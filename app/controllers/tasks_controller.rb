@@ -1,9 +1,9 @@
-TASKS = ["groceries", "mop floor", "pay bills", "get a job"]
+# TASKS = ["groceries", "mop floor", "pay bills", "get a job"]
 
 class TasksController < ApplicationController
 
   def index
-    @tasks = TASKS
+    @tasks = Task.all
   end
 
 end
