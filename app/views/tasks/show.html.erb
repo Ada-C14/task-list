@@ -1,2 +1,2 @@
-<h1><%= @task[:type] %></h1>
-<h2>Priority: <%= @task[:priority] %></h2>
+<h1><%= @task.name %>: <%= @task.description %></h1>
+<h2>Status: <%= @task.completed_at.nil? ? "Incomplete" : @task.completed_at %></h2>
