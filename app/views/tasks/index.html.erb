@@ -1,1 +1,22 @@
-<h2>This is a test</h2>
+<h2>Tasks</h2>
+
+<!--<nav>-->
+  <%# if @task[:name].nil? %>
+<!--    No Data-->
+  <%# else %>
+    <%#= @task[:name] %>
+  <%# end %>
+<!--</nav>-->
+
+<!--<ul class="task-list">-->
+  <%# @tasks.each do |task| %>
+<!--    <li><%#= task[:name] %></li>-->
+  <%# end %>
+<!--</ul>-->
+<u>
+  <% @tasks.each do |task| %>
+  <li>
+    <%= task[:name] %> by <%=[:description] %>
+  </li>
+  <% end %>
+</u>
