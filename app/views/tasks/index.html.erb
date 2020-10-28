@@ -2,7 +2,15 @@
 <ul>
   <%@tasks.each do |task| %>
     <li>
-      <%= link_to "#{task.name}", task_path(task) %>
+      <% if task.completed_at.blank? %>
+        <%= link_to "#{task.name}", task_path(task.id) %> |
+        <%= link_to "Delete this task", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"} %> |
+        <%= link_to "Mark Complete", mark_complete_path(task.id), method: :patch %>
+      <% else %>
+        <del><%= link_to "#{task.name}", task_path(task.id) %></del> |
+        <%= link_to "Delete this task", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"} %> |
+        <%= link_to "Mark Incomplete", mark_complete_path(task.id), method: :patch %>
+      <% end %>
     </li>
   <% end %>
 </ul>

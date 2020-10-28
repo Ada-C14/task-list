@@ -1,4 +1,4 @@
-<h2>Task #<%= @task.id %></h2>
+<h2>Task detail</h2>
 <ul>
   <li>
     Task name: <%= @task.name %>
@@ -6,10 +6,10 @@
   <li>
     Description: <%= @task.description %>
   </li>
-  <% if @task.nil? %>
-    <li>Completed: <%= @task.completed_at %></li>
-  <% else %>
+  <% if @task.completed_at.blank? %>
     <li>Task not completed</li>
+  <% else %>
+    <li>Completed: <%= @task.completed_at %></li>
   <% end %>
 
 </ul>
@@ -19,5 +19,7 @@
 <p>
   <%= link_to "Return to task list", tasks_path %>
 </p>
+
+
 
 

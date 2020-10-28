@@ -57,4 +57,30 @@ class TasksController < ApplicationController
       render :edit
     end
   end
+
+  def destroy
+    @task = Task.find_by(id: params[:id])
+    if @task
+      @task.destroy
+      redirect_to root_path
+    else
+      head :not_found
+      return
+    end
+  end
+
+  def toggle_complete
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      head :not_found
+    else
+      if @task.completed_at.blank?
+        @task.update(completed_at: Date.today.to_s)
+      else
+        @task.update(completed_at: nil)
+      end
+      redirect_to root_path
+    end
+
+  end
 end

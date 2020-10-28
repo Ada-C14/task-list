@@ -133,18 +133,73 @@ describe TasksController do
       }.wont_change "Task.count"
 
       must_respond_with :redirect
-      must_redirect_to :root
+      must_redirect_to root_path
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
-    
+    it "will delete a task" do
+      a_task = Task.create(name: "A task", description: "This is A Task", completed_at: nil)
+
+      id = a_task.id
+
+      expect {
+        delete task_path(id)
+      }.must_change "Task.count", -1
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+
+    it "will respond with not_found for invalid ids" do
+      id = -1
+
+      expect {
+        delete task_path(id)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
+    end
   end
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+    it "marks an incomplete task complete" do
+      a_task = Task.create(name: "A Task", description: "This is A Task", completed_at: nil)
+
+      id = a_task.id
+
+      patch toggle_complete_path(id)
+
+      task = Task.find_by(id: id)
+
+      expect(task.completed_at).must_equal Date.today.to_s
+
+      must_redirect_to root_path
+    end
+
+    it "marks a completed task incomplete" do
+      a_task = Task.create(name: "A Task", description: "Yet another task", completed_at: Date.today.to_s)
+
+      id = a_task.id
+
+      patch toggle_complete_path(id)
+
+      task = Task.find_by(id: id)
+
+      expect(task.completed_at).must_be_nil
+
+    end
+
+    it "will respond with not_found for invalid ids" do
+
+      id = -1
+
+      patch toggle_complete_path(id)
+
+      must_respond_with :not_found
+
+    end
   end
 end
