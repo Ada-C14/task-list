@@ -2,15 +2,7 @@
 <ul>
   <% @tasks.each do |task|  %>
     <li>
-      <%= task %>
+      <%= task.name %>
     </li>
   <% end %>
 </ul>
-<h2>
-  important task
-</h2>
-<h3>
-  <% @tasks.each do |task| %>
-  <li> </li>
-  <% end %>
-</h3>
