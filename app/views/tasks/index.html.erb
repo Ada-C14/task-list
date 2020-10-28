@@ -1,0 +1,10 @@
+<h2>Task List</h2>
+<% if @tasks.length > 0 %>
+  <ul>
+  <% @tasks.each do |task| %>
+    <li> <%= task[:description] %> due <%= task[:due] %> </li>
+  <% end %>
+  </ul>
+  <% else %>
+  <h3>No books in the system<h3>
+  <% end %>
