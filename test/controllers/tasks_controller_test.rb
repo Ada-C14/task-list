@@ -91,14 +91,12 @@ describe TasksController do
       #skip
       # let's see, how to write the tests.
       # will try to do it first
-      # Your code here
 
       # Act
       get edit_task_path(task.id)
 
       # Assert
       must_respond_with :success
-
 
     end
     
