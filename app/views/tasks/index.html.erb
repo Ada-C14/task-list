@@ -1,7 +1,7 @@
 <% if @tasks.length > 0%>
 <ul>
   <% @tasks.each do |task| %>
-    <li><%= task %></li>
+    <li><%= task.description %></li>
   <% end %>
 <% end %>
 </ul>
