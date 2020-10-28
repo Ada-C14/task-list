@@ -2,4 +2,7 @@
 <h4>Task description: <%= @task.description %></h4>
 <h4>Completed at: <%= @task.completed_at %></h4>
 <h4><%= link_to "Edit Task", edit_task_path %></h4>
+<%= link_to "Delete", task_path(@task), method: :delete %>
+
+
 
