@@ -6,5 +6,5 @@ Rails.application.routes.draw do
 
   # Routes that operate on tasks
   get '/tasks', to: 'tasks#index', as: :tasks
-  get '/tasks/:id', to: 'tasks#show'
+  get '/tasks/:id', to: 'tasks#show', as: :task
 end
