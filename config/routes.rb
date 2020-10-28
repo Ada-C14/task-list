@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   # routes that deal with a specific task
   get '/tasks/:id', to: 'tasks#show', as: 'task' # shows details for 1 task
-  get '/tasks/:id/edit', to: 'tasks#edit', as: 'edit_book' # brings up the form to edit a book
+  get '/tasks/:id/edit', to: 'tasks#edit', as: 'edit_task' # brings up the form to edit a book
   patch '/tasks/:id', to: 'tasks#update'
   delete '/tasks/:id', to: 'tasks#destroy'
 

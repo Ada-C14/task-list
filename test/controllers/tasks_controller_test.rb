@@ -88,13 +88,27 @@ describe TasksController do
   # Unskip and complete these tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      skip
+      #skip
+      # let's see, how to write the tests.
+      # will try to do it first
       # Your code here
+
+      # Act
+      get edit_task_path(task.id)
+
+      # Assert
+      must_respond_with :success
+
+
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
+      #skip
       # Your code here
+      get edit_task_path(-1)
+
+      # assert
+      must_respond_with :redirect
     end
   end
   
