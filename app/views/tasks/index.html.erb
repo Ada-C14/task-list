@@ -2,10 +2,14 @@
 
 
 <ul>
-  <% @tasks.each do |tasks|%>
-    <li>
-      <%= tasks[:description] %>,  Date: <%= tasks[:date] %> , priority: <%= tasks[:priority] %>
-    </li>
+  <% if @tasks.length > 0 %>
+    <% @tasks.each do |task|%>
+      <li>
+        <%= task.name %>, <%= task.description %>, completed_at: <% task.completed_at %>
+      </li>
+    <% end %>
+  <% else %>
+    <p> there is no task </p>
   <% end %>
 </ul>
 
