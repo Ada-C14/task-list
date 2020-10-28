@@ -12,11 +12,10 @@ class TasksController < ApplicationController
     task_id = params[:id]
     @task = Task.find_by(id: task_id)
 
-    # @task = TASKS[task_id]
     if @task.nil?
       # head :redirect
       redirect_to tasks_path
-      # return
+      return
     end
   end
 
@@ -44,8 +43,9 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
 
     if @task.nil?
-      head :not_found
-      # redirect_to task_path(@task.id)
+      # head :redirect
+      # should I redirect to the index page?
+      redirect_to tasks_path
     end
   end
 
@@ -66,8 +66,11 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
 
     if @task.nil?
-      head :not_found
+      # head :not_found
       # redirect_to task_path(@task.id)
+      # redirect to the root page if given an invalid id
+      # head :redirect
+      redirect_to root_path
       return
     elsif @task.update(
         name: params[:task][:name],
