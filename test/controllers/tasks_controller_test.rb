@@ -27,6 +27,10 @@ describe TasksController do
   
   # Unskip these tests for Wave 2
   describe "show" do
+    before do 
+      @task = Task.create(name: "hello world")
+    end
+    
     it "can get a valid task" do
       skip
       # Act
