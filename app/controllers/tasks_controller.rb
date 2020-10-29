@@ -13,7 +13,6 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: task_id)
 
     if @task.nil?
-      # head :redirect
       redirect_to tasks_path
       return
     end
@@ -24,11 +23,12 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(
-        name: params[:task][:name],
-        description: params[:task][:description],
-        completed_at: params[:task][:completed_at]
-    )
+    # @task = Task.new(
+    #     name: params[:task][:name],
+    #     description: params[:task][:description],
+    #     completed_at: params[:task][:completed_at]
+    # )
+    @task = Task.new(task_params)
     if @task.save
       redirect_to task_path(@task.id)
     else
@@ -37,46 +37,23 @@ class TasksController < ApplicationController
   end
 
   def edit
-    task_id = params[:id]
-    @task = Task.find_by(id: task_id)
-
     @task = Task.find_by(id: params[:id])
 
     if @task.nil?
-      # head :redirect
       # should I redirect to the index page?
       redirect_to tasks_path
     end
   end
 
   def update
-    # task_id = params[:id]
-    # edit_task = @task.where(id: task_id)
-    # edit_task.name = params[:task][:name]
-    # edit_task.description = params[:task][:description]
-    # edit_task.completed_at = params[:task][:completed_at]
-    #
-    # if @task.save
-    #   redirect_to task_path(@task.id)
-    # else
-    #   render :new, :bad_request
-    # end
-
 
     @task = Task.find_by(id: params[:id])
 
     if @task.nil?
-      # head :not_found
-      # redirect_to task_path(@task.id)
       # redirect to the root page if given an invalid id
-      # head :redirect
       redirect_to root_path
       return
-    elsif @task.update(
-        name: params[:task][:name],
-        description: params[:task][:description],
-        completed_at: params[:task][:completed_at]
-    )
+    elsif @task.update(task_params)
       redirect_to task_path(@task.id)
       return
     else # save failed
@@ -84,7 +61,6 @@ class TasksController < ApplicationController
       return
     end
   end
-
 
   def destroy
     @task = Task.find_by(id: params[:id])
@@ -99,9 +75,18 @@ class TasksController < ApplicationController
 
   end
 
-  def mark_completed
+  def mark_complete
+    # This is going above and beyond the examples, will also need to write controller tests
+    # Add a button to the list of tasks on the home page, that will mark the task completed
+    # Update the DB with the task's completed_at date
 
   end
 
+  private
+
+  # strong params for the create and update actions
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed_at)
+  end
 
 end
