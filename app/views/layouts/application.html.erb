@@ -12,8 +12,10 @@
   <body>
     <div class="body-container">
       <header>
-        <%= image_tag "checklist.png", alt: "Icon of a check mark" %>
-        <h1>TASKLIST</h1>
+        <div class="header-content">
+          <%= image_tag "checklist.png", alt: "Icon of a check mark" %>
+          <h2>tasklist</h2>
+        </div>
       </header>
       <%= yield %>
       <footer>Copyright 2020</footer>
