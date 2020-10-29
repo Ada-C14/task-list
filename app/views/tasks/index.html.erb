@@ -13,10 +13,15 @@
   <ol>
     <% Task.all.each do |task| %>
       <li>
-        <strong><%= link_to task.name.capitalize, task_path(task.id) %></strong><br>
-        TO:DO COMPLETION MARKING | <%= link_to "Edit", edit_task_path(task.id) %> | <%= link_to "Delete", task_path(task.id), method: :destroy %>
-        <!--        <%#= task.name %>: <%#= task.description %> ||-->
-<!--        status: <%#= task.completed_at.nil? ? "Incomplete" : task.completed_at %>-->
+        <% if task.completed_at.nil? %>
+          <%= link_to task.name.capitalize, task_path(task.id), class: "incomplete" %><br>
+          Mark Complete |
+        <% else %>
+          <%= link_to task.name.capitalize, task_path(task.id), class: "complete" %><br>
+          Unmark Complete |
+        <% end %>
+        <%= link_to "Edit", edit_task_path(task.id) %> |
+        <%= link_to "Delete", task_path(task.id), method: :destroy %>
       </li>
     <% end %>
   </ol>
