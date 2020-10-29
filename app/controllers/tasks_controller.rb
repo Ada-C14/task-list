@@ -18,4 +18,17 @@ class TasksController < ApplicationController
             return
         end    
     end
+
+    def update
+    end
+    
+    def edit
+    end
+    
+    def destroy
+    end    
+
+    def create
+    end    
+
 end
