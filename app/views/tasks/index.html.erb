@@ -5,7 +5,7 @@
 <% if @tasks.count > 0 %>
   <ul>
     <% @tasks.each do |task| %>
-      <li><%= task.name %>: <%= task.description %> is due by <%= task.completed_at %></li>
+      <li><%= task.name %>: <%= task.description %> -- Due by <%= task.completed_at %></li>
     <% end %>
   </ul>
 <% else %>
