@@ -31,7 +31,7 @@ describe TasksController do
     it "can get a valid task" do
       # skip
       # Act
-      get task_path(task.id)
+      get task_path(task)
 
       # Assert
       must_respond_with :success
@@ -85,32 +85,77 @@ describe TasksController do
     end
   end
 
-  # # Unskip and complete these tests for Wave 3
-  # xdescribe "edit" do
-  #   it "can get the edit page for an existing task" do
-  #     # skip
-  #     # Your code here
-  #   end
-  #
-  #   it "will respond with redirect when attempting to edit a nonexistant task" do
-  #     # skip
-  #     # Your code here
-  #   end
-  # end
-  #
-  # # Uncomment and complete these tests for Wave 3
-  # xdescribe "update" do
-  #   # Note:  If there was a way to fail to save the changes to a task, that would be a great
-  #   #        thing to test.
-  #   it "can update an existing task" do
-  #     # Your code here
-  #   end
-  #
-  #   it "will redirect to the root page if given an invalid id" do
-  #     # Your code here
-  #   end
-  # end
-  #
+  # Unskip and complete these tests for Wave 3
+  describe "edit" do
+    it "can get the edit page for an existing task" do
+
+      # #Act
+      get task_path(task)
+
+      # Assert
+      must_respond_with :ok
+    end
+
+    it "will respond with redirect when attempting to edit a nonexistant task" do
+
+      # Act
+      get task_path(-1)
+
+      # Assert
+      must_respond_with :redirect
+
+    end
+  end
+
+  # Uncomment and complete these tests for Wave 3
+  describe "update" do
+    # Note:  If there was a way to fail to save the changes to a task, that would be a great thing to test.
+    it "Does not change count and redirects to task_path when task id is valid" do
+
+      # Arrange
+      Task.create(name: "Get Coffee", description: "With my friend at Bellevue Mall", completed_at: "10/31/1010")
+      task_hash = {
+          task: {
+              name: "Hair Cut",
+              description: "Go to Fairwood Hairstylist",
+              completed_at: "10/29/1010"
+          },
+      }
+      task = Task.first
+
+      # Act-Assert
+      expect {
+        patch task_path(task.id), params: task_hash
+      }.must_differ "Task.count", 0
+
+      must_redirect_to task_path
+      expect(Task.last.name).must_equal task_hash[:task][:name]
+      expect(Task.last.description).must_equal task_hash[:task][:description]
+      expect(Task.last.completed_at).must_equal task_hash[:task][:completed_at]
+    end
+
+    it "will redirect to the root page if given an invalid id" do
+      # Arrange
+      Task.create(name: "Get Coffee", description: "With my friend at Bellevue Mall", completed_at: "10/31/1010")
+      task_hash = {
+          task: {
+              name: "Hair Cut",
+              description: "Go to Fairwood Hairstylist",
+              completed_at: "10/29/1010"
+          },
+      }
+      task = Task.first
+
+      # Act-Assert
+      expect {
+        patch task_path(-1), params: task_hash
+      }.must_differ "Task.count", 0
+
+      must_respond_with :not_found
+
+  end
+  end
+
   # # Complete these tests for Wave 4
   # xdescribe "destroy" do
   #   # Your tests go here
@@ -121,4 +166,5 @@ describe TasksController do
   # xdescribe "toggle_complete" do
   #   # Your tests go here
   # end
+
 end

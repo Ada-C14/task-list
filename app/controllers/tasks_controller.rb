@@ -24,15 +24,46 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = Task.new(
+    @task = Task.new(
         name: params[:task][:name],
         description: params[:task][:description],
         completed_at: params[:task][:completed_at])
 
-    if task.save
-      redirect_to task_path(task)
+    if @task.save
+      redirect_to task_path(@task)
     else
       render :new, :bad_request
+    end
+  end
+
+  def edit
+    id = params[:id].to_i
+    @task = Task.find_by_id(id)
+
+    if @task.nil?
+      head :not_found
+      return
+    end
+  end
+
+  def update
+    id = params[:id].to_i
+    if id >= 0
+      @task = Task.find_by_id(id)
+    end
+
+    if @task.nil?
+      head :not_found
+      return
+    elsif @task.update(
+        name: params[:task][:name],
+        description: params[:task][:description],
+        completed_at: params[:task][:completed_at])
+      redirect_to task_path
+      return
+    else
+      render :edit
+      return
     end
   end
 end
