@@ -42,7 +42,7 @@ describe TasksController do
       get task_path(-1)
       
       # Assert
-      must_respond_with :redirect
+      must_respond_with :redirect #Why redirect instead of not found?
     end
   end
   
@@ -121,7 +121,7 @@ describe TasksController do
     it "can update an existing task" do
       id = Task.first.id
       expect {
-        patch task_path(id), params: new_task_hash #what is this line doing, params?
+        patch task_path(id), params: new_task_hash
       }.wont_change "Task.count"
 
       must_redirect_to tasks_path
@@ -135,20 +135,30 @@ describe TasksController do
     end
     
     it "will redirect to the root page if given an invalid id" do
-      id = -1
-
       expect {
-        patch task_path(id), params: new_task_hash #to access the database?
+        patch task_path(-1), params: new_task_hash #to access the database?
       }.wont_change "Task.count"
 
-      must_respond_with :redirect
+      # must_respond_with :redirect
+      must_redirect_to tasks_path
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
-    
+    it "destroys an existing task and redirects to the root page" do
+      task = Task.create(name: 'Wash dishes', description: 'Clear sink', completed_at: nil)
+
+      expect {
+        delete task_path(task.id)
+      }.must_change "Task.count", -1
+
+      deleted_task = Task.find_by(name: 'Wash dishes')
+      expect(deleted_task).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
   end
   
   # Complete for Wave 4
