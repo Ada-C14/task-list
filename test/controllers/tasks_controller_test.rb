@@ -163,13 +163,6 @@ describe TasksController do
   # Complete these tests for Wave 4
   describe "destroy" do
     # Your tests go here
-    before do
-      Task.create(name: "Water plants",
-                  description: "water all plants in the house",
-                  completed_at: nil
-      )
-      @task_id = Task.id
-    end
     it "can delete book and redirect back to index page" do
       task_to_delete = Task.create(name: "Water plants",
                        description: "water all plants in the house",
@@ -183,10 +176,9 @@ describe TasksController do
       deleted_task = Task.find_by(name:"Water plants")
       expect(deleted_task).must_be_nil
 
-
-
       must_respond_with :redirect
       must_redirect_to tasks_path
+
     end
 
     it "shows not_found if book can't be deleted" do

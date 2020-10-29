@@ -94,7 +94,7 @@ class TasksController < ApplicationController
       return
     else
       @task.destroy
-      must_redirect_to tasks_path
+      redirect_to tasks_path
     end
 
   end
