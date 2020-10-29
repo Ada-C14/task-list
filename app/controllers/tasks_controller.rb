@@ -1,8 +1,8 @@
-TASKS = ["Wake up at 6am", "Let turkeys out of pen", "Collect chicken eggs", "Give baby Quail food and water", "Feed scraps to earth worms", "Make Breakfast", "Complete Ada Homework", "Have a growth mindset!"]
+# TASKS = ["Wake up at 6am", "Let turkeys out of pen", "Collect chicken eggs", "Give baby Quail food and water", "Feed scraps to earth worms", "Make Breakfast", "Complete Ada Homework", "Have a growth mindset!"]
 
 class TasksController < ApplicationController
   def index
-    @tasks = TASKS
+    @tasks = Task.all
   end
 
   def show
