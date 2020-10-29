@@ -22,6 +22,10 @@
 </div>
 
 <div class="one-task">
-  <h2><%= @task.name %></h2>
+  <h2><%= @task.name.capitalize %></h2>
+  <ul>
+    <li>Status: <%= @task.completed_at.nil? ? "In-progress" : "Complete" %></li>
+    <li><%= @task.description %></li>
+  </ul>
 </div>
 

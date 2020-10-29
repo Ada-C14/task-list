@@ -21,7 +21,7 @@
           Unmark Complete |
         <% end %>
         <%= link_to "Edit", edit_task_path(task.id) %> |
-        <%= link_to "Delete", task_path(task.id), method: :destroy %>
+        <%= link_to "Delete", task_path(task.id), method: :delete %>
       </li>
     <% end %>
   </ol>
