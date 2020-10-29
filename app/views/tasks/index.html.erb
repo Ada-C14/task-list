@@ -11,9 +11,9 @@
 <div class="list">
   <h2>YOUR TASKS</h2>
   <ol>
-    <% Task.all.each.with_index(1) do |task, index| %>
+    <% Task.all.each do |task| %>
       <li>
-        <strong><%= task.name.capitalize %></strong><br>
+        <strong><%= link_to task.name.capitalize, task_path(task.id) %></strong><br>
         TO:DO COMPLETION MARKING | <%= link_to "Edit", edit_task_path(task.id) %> | <%= link_to "Delete", task_path(task.id), method: :destroy %>
         <!--        <%#= task.name %>: <%#= task.description %> ||-->
 <!--        status: <%#= task.completed_at.nil? ? "Incomplete" : task.completed_at %>-->
