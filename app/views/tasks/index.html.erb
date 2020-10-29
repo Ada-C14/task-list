@@ -6,7 +6,8 @@
     <% @tasks.each do |task|%>
       <li>
 <!--        <%#= task.name %> <%#= task.description %>, completed_at: <%# task.completed_at %>-->
-        <%= link_to(task.name, task_path(task.id)) %> <%= task.description %>, completed_at: <% task.completed_at %>
+        <%= link_to(task.name, task_path(task)) %> <%= task.description %>, completed_at: <% task.completed_at %>
+
       </li>
     <% end %>
   <% else %>
