@@ -16,8 +16,25 @@ class TasksController < ApplicationController
     task_id = params[:id]
     @task = Task.find_by(id: task_id)
     if @task.nil?
-      head :not_found
+      redirect_to action: "show"
       return
+    end
+  end
+
+  def new
+    @task = Task.new
+  end
+
+  def create
+    @task = Task.new(
+        name: params[:task][:name],
+        description: params[:task][:description],
+        completed_at: params[:task][:completed_at])
+    if @task.save
+      redirect_to task_path(@task.id) #send the user to the /tasks path
+      return
+    else
+      render :new, :bad_request
     end
   end
 
@@ -30,12 +47,8 @@ class TasksController < ApplicationController
   def destroy
   end
 
-  def new
-    @task = Task.new
-  end
 
-  def create
-    raise
-  end
+
+
 
 end
