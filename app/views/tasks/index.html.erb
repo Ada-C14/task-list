@@ -1,11 +1,9 @@
-<h2>Task List</h2>
-
-<%= "Check this everyday!".upcase %>
+<h3><%= "Check this everyday!".upcase %></h3>
 
 <% if @tasks.count > 0 %>
   <ul>
     <% @tasks.each do |task| %>
-      <li><%= task.name %>: <%= task.description %> -- Due by <%= task.completed_at %></li>
+      <li><%= link_to task.name, task_path(task.id) %>: <%= task.description %> -- Due by <%= task.completed_at %></li>
     <% end %>
   </ul>
 <% else %>

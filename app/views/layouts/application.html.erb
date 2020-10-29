@@ -10,6 +10,21 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <section class="title"><h1>Task List</h1></section>
+      <nav>
+        <ul>
+          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "Task list", tasks_path %></li>
+          <li><%= link_to "Add new task", new_task_path %></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
+    <footer>
+      All rights Reserved
+    </footer>
   </body>
 </html>
