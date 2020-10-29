@@ -8,13 +8,13 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-      <nav>
-        <ul>
-          <li> <%= link_to "All Tasks", tasks_path %> </li>
-          <li> <%= link_to "Add Task", new_task_path %> </li>
-        </ul>
-    </nav>
+  <header>
+    <h1>Welcome to Task List</h1>
+  </header>
   <body>
     <%= yield %>
   </body>
+  <footer>
+    <p>Copyright Ada C14 2020</p>
+  </footer>
 </html>
