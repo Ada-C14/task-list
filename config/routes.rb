@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   get "/tasks", to: "tasks#index"
 
   # show each task
-  get "/tasks/:id", to: "tasks#show"
+  get "/tasks/:id", to: 'tasks#show', as: 'show_task'
 end
