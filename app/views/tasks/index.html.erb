@@ -13,7 +13,7 @@
   <ol>
     <% Task.all.each.with_index(1) do |task, index| %>
       <li>
-        <strong>Task <%= index.to_words.capitalize %></strong><br>
+        <strong><%= task.name.capitalize %></strong><br>
         TO:DO COMPLETION MARKING | <%= link_to "Edit", edit_task_path(task.id) %> | <%= link_to "Delete", task_path(task.id), method: :destroy %>
         <!--        <%#= task.name %>: <%#= task.description %> ||-->
 <!--        status: <%#= task.completed_at.nil? ? "Incomplete" : task.completed_at %>-->
