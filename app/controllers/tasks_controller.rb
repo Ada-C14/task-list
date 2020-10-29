@@ -37,4 +37,8 @@ class TasksController < ApplicationController
   def destroy
 
   end
+
+  def mark_complete
+
+  end
 end
