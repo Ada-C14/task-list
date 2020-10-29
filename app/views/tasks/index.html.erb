@@ -1,12 +1,16 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
+<h1>All Tasks</h1>
 
-<%# if @tasks.length > 0 %>
-<!--  <ul>-->
-    <%# @tasks.each do |task| %>
-<!--    <li> <%#= task %> </li>-->
-    <%# end %>
-<!--  </ul>-->
-<%# else %>
-<!--  <p>No tasks in the system!</p>-->
-<%# end %>
+
+<% if @tasks.length > 0 %>
+
+    <% @tasks.each do |task| %>
+    <h2><%= task.name %></h2>
+    <ul>
+      <li><%= task.description %></li>
+      <li>Completed on: <%= task.completed_at %></li>
+    </ul>
+    <% end %>
+
+<% else %>
+  <p>No tasks in the system!</p>
+<% end %>
