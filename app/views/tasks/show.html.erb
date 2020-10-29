@@ -7,4 +7,4 @@ Completed_at: <%= @task.completed_at %>
 Created_at: <%= @task.created_at.strftime("%-m/%-d/%y") %>
 Updated_at: <%= @task.updated_at.strftime("%-m/%-d/%y") %>
 
-<%#= link_to "Delete #{task.title}", task_path(task.id), method: :delete %>
+<%= link_to "Delete #{@task.name}", task_path(@task.id), method: :delete %>
