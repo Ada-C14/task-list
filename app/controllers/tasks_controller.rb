@@ -1,8 +1,3 @@
-TASKS = [
-    {item: "wash dog"},
-    {item: "wash dishes"},
-    {item: "wash hair"}
-]
 
 class TasksController < ApplicationController
   def index
@@ -11,6 +6,14 @@ class TasksController < ApplicationController
 
   def show
     task_id = params[:id]
-    @task = Task.find_by(id:task_id)
+    @task = Task.find_by(id: task_id)
+    if @task.nil?
+      head :not_found
+      return
+    end
+  end
+
+  def new
+    @task = Task.new
   end
 end
