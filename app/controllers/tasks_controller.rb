@@ -11,4 +11,12 @@ class TasksController < ApplicationController
       redirect_to tasks_path and return
     end
   end
+
+  def new
+    @task = Task.new
+  end
+
+  def create
+
+  end
 end
