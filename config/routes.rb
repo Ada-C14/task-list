@@ -3,4 +3,7 @@ Rails.application.routes.draw do
   # verb 'path', to: 'controller#action'
   root to: 'tasks#index'
   get "/tasks", to: "tasks#index"
+
+  # show each task
+  get "/tasks/:id", to: "tasks#show"
 end
