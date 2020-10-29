@@ -1,0 +1,9 @@
+<header>
+  <h3>Task <%= @task.name %></h3>
+</header>
+<main>
+  <p><%= @task.description %></p>
+  <p>Completed: <%= @task.completed_at %></p>
+  <hr/>
+  <p><%= link_to "Return Home", root_path %></p>
+</main>
