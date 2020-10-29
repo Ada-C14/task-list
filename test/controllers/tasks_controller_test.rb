@@ -5,7 +5,7 @@ describe TasksController do
     Task.create name: "sample task", description: "this is an example for a test",
     completed_at: Time.now + 5.days
   }
-  
+
   # Tests for Wave 1
   describe "index" do
     it "can get the index path" do
