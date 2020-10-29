@@ -2,7 +2,7 @@ def random_time
   Time.at(rand * Time.now.to_i)
 end
 
-tasks = [
+TASKS = [
     {name: "The First Task", description: "", completed_at: random_time},
     {name: "Go to Brunch", description: ""},
     {name: "Go to Lunch", description: "", completed_at: random_time},
@@ -20,4 +20,15 @@ class TasksController < ApplicationController
   def index #index means list all
     @tasks = tasks
   end
+
+  def show
+    id = params[:id].to_i
+    @task = task[:id]
+
+    if @task.nil?
+      head :not_found
+      return
+    end
+  end
+
 end

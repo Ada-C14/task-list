@@ -11,6 +11,7 @@ describe TasksController do
     it "can get the index path" do
       # Act
       get tasks_path
+      #get "/tasks"
 
       # Assert
       must_respond_with :success
@@ -31,18 +32,23 @@ describe TasksController do
       skip
       # Act
       get task_path(task.id)
+      # get "/tasks/1" instead
 
       # Assert
       must_respond_with :success
+      # must_respond_with :ok
+
     end
 
     it "will redirect for an invalid task" do
       skip
       # Act
       get task_path(-1)
+      # get "/tasks/100"
 
       # Assert
       must_respond_with :redirect
+      # must_respond_with :not_found
     end
   end
 
