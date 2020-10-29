@@ -80,6 +80,18 @@ class TasksController < ApplicationController
     # Add a button to the list of tasks on the home page, that will mark the task completed
     # Update the DB with the task's completed_at date
 
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      # redirect to the root page if given an invalid id
+      redirect_to root_path
+      return
+    else
+      @task.update(completed_at: Time.now.strftime("%m/%d/%Y"))
+      redirect_to tasks_path
+      return
+    end
+
   end
 
   private

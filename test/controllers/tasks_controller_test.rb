@@ -137,7 +137,7 @@ describe TasksController do
       id = Task.first.id
       expect{
         patch task_path(id), params: new_task_hash
-      }.wont_change "Task.count"
+      }.wont_differ "Task.count"
 
       # redirect to task page or index page?
       must_redirect_to task_path(id)
@@ -154,7 +154,7 @@ describe TasksController do
       id = -1
       expect{
         patch task_path(id), params: new_task_hash
-      }.wont_change "Task.count"
+      }.wont_differ "Task.count"
 
       must_redirect_to root_path
     end
@@ -171,7 +171,7 @@ describe TasksController do
 
       expect {
         delete task_path(task_to_delete.id)
-      }.must_change "Task.count", -1
+      }.must_differ "Task.count", -1
 
       deleted_task = Task.find_by(name:"Water plants")
       expect(deleted_task).must_be_nil
@@ -184,7 +184,7 @@ describe TasksController do
     it "shows not_found if book can't be deleted" do
       expect{
         delete task_path(-1)
-      }.wont_change "Task.count"
+      }.wont_differ "Task.count"
 
       must_respond_with :not_found
     end

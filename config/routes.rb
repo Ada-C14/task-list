@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   # delete '/tasks/:id', to: 'tasks#destroy'
 
   # mark completed custom path
-  patch '/tasks/:id/mark_complete', to: "tasks#mark_complete", as: "mark_complete"
+  post '/tasks/:id', to: "tasks#mark_complete", as: "mark_complete"
 
 
 end

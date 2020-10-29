@@ -3,9 +3,10 @@
   <% if @tasks.length > 0 %>
     <% @tasks.each do |task| %>
       <li>
-        <%= link_to task.name, task_path(task) %>: <%= task.description %>, completed at: <%= task.completed_at %>
+        <%= link_to task.name, task_path(task) %>: <%= task.description %>, <%= task.completed_at %>
         <%= link_to "Edit Task", edit_task_path(task) %>
-        <%= link_to "Delete", task_path(task), method: :delete %>
+        <%= link_to "Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
+        <%= link_to "Mark Complete", mark_complete_path(task), method: :post %>
       </li>
     <% end %>
   <% else %>
