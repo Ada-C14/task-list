@@ -102,6 +102,7 @@ describe TasksController do
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
+
     it "can update an existing task" do
       # Your code here
     
@@ -109,15 +110,39 @@ describe TasksController do
     
     it "will redirect to the root page if given an invalid id" do
       # Your code here
-      # get update_task_path(-1)
-      # must_redirect_to root_path
+
+      #  must_redirect_to root_path
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
     # Your tests go here
-    
+    it "should delete an existing task and redirect to the index page" do
+      # Arrange
+      sample_task = Task.create(name: "sample task", description: "sample description")
+      id = sample_task.id 
+
+      # Act
+      expect {
+        delete task_path(id)
+      }.must_change 'Task.count', -1
+
+      # Assert
+      must_respond_with :redirect
+      must_redirect_to tasks_path 
+    end
+
+    it "should return a 404 status code when trying to delete a non-existing task" do
+      
+      # Act 
+      expect {
+        delete task_path(-1)
+      }.wont_change 'Task.count' 
+      
+      # Assert
+      must_respond_with :not_found    
+    end
   end
   
   # Complete for Wave 4
