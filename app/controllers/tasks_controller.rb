@@ -9,6 +9,14 @@ class TasksController < ApplicationController
     @tasks = Task.all
   end
 
+  def new
+
+  end
+
+  def create
+
+  end
+
   def show
     task_id = params[:id].to_i
     @task = Task.find(task_id)
@@ -16,5 +24,17 @@ class TasksController < ApplicationController
       head :not_found
       return
     end
+  end
+
+  def edit
+
+  end
+
+  def update
+
+  end
+
+  def destroy
+
   end
 end
