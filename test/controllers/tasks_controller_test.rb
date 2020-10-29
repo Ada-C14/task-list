@@ -30,7 +30,18 @@ describe TasksController do
     before do 
       @task = Task.create(name: "hello world")
     end
-    
+
+    # it "will get show for valid ids" do
+    #   # Arrange
+    #   valid_task_id = @task.id
+
+    #   # Act
+    #   get "/tasks/#{valid_task_id}"
+
+    #   # Assert
+    #   must_respond_with :success
+    # end
+
     it "can get a valid task" do
       skip
       # Act

@@ -13,4 +13,34 @@ class TasksController < ApplicationController
             return
         end
     end
+
+    def new
+        @task = Task.new
+    end
+
+    def create
+         #instantiate a new task
+        @task = Task.new(
+            name: params[:task][:name], 
+            description: params[:task][:description], 
+            completed_at: params[:task][:completed_at])
+
+        if @task.save # save returns true if the database insert succeeds
+            redirect_to tasks_path # go to the index so we can see the task in the list
+            return
+        else # save failed :(
+            render :new # show the new task form view again
+            return
+         end
+    end
+
+    def edit
+    end
+
+    def update
+    end
+
+    def destroy
+    end
+
 end
