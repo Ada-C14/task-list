@@ -30,4 +30,31 @@ class TasksController < ApplicationController
       render :new, :bad_request
     end
   end
+
+  def edit
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      head 302
+      return
+    end
+  end
+
+  def update
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      head 302
+      return
+    elsif @task.update(
+        name: params[:task][:name],
+        description: params[:task][:description],
+        completed_at: params[:task][:completed_at]
+    )
+      redirect_to tasks_path
+      return
+    else
+      render :edit
+    end
+  end
 end

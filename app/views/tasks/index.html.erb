@@ -6,7 +6,8 @@
         Task: <%= task.name %> ||
         Description: <%= task.description %> ||
         Completed at: <%= task.completed_at %>
-     </li>
+        <%= link_to "Edit task", edit_task_path(task) %>
+      </li>
     <% end %>
   <% else %>
     No tasks
