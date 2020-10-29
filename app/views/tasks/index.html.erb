@@ -3,7 +3,9 @@
 <% if @tasks.length > 0 %>
   <ol>
     <% @tasks.each do |task| %>
-      <li> <%= task.name %></li>
+      <li>
+        <strong><%= task.name%></strong>: <em><%= task.description %></em>
+      </li>
     <% end %>
   </ol>
   <% else %>
