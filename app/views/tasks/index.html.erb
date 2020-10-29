@@ -1,11 +1,11 @@
-<h2>Kayla's Task List</h2>
+<h2>Kayla's Homework Task List</h2>
 
 <% if @tasks.length > 0 %>
-  <ul>
+  <ol>
     <% @tasks.each do |task| %>
       <li> <%= task.name %></li>
     <% end %>
-  </ul>
+  </ol>
   <% else %>
     <h3>No tasks in system!</h3>
   <% end %>
