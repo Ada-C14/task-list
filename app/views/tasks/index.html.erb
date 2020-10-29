@@ -4,7 +4,7 @@
 <ul>
   <% @tasks.each do |task|  %>
     <li>
-      Task Name: <%= task.name %> | About: <%= task.description %> | Completed On: <%= task.completed_at %>
+      <%= link_to task.name, task_path(task) %> | About: <%= task.description %> | Completed On: <%= task.completed_at %> | Edit
     </li>
   <% end %>
 </ul>

@@ -10,6 +10,11 @@
   </head>
 
   <body>
+    <h2>Tasklist Program</h2>
+    <nav>
+      <ul>
+        <li><%= link_to "All Tasks", tasks_path %></li>
+        <li><%= link_to "New Task", new_task_path_path %></li>
     <%= yield %>
   </body>
 </html>
