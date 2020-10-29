@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task: <%= @task[:name] %></title>
+</head>
+<body>
+<header>
+  <h1><%= @task[:name] %></h1>
+  <nav>
+    <ul>
+      <li>
+        <a href="/">Home</a>
+      </li>
+      <li>Edit</li>
+      <li>Delete</li>
+    </ul>
+  </nav>
+</header>
+
+  <h2>Status: Completed at <%= @task[:completed_at] %></h2>
+  <p><%= @task[:description] %></p>
+<a href="/">Back to Tasklist</a>
+</body>
+</html>
+
+
+
