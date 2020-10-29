@@ -1,0 +1,12 @@
+<h1>Tasks</h1>
+<ul>
+  <% @tasks.each do |task| %>
+
+  <li>
+    Task id: <%= task.id %>
+    Name: <%= link_to(task.name, task_path(task)) %>
+    Description: <%= task.description %>
+    Completed_at: <%= task.completed_at %>
+  </li>
+  <% end %>
+</ul>
