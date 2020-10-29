@@ -1,0 +1,12 @@
+<header>
+  <h3>Task List</h3>
+</header>
+<main>
+  <ol>
+    <% @tasks.each do |task| %>
+      <li>
+        <%= link_to task.name, task_path(task) %>
+      </li>
+    <% end %>
+  </ol>
+</main>
