@@ -26,12 +26,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(
-        name: params[:task][:name],
-        description: params[:task][:description],
-        completed_at: params[:task][:completed_at])
+    @task = Task.new(task_params)
     if @task.save
-      redirect_to task_path(@task.id) #send the user to the /tasks path
+      redirect_to tasks_path(@task.id) #send the user to the /tasks path
       return
     else
       render :new, :bad_request
@@ -39,7 +36,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = task.find_by(id: params[:id])
+    @task = Task.find_by(id: params[:id])
     if @task.nil?
       redirect_to root_path
       return
@@ -75,5 +72,11 @@ class TasksController < ApplicationController
       @task.destroy
       redirect_to tasks_path
     end
+  end
+
+  private
+
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed_at )
   end
 end

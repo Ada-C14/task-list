@@ -78,7 +78,7 @@ describe TasksController do
       expect(new_task.completed_at).must_equal task_hash[:task][:completed_at]
 
       must_respond_with :redirect
-      must_redirect_to task_path(new_task.id)
+      must_redirect_to tasks_path(new_task.id)
     end
   end
 
