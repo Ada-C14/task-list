@@ -121,7 +121,7 @@ describe TasksController do
       expect(updated_task.id).must_equal task.id
 
       must_respond_with :redirect
-      must_redirect_to task_path(task.id)
+      must_redirect_to tasks_path
     end
 
     it "will do something if the updates fail to save" do
@@ -152,7 +152,7 @@ describe TasksController do
         delete task_path(id)
       }.must_change 'Task.count', -1
 
-      deleted = Book.find_by(name: "sample task")
+      deleted = Task.find_by(name: "sample task")
 
       expect(deleted).must_be_nil
 

@@ -20,9 +20,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(
-        name: params[:task][:name],
-        description: params[:task][:description])
+    @task = Task.new(task_params)
+        # name: params[:task][:name],
+        # description: params[:task][:description])
 
     if @task.save
       redirect_to task_path(@task.id)
@@ -46,16 +46,21 @@ class TasksController < ApplicationController
     if @task.nil?
       redirect_to tasks_path
       return
-    end
-
-    @task.name = params[:task][:name]
-    @task.description = params[:task][:description]
-
-    if @task.save
-      redirect_to task_path(@task.id)
+    elsif @task.update(task_params)
+      redirect_to tasks_path
     else
       render :new, :bad_request
     end
+
+
+    # @task.name = params[:task][:name]
+    # @task.description = params[:task][:description]
+    #
+    # if @task.save
+    #   redirect_to task_path(@task.id)
+    # else
+    #   render :new, :bad_request
+    # end
   end
 
   def destroy
@@ -75,6 +80,12 @@ class TasksController < ApplicationController
   def find_by_id
     task_id = params[:id].to_i
     task = Task.find_by(id: task_id)
+  end
+
+  # strong params
+  private
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed_at)
   end
 
 end
