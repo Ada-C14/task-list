@@ -23,13 +23,35 @@ class TasksController < ApplicationController
       redirect_to task_path(@task.id)
       return
     else
+      # i don't understand this
       render :new
       return
     end
   end
 
   def edit
-    # 
+    @task = Task.find_by(id: params[:id].to_i)
+
+    if @task.nil?
+      redirect_to tasks_path
+      return
+    end
+  end
+
+
+  def update
+    @task =  Task.find_by(id: params[:id].to_i)
+
+    if @task.nil?
+      redirect_to tasks_path
+      return
+    elsif @task.update(
+      name: params[:task][:name],
+      description: params[:task][:description]
+    )
+    redirect_to task_path(params[:id])
+    end
+
   end
 
 end
