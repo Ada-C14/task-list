@@ -165,7 +165,7 @@ describe TasksController do
     it "will redirect to the root page if given an invalid id" do
       # Your code here
       id = -1
-      patch task_path(id)
+      delete task_path(id)
       must_redirect_to tasks_path
     end
   end
