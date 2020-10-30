@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit <%=@task[:name]%></title>
+</head>
+<body>
+<header>
+  <h1>Add new task</h1>
+  <nav><a href="/">Home</a></nav>
+</header>
+<main>
+  <h2>Use the form below to edit "<%=@task[:name]%>"</h2>
+  <%= form_with model: @task, class: 'create-task' do |f| %>
+    <ul>
+      <li>
+        <h3><%= f.label :name %></h3>
+        <%= f.text_field :name %>
+      </li>
+      <li>
+        <h3><%= f.label :description %></h3>
+        <%= f.text_field :description %>
+      </li>
+    </ul>
+    <%= f.submit "Save Edit", class: "save-task" %>
+  <% end %>
+</main>
+</body>
+</html>

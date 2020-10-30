@@ -8,7 +8,7 @@
     <h1>Tasklist</h1>
     <nav>
       <ul>
-        <li>All tasks</li>
+        <li><a href="/">All tasks</a></li>
         <li><a href="/tasks/new">Add new task</a></li>
       </ul>
     </nav>
@@ -23,7 +23,7 @@
           <p><%= task[:description] %></p>
           <ul>
             <li><a href=<%="tasks/#{task[:id]}"%>>View</a></li>
-            <li>Edit</li>
+            <li><a href=<%="tasks/#{task[:id]}/edit"%>>Edit</a></li>
             <li>Mark complete</li>
             <li>Delete</li>
           </ul>

@@ -6,10 +6,10 @@ class TasksController < ApplicationController
   end
 
   def show
-    begin
-      @task = Task.find(params[:id])
-    rescue StandardError
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
       redirect_to root_path
+      return
     end
   end
 
@@ -20,23 +20,39 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(name: params[:task][:name],
-                     description: params[:task][:description],
-                     completed_at: params[:task][:completed_at]) #instantiate a new book
-    if @task.save # save returns true if the database insert succeeds
-      redirect_to task_path(@task.id) # go to the index so we can see the book in the list
+                     description: params[:task][:description])
+    if @task.save
+      redirect_to task_path(@task.id)
       return
-    else # save failed :(
-    render :new # show the new book form view again
+    else
+      render :new
     return
     end
   end
 
   # UPDATE
   def edit
-    begin
-      @task = Task.find(params[:id])
-    rescue StandardError
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
       redirect_to root_path
+      return
+    end
+  end
+
+  def update
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      redirect_to root_path
+      return
+    end
+
+    if @task.update(name: params[:task][:name],
+                    description: params[:task][:description])
+      redirect_to task_path(@task.id)
+      return
+    else
+      render :edit
+      return
     end
   end
   # DESTROY
