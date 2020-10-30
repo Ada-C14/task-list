@@ -194,5 +194,36 @@ describe TasksController do
   # Complete for Wave 4
   describe "toggle_complete" do
     # Your tests go here
+    it "can mark_complete and redirect to index page" do
+      task_to_complete= Task.create(name: "Water plants",
+                                   description: "water all plants in the house",
+                                   completed_at: nil
+      )
+
+      expect{
+        post mark_complete_path(task_to_complete.id)
+      }.wont_differ "Task.count"
+
+      completed_task = Task.find_by(name:"Water plants")
+
+      expect(completed_task.completed_at).wont_be_nil
+      expect(completed_task.completed_at).must_be_instance_of String
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+
+
+    end
+
+    it "redirects to the root if the task is not found" do
+      post mark_complete_path(-1)
+
+      expect{
+        post mark_complete_path(-1)
+      }.wont_differ "Task.count"
+
+      # must_respond_with :redirect
+      must_redirect_to root_path
+    end
   end
 end
