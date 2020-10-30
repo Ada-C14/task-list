@@ -1,0 +1,23 @@
+<h1>Tasks</h1>
+<ul>
+  <% @tasks.each do |task|  %>
+    <li>
+      <% if task.completed_at.blank? %>
+        <%= link_to "#{task.name}", task_path(task.id) %> -||-
+        <%= link_to "Delete", task_path(task.id), method: :delete %> -||-
+        <%= link_to "Complete", toggle_complete_path(task.id), method: :patch %>
+      <% else %>
+        <del><%= link_to "#{task.name}", task_path(task.id) %></del> -||-
+        <%= link_to "Delete", task_path(task.id), method: :delete%> -||-
+        <%= link_to "Pending", toggle_complete_path(task.id), method: :patch %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+
+
+
+
+
+
