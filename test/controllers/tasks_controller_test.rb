@@ -188,7 +188,27 @@ describe TasksController do
 
       task = Task.find_by(id: id)
       expect(task.completed_at).must_be_instance_of ActiveSupport::TimeWithZone
+    end
 
+    it "can update an existing task" do
+      Task.first.update(completed_at: Time.now)
+
+      id = Task.first.id
+      expect {
+        patch complete_task_path(id)
+      }.wont_change "Task.count"
+
+      must_respond_with :redirect
+
+      task = Task.find_by(id: id)
+      expect(task.completed_at).must_be_nil
+    end
+
+    it "will redirect to the root page if given an invalid id" do
+      # Your code here
+      id = -1
+      patch complete_task_path(id)
+      must_redirect_to tasks_path
     end
   end
 end
