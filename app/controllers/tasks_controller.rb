@@ -23,7 +23,6 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
-    @task.name =
   end
 
   def create
@@ -38,11 +37,32 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task = Task.find_by(id: params[:id])
 
+    if @task.nil?
+      head :not_found
+      return
+    elsif @task.update(
+        name: params[:task][:name],
+        description: params[:task][:description]
+    )
+      redirect_to tasks_path
+      return
+    else
+      render :edit
+      return
+    end
   end
 
   def edit
-    @task.name = @task.name
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      redirect_to tasks_path
+      return
+    end
+
+    @task.id = @task.id
     @task.description = @task.description
   end
 
