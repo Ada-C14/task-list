@@ -15,11 +15,11 @@
     <% Task.all.each do |task| %>
       <li>
         <% if task.completed_at.nil? %>
-          <%= link_to task.name.capitalize, task_path(task.id), class: "incomplete" %><br>
-          Mark Complete |
+          >> <%= link_to task.name.capitalize, task_path(task.id), class: "incomplete" %><br>
+          <%= link_to "Mark Complete", task_complete_path(task.id) %> |
         <% else %>
-          <%= link_to task.name.capitalize, task_path(task.id), class: "complete" %><br>
-          Unmark Complete |
+          >> <%= link_to task.name.capitalize, task_path(task.id), class: "complete" %><br>
+          <%= link_to "Mark Incomplete", task_incomplete_path(task.id) %> |
         <% end %>
         <%= link_to "Edit", edit_task_path(task.id) %> |
         <%= link_to "Delete", task_path(task.id), method: :delete %>

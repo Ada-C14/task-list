@@ -41,4 +41,8 @@ class TasksController < ApplicationController
   def mark_complete
 
   end
+
+  def mark_incomplete
+
+  end
 end
