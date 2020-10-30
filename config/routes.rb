@@ -15,5 +15,8 @@ Rails.application.routes.draw do
   # create a task
   post "/tasks", to: 'tasks#create'
 
+  # edit a task
+  get "/tasks/:id/edit", to: 'tasks#edit', as: 'edit_task'
+
 
 end
