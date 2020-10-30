@@ -18,13 +18,15 @@ class TasksController < ApplicationController
     # i also dont get this
     # i just copied it from the video
     # why am i overwriting this instance variable?
+    # why do we even need this?
     @task = Task.new
   end
 
   def create
     @task = Task.new(name: params[:task][:name], description: params[:task][:description])
     if @task.save
-      redirect_to tasks_path
+      redirect_to task_path(@task.id)
+      return
     else
       render :new
       return
