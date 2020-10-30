@@ -1,10 +1,20 @@
-<%= @task  %>
+<h1>View Task</h1>
 
-Task id: <%= @task.id %>
-Name: <%= @task.name %>
-Description: <%= @task.description %>
-Completed_at: <%= @task.completed_at %>
-Created_at: <%= @task.created_at.strftime("%-m/%-d/%y") %>
-Updated_at: <%= @task.updated_at.strftime("%-m/%-d/%y") %>
+<h3>Task #<%= @task.id  %></h3>
 
-<%= link_to "Delete #{@task.name}", task_path(@task.id), method: :delete %>
+<ul>
+  <li>Task name: <%= @task.name %> </li>
+  <li>Task description: <%= @task.description %> </li>
+
+  <% if @task.completed_at.blank? %>
+    <li> This task is pending </li>
+    <% else %>
+    <li> Completed: <%= @task.completed_at  %> </li>
+  <% end %>
+</ul>
+<p><%= link_to "Edit #{@task.name}", edit_task_path %></p>
+<p><%= link_to "Delete #{@task.name}", task_path(@task.id), method: :delete %></p>
+<p><%= link_to "Home", tasks_path %></p>
+
+
+

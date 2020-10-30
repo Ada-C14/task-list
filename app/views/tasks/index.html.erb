@@ -2,16 +2,22 @@
 <ul>
   <% @tasks.each do |task|  %>
     <li>
-      Task id: <%= task.id %>
-      Name: <%= link_to(task.name, task_path(task)) %>
-      Description: <%= task.description %>
-      Completed_at: <%= task.completed_at %>
-      Created_at: <%= task.created_at.strftime("%-m/%-d/%y") %>
-      Updated_at: <%= task.updated_at.strftime("%-m/%-d/%y") %>
+      <% if task.completed_at.blank? %>
+        <%= link_to "#{task.name}", task_path(task.id) %> -||-
+        <%= link_to "Delete", task_path(task.id), method: :delete %> -||-
+        <%= link_to "Complete", toggle_complete_path(task.id), method: :patch %>
+      <% else %>
+        <del><%= link_to "#{task.name}", task_path(task.id) %></del> -||-
+        <%= link_to "Delete", task_path(task.id), method: :delete%> -||-
+        <%= link_to "Pending", toggle_complete_path(task.id), method: :patch %>
+      <% end %>
     </li>
-
-    <%= link_to "Delete #{task.name}", task_path(task.id), method: :delete %>
   <% end %>
 </ul>
+
+
+
+
+
 
 

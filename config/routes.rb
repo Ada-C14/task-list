@@ -3,26 +3,16 @@ Rails.application.routes.draw do
   # verb 'path', to: 'controller#action'
   # get '/tasks', to: 'tasks#index'
   root to: "tasks#index"
-  resources :tasks
-  # root to: 'tasks#index'
-  #
-  # # Routes that operate on the task collection
-  # get '/tasks/new', to: 'tasks#new', as: :new_task
-  # post '/tasks', to: 'tasks#create'
-  #
-  # # Routes that operate on individual tasks
-  # get '/tasks/:id', to: 'tasks#show', as: :task
-  # get '/tasks/:id/edit', to: 'tasks#edit', as: :edit_task
-  # patch '/tasks/:id', to: 'tasks#update'
-  # delete '/tasks/:id', to: 'tasks#destroy'
-  #
-  #
-  # # get    "/books"          , to: "books#index",   as: :book
-  # # post   "/books"          , to: "books#create"
-  # # get    "/books/new"      , to: "books#new",     as: :new_book
-  # # get    "/books/:id"      , to: "books#show",    as: :book
-  # # patch  "/books/:id"      , to: "books#update"
-  # # put    "/books/:id"      , to: "books#update"
-  # # delete "/books/:id"      , to: "books#destroy"
-  # # get    "/books/:id/edit" , to: "books#edit",    as: :edit_book
+  # Routes that operate on individual tasks
+  get '/tasks', to: 'tasks#index', as: "tasks"
+  get '/tasks/new', to: 'tasks#new', as: "new_task"
+
+  post '/tasks', to: 'tasks#create'
+
+  get '/tasks/:id', to: 'tasks#show', as: "task"
+  get '/tasks/:id/edit', to: 'tasks#edit', as: "edit_task"
+
+  patch '/tasks/:id', to: 'tasks#update'
+  delete '/tasks/:id', to: 'tasks#destroy'
+  patch 'tasks/:id/toggle_complete', to: 'tasks#toggle_complete', as: 'toggle_complete'
 end
