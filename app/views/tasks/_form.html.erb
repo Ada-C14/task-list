@@ -1,0 +1,13 @@
+<%= form_with model: @task, class: 'create-task' do |f| %>
+  <ul>
+    <li>
+      <h3><%= f.label :name %></h3>
+      <%= f.text_field :name %>
+    </li>
+    <li>
+      <h3><%= f.label :description %></h3>
+      <%= f.text_field :description %>
+    </li>
+  </ul>
+  <%= f.submit "Save", class: "save-task" %>
+<% end %>

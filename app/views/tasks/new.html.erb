@@ -10,19 +10,7 @@
   </header>
   <main>
     <h2>Use the form below to add a new task:</h2>
-    <%= form_with model: @task, class: 'create-task' do |f| %>
-      <ul>
-        <li>
-          <h3><%= f.label :name %></h3>
-          <%= f.text_field :name %>
-        </li>
-        <li>
-          <h3><%= f.label :description %></h3>
-          <%= f.text_field :description %>
-        </li>
-      </ul>
-      <%= f.submit "Save Task", class: "save-task" %>
-    <% end %>
+    <%= render partial: "form", locals: { action_name: "New" } %>
   </main>
 </body>
 </html>
