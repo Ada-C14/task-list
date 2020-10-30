@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    task_id = params[:id].to_i
+    task_id = params[:id]
     @task = Task.find_by(id: task_id)
     if @task.nil?
       redirect_to tasks_path
@@ -30,7 +30,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find_by(id: params[:id].to_i)
+    @task = Task.find_by(id: params[:id])
 
     if @task.nil?
       redirect_to tasks_path
@@ -40,7 +40,7 @@ class TasksController < ApplicationController
 
 
   def update
-    @task =  Task.find_by(id: params[:id].to_i)
+    @task =  Task.find_by(id: params[:id])
 
     if @task.nil?
       redirect_to tasks_path
