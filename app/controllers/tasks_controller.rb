@@ -6,10 +6,17 @@ class TasksController < ApplicationController
     end
 
     def show 
-        task_id = params[:id].to_i
-        @task = Task.find(task_id)
+        task_id = params[:id]
+        
+        begin 
+            @task = Task.find(task_id)
+        rescue ActiveRecord::RecordNotFound
+            @task = nil
+        end
+
         if @task.nil?
-            head :not_found
+            # head :not_found
+            redirect_to tasks_path
             return
         end
     end
@@ -26,7 +33,7 @@ class TasksController < ApplicationController
             completed_at: params[:task][:completed_at])
 
         if @task.save # save returns true if the database insert succeeds
-            redirect_to tasks_path # go to the index so we can see the task in the list
+            redirect_to task_path @task.id # go to the show so we can see the task page
             return
         else # save failed :(
             render :new # show the new task form view again
