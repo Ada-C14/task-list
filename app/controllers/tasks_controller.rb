@@ -49,10 +49,7 @@ class TasksController < ApplicationController
       redirect_to root_path
       return
     elsif
-      @task.update(
-          name: params[:task][:name],
-          description: params[:task][:description],
-          completed_at: params[:task][:completed_at])
+      @task.update(task_params)
       redirect_to(task_path) # go to the index
       return
     else #save failed
@@ -77,6 +74,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    return params.require(:task).permit(:name, :description, :completed_at )
+    return params.require(:task).permit(:name, :description, :completed_at)
   end
 end
