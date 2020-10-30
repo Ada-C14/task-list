@@ -14,9 +14,8 @@
     <section class="title">Richelle's Task App</section>
     <nav>
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/tasks">Current Tasks</a></li>
-        <li>New Task (placeholder)</li>
+        <li><%= link_to "Home - Tasks", tasks_path %></li>
+        <li><%= link_to "Create New Task", new_task_path %></li>
       </ul>
     </nav>
   </header>
