@@ -177,10 +177,37 @@ describe TasksController do
     end
   end
   
-  # Complete these tests for Wave 4
+  # DONE - Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
-    
+    it "can destroy a model" do
+      # Arrange
+      delete_me = Task.new name: "Delete me", description: "Delete me"
+
+      delete_me.save
+      id = delete_me.id
+
+      # Act
+      expect {
+        delete task_path(id)
+
+        # Assert
+      }.must_change 'Task.count', -1
+
+      assert_nil(Task.find_by(name: delete_me.name))
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+    it "renders a 404 error page if task doesn't exist" do
+      # Act
+      expect {
+        delete task_path(-1)
+
+        # Assert
+      }.wont_change 'Task.count'
+
+      must_respond_with :not_found
+    end
   end
   
   # Complete for Wave 4

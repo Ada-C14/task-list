@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>404: Page Not Found</title>
+</head>
+<body>
+<header>
+  <h1>404 - Not found. Nope.</h1>
+  <nav><li><%= link_to "Home", root_path, method: :get %></li></nav>
+</header>
+<main>
+  <h2>We couldn't find what you were looking for.</h2>
+  <p>We could find some other stuff for you to do, though:</p>
+  <ul>
+    <li><%= link_to "Go back home", root_path, method: :get %></li>
+    <li><%= link_to "Add new task", new_task_path, method: :get %></li>
+  </ul>
+</main>
+</body>
+</html>

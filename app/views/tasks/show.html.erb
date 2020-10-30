@@ -7,10 +7,10 @@
 <header>
   <nav>
     <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href=<%="#{@task[:id]}/edit"%>>Edit</a></li>
+      <li><%= link_to "Home", root_path, method: :get %></li>
+      <li><%= link_to "Edit", edit_task_path(@task.id), method: :get %></li>
       <li>Mark complete</li>
-      <li>Delete</li>
+      <li><%= link_to "Delete Task: #{@task.name}", task_path(@task.id), method: :delete %></li>
     </ul>
   </nav>
   <h1><%= @task[:name] %></h1>
@@ -18,7 +18,7 @@
 
   <h2>Status: <%= @task[:completed_at].nil? ? "Incomplete" : "Completed at #{@task[:completed_at]}" %></h2>
   <p><%= @task[:description] %></p>
-<a href="/">Back to Tasklist</a>
+<li><%= link_to "Back to Tasklist", root_path, method: :get %></li>
 </body>
 </html>
 

@@ -8,8 +8,8 @@
     <h1>Tasklist</h1>
     <nav>
       <ul>
-        <li><a href="/">All tasks</a></li>
-        <li><a href="/tasks/new">Add new task</a></li>
+        <li><%= link_to "All tasks", root_path, method: :get %></li>
+        <li><%= link_to "Add new task", new_task_path, method: :get %></li>
       </ul>
     </nav>
   </header>
@@ -22,10 +22,10 @@
           <h3>Status: <%= task[:completed_at].nil? ? "Incomplete" : "Completed at #{task[:completed_at]}" %></h3>
           <p><%= task[:description] %></p>
           <ul>
-            <li><a href=<%="tasks/#{task[:id]}"%>>View</a></li>
-            <li><a href=<%="tasks/#{task[:id]}/edit"%>>Edit</a></li>
+            <li><%= link_to "View", task_path(task.id), method: :get %></li>
+            <li><%= link_to "Edit", edit_task_path(task.id), method: :get %></li>
             <li>Mark complete</li>
-            <li>Delete</li>
+            <li><%= link_to "Delete", task_path(task.id), method: :delete %></li>
           </ul>
         </li>
       <% end %>
