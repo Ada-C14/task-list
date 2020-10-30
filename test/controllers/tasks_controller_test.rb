@@ -28,7 +28,6 @@ describe TasksController do
   # Unskip these tests for Wave 2
   describe "show" do
     it "can get a valid task" do
-      skip
       # Act
       get task_path(task.id)
 
@@ -37,7 +36,6 @@ describe TasksController do
     end
 
     it "will redirect for an invalid task" do
-      skip
       # Act
       get task_path(-1)
 
@@ -48,7 +46,6 @@ describe TasksController do
 
   describe "new" do
     it "can get the new task page" do
-      skip
 
       # Act
       get new_task_path
@@ -60,7 +57,6 @@ describe TasksController do
 
   describe "create" do
     it "can create a new task" do
-      skip
 
       # Arrange
       task_hash = {
@@ -68,7 +64,7 @@ describe TasksController do
           name: "new task",
           description: "new task description",
           completed_at: nil,
-        },
+        }
       }
 
       # Act-Assert
@@ -88,13 +84,18 @@ describe TasksController do
   # Unskip and complete these tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      skip
-      # Your code here
+
+      get edit_task_path(task.id)
+
+      must_respond_with :success
+
     end
 
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+
+      get edit_task_path(-1)
+
+      must_respond_with :redirect
     end
   end
 
@@ -102,12 +103,41 @@ describe TasksController do
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
+
+    before do
+      @updated_task_hash = {
+        task: {
+          name: "updated task",
+          description: "updated task description",
+          completed_at: "test",
+        }
+      }
+    end
+
     it "can update an existing task" do
-      # Your code here
+
+
+      expect{
+        patch task_path(task), params: @updated_task_hash
+      }.wont_change Task.count
+
+      must_redirect_to task_path(task)
+
+      task.reload
+
+      expect(task.name).must_equal @updated_task_hash[:task][:name]
+      expect(task.description).must_equal @updated_task_hash[:task][:description]
+      expect(task.completed_at).must_equal @updated_task_hash[:task][:completed_at]
+
     end
 
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      expect{
+        patch task_path(-1), params: @updated_task_hash
+      }.wont_change Task.count
+
+      must_respond_with :redirect
+
     end
   end
 
