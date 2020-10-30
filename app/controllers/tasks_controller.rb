@@ -22,12 +22,12 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(name: params[:task][:name],
                      description: params[:task][:description],
-                     completed_at: params[:task][:completed_at]) #instantiate a new task
-    if @task.save # save returns true if the database insert succeeds
+                     completed_at: params[:task][:completed_at])
+    if @task.save
       redirect_to task_path(@task.id)
       return
-    else # save failed :(
-    render :new # show the new task form view again
+    else
+    render :new
     return
     end
   end
@@ -36,7 +36,7 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
 
     if @task.nil?
-      head :not_found
+      redirect_to tasks_path
       return
     end
   end
@@ -44,20 +44,33 @@ class TasksController < ApplicationController
   def update
     @task = Task.find_by(id: params[:id])
     if @task.nil?
-      head :not_found
+      redirect_to tasks_path
       return
     elsif @task.update(
-        author: params[:task][:author],
-        title: params[:task][:title],
-        description: params[:task][:description]
+        name: params[:task][:name],
+        description: params[:task][:description],
+        completed_at: params[:task][:completed_at]
     )
-      redirect_to tasks_path # go to the index so we can see the task in the list
+      redirect_to tasks_path
       return
-    else # save failed :(
-    render :edit # show the new task form view again
+    else
+    render :edit
     return
     end
   end
 
+  def destroy
+    task_id = params[:id]
+    @task = Task.find_by(id: task_id)
 
+    if @task.nil?
+      head :not_found
+      return
+    end
+
+    @task.destroy
+
+    redirect_to tasks_path
+    return
+  end
 end
