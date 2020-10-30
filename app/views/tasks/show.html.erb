@@ -1,7 +1,9 @@
 <div class="list" id="one-task">
   <h2><%= @task.name.downcase %></h2>
   <ol>
-    <li>status:<div class="list-content"><%= @task.completed_at.nil? ? "in-progress" : "complete :)" %></div></li>
+    <li>status:<div class="list-content">
+      <%= @task.completed_at.nil? || task.completed_at.empty? ? "in-progress" : "complete :)" %>
+    </div></li>
     <li>description:<div class="list-content"><%= @task.description.downcase %></div></li>
   </ol>
   <div class="button"><%= link_to "go back", tasks_path %></div>

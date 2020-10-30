@@ -68,7 +68,7 @@ describe TasksController do
           name: "new task",
           description: "new task description",
           completed_at: nil,
-        },
+        }
       }
       
       # Act-Assert

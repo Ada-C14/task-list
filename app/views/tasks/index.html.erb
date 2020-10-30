@@ -6,7 +6,7 @@
   <ol>
     <% Task.all.each do |task| %>
       <li>
-        <% if task.completed_at.nil? %>
+        <% if task.completed_at.nil? || task.completed_at.empty? %>
           >> <%= link_to task.name.downcase, task_path(task.id), class: "incomplete" %><br>
           <%= link_to "mark complete", task_complete_path(task.id) %> |
         <% else %>

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   root 'tasks#index'
 
-  # Routes that operate on tasks
+  # Routes that operate on tasks + routes that have to come before others
   get '/tasks', to: 'tasks#index', as: :tasks
   get '/tasks/new', to: 'tasks#new', as: :new_task
   post '/tasks', to: 'tasks#create'
