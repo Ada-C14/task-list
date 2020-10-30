@@ -1,0 +1,20 @@
+<%# <h1>Tasks#index</h1>
+<p>Find me in app/views/tasks/index.html.erb</p> %>
+
+<%# <%= "This is a test".upcase %> 
+
+<% if @tasks.length > 0 %>
+   <% @tasks.each do |task|%>
+    <ul>
+        <li>
+            Name: <%= task.name %>,
+            Description: <%= task.description %>,
+            Completed At: <%= task.completed_at %>
+        </li>
+    </ul>
+    <% end %>
+<% else %>
+    <h3> No task to do! </h3>
+<% end %>
+
+
