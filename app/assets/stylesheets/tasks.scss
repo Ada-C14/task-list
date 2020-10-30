@@ -58,8 +58,44 @@ header h2 {
   box-shadow: 10px 10px 0px 0px #f07167;
 }
 
+#form-page {
+  background-color: #fff275;
+  box-shadow: 10px 10px 0px 0px #ff6b6b;
+}
+
 .list h2, .compressed-list h2, .right-side-container h2 {
   margin-top: 15px;
+}
+
+#form-page form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 65%;
+}
+
+form input {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5em;
+  border: none;
+  border-bottom: 3px solid;
+  min-width: 250px;
+  padding-left: 5px;
+  outline: none;
+}
+
+form button {
+  display: block;
+  letter-spacing: 2px;
+  outline: none;
+  border: 3px solid black;
+  background-color: #ff6b6b;
+}
+
+form button:hover {
+  background-color: #7cb518;
+  font-style: italic;
 }
 
 ol {
@@ -67,13 +103,11 @@ ol {
   padding: 0;
   overflow-y: auto;
   height: 200px;
-  //width: 250px;
 }
 
 li {
   margin-bottom: 15px;
   font-size: 1rem;
-
 }
 
 li a, footer a {
@@ -87,7 +121,6 @@ li a, footer a {
 
 li a.incomplete:link, li a.incomplete:visited, li a.complete:link, li a.complete:visited {
   color: #006D77;
-  //text-decoration: none;
 }
 
 li a.complete:link, li a.complete:visited {
@@ -136,6 +169,14 @@ li a.incomplete:hover, li a.complete:hover {
 
 #one-task .button:hover {
   background-color: #0081A7;
+}
+
+#form-page .button {
+  background-color: #94B8DB;
+}
+
+#form-page .button:hover {
+  background-color: #0d1321;
 }
 
 .list .button a:link, .list .button a:visited {

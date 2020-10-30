@@ -1,17 +1,13 @@
 <div class="list" id="form-page">
   <h2>add a new task</h2>
-  <div class="form">
-    <%= form_with model: @task, class: 'create-task' do |f| %>
-      <p>Create a new task:</p>
+  <%= form_with model: @task, class: 'create-task' do |f| %>
+    <%#= f.label :name %>
+    <%= f.text_field :name, placeholder: "task name" %><br>
 
-      <%= f.label :name %>
-      <%= f.text_field :name %>
+    <%#= f.label :description %>
+    <%= f.text_field :description, placeholder: "task description" %><br>
 
-      <%= f.label :description %>
-      <%= f.text_field :description %>
-
-      <%= f.submit "Save Task", class: "task-save-button" %>
-    <% end %>
-  </div>
+    <%= f.button :submit, value: "save task", class: "task-save-button" %>
+  <% end %>
   <div class="button"><%= link_to "go back", tasks_path %></div>
 </div>
