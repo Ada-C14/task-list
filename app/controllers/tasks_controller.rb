@@ -57,4 +57,15 @@ class TasksController < ApplicationController
       render :new, bad_request
     end
   end
+
+  def complete
+    task = Task.find_by(id: params[:id].to_i)
+    if task.nil?
+      redirect_to tasks_path
+    elsif task.update completed_at: Time.current
+      redirect_to task_path
+    else
+      render :new, bad_request
+    end
+  end
 end
