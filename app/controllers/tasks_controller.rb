@@ -1,4 +1,13 @@
 class TasksController < ApplicationController
+  # Helper Methods
+  def task_error_notice
+    flash[:notice] = "oops! that task does not exist..."
+    redirect_to tasks_path
+  end
+
+  #########################################################
+
+  # Main CRUD actions
   def index
     @tasks = Task.all
   end
@@ -24,17 +33,10 @@ class TasksController < ApplicationController
     end
   end
 
-  def task_error_notice
-    flash[:notice] = "oops! that task does not exist..."
-    redirect_to tasks_path
-  end
-
   def show
     task_id = params[:id].to_i
     @task = Task.find_by(id: task_id)
     if @task.nil?
-      # flash[:notice] = "oops! that task does not exist..."
-      # redirect_to tasks_path
       task_error_notice
       return
     end
@@ -45,8 +47,6 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: task_id)
 
     if @task.nil?
-      # flash[:notice] = "oops! that task does not exist..."
-      # redirect_to tasks_path
       task_error_notice
       return
     end
@@ -57,8 +57,6 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
 
     if @task.nil?
-      # flash[:notice] = "oops! that task does not exist..."
-      # redirect_to tasks_path
       task_error_notice
       return
     elsif @task.update(
@@ -74,15 +72,29 @@ class TasksController < ApplicationController
     end
   end
 
-  def destroy
-
-  end
-
   def mark_complete
+    @task = Task.find_by(id: params[:id])
 
+    if @task.nil?
+      task_error_notice
+      return
+    else
+      @task.update(
+        # name: params[:task][:name],
+        # description: params[:task][:description],
+        completed_at: Time.now.strftime("%m/%d/%Y")
+      )
+    end
+
+    render :index
+    return
   end
 
   def mark_incomplete
+
+  end
+
+  def destroy
 
   end
 end
