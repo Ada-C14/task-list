@@ -47,7 +47,7 @@ class TasksController < ApplicationController
         elsif @task.update(
           name: params[:task][:name], 
           description: params[:task][:description], 
-          completed_at: params[:book][:completed_at])
+          completed_at: params[:task][:completed_at])
 
           redirect_to task_path(@task.id)
           return

@@ -46,8 +46,6 @@ describe TasksController do
   
   describe "new" do
     it "can get the new task page" do
-      
-      
       # Act
       get new_task_path
       
@@ -58,8 +56,6 @@ describe TasksController do
   
   describe "create" do
     it "can create a new task" do
-      
-      
       # Arrange
       task_hash = {
         task: {
@@ -102,16 +98,43 @@ describe TasksController do
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
-
+    before do
+      Task.create(name: "sample task", description: "sample description")
+    end
+    let (:new_task_hash) {
+      {
+        task: {
+          name: "Finish task list project",
+          description: "Need to finish wave 3 and 4",
+          completed_at: nil,
+        },
+      }
+    }
     it "can update an existing task" do
       # Your code here
-    
+      id = Task.first.id 
+      expect {
+        patch task_path(id), params: new_task_hash
+      }.wont_change "Task.count"
+  
+      must_respond_with :redirect
+  
+      task = Task.find_by(id: id)
+      expect(task.name).must_equal new_task_hash[:task][:name]
+      expect(task.description).must_equal new_task_hash[:task][:description]
+      expect(task.completed_at).must_equal new_task_hash[:task][:completed_at]
     end
     
     it "will redirect to the root page if given an invalid id" do
       # Your code here
+      id = -1 
 
-      #  must_redirect_to root_path
+      expect {
+        patch task_path(id), params: new_task_hash
+      }.wont_change "Task.count"
+  
+      must_respond_with :redirect
+      must_redirect_to root_path
     end
   end
   
@@ -146,24 +169,44 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "mark_complete" do
-    # Your tests go here
-    it "can mark a task as complete" do
+    it "can mark an existing task as complete, redirect to root, and update task's completed at date" do
+      # Arrange
+      sample_task = Task.create(name: "sample task", description: "sample description")
+      id = sample_task.id 
+
+      # Act
+      patch mark_complete_path(id)
+      task = Task.find_by(id: id)
+
+      # Assert
+      expect(task.completed_at).must_equal Date.today.to_formatted_s(:long)
+      must_redirect_to root_path
+    end
+
+    it "can mark an existing task as incomplete, redirect to root, and update task's completed at date" do
+      # Arrange 
+      sample_task = Task.create(name: "sample task", description: "sample description")
+      id = sample_task.id 
+
+      # Act
+      patch mark_complete_path(id) # mark complete
+      patch mark_complete_path(id) # mark incomplete 
+      task = Task.find_by(id: id)
+
+      # Assert
+      expect(task.completed_at).must_be_nil 
+      must_redirect_to root_path
     end
 
     it "should return a not found status code if the task does not exist" do
       # Arrange
-      id = 1 
+      id = -1 
 
       # Act
       patch mark_complete_path(id)
-      
+
       # Assert
       must_respond_with :not_found
-
     end
-
-    it "can update the database with the task's completed date" do
-    end
-
   end
 end
