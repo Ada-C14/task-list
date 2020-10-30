@@ -8,19 +8,14 @@ class TasksController < ApplicationController
   def show
     task_id = params[:id].to_i
     @task = Task.find_by(id: task_id)
-    if @task.nil?
-      redirect_to tasks_path
-    end
+
+    redirect_to tasks_path and return if @task.nil?
   end
 
   def create
     task = Task.new(name: params[:task][:name], description: params[:task][:description])
 
-    if task.save
-      redirect_to task_path(task.id)
-    else
-      render :new, bad_request
-    end
+    action_success_check(task.save, task_path(task.id))
   end
 
   def new
@@ -30,51 +25,47 @@ class TasksController < ApplicationController
   def edit
     task_id = params[:id].to_i
     @task = Task.find_by(id: task_id)
-    if @task.nil?
-      redirect_to tasks_path
-    end
+
+    redirect_to tasks_path and return if @task.nil?
   end
 
   def update
     task = Task.find_by(id: params[:id].to_i)
-    if task.nil?
-      redirect_to tasks_path
-    elsif task.update name: params[:task][:name], description: params[:task][:description]
-      redirect_to task_path
-    else
-      render :new, bad_request
-    end
+
+    redirect_to tasks_path and return if task.nil?
+
+    action_success_check(task.update(name: params[:task][:name], description: params[:task][:description]), task_path)
   end
 
   def destroy
     task_id = params[:id].to_i
     task = Task.find_by(id: task_id)
-    if task.nil?
-      redirect_to tasks_path
-    elsif task.destroy
-      redirect_to tasks_path
+
+    redirect_to tasks_path and return if task.nil?
+
+    action_success_check(task.destroy, tasks_path)
+  end
+
+  def complete
+    task = Task.find_by(id: params[:id].to_i)
+
+    redirect_to tasks_path and return if task.nil?
+
+    if task.completed_at
+      action_success_check(task.update(completed_at: nil), task_path)
+    else
+      action_success_check(task.update(completed_at: Time.current), task_path)
+    end
+  end
+
+  private
+  #add hard params?
+  def action_success_check(action, redirect_path)
+    if action
+      redirect_to redirect_path
     else
       render :new, bad_request
     end
   end
 
-  def complete
-    task = Task.find_by(id: params[:id].to_i)
-    if task.nil?
-      redirect_to tasks_path
-    elsif task.completed_at
-      if task.update completed_at: nil
-        redirect_to task_path
-      else
-        render :new, bad_request
-      end
-    else
-      #helper method
-      if task.update completed_at: Time.current
-        redirect_to task_path
-      else
-        render :new, bad_request
-      end
-    end
-  end
 end
