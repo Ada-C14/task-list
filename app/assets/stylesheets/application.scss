@@ -74,6 +74,8 @@ main{
   width: 40%;
   margin: 4px;
   border-style: solid;
+  border-radius: 15px;
+  padding: 10px;
 }
 
 .items li p{
@@ -95,4 +97,18 @@ nav{
 .nav-link {
   padding: 0 15px 0 0;
   margin: 10px;
+}
+.button {
+  border-radius: 25px;
+  border-style: solid;
+  width: 175px;
+  padding: 2px;
+  text-align: center;
+  margin: 10px;
+  background-color: #7fd6e5;
+}
+
+.button:hover{
+  background-color: #6bb4c1;
+  color: black;
 }
