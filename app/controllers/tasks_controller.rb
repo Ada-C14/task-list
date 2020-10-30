@@ -6,7 +6,7 @@ class TasksController < ApplicationController
 
   def show
     id = params[:id].to_i
-    @task = task[:id]
+    @task = Task.find(id)
 
     if @task.nil?
       head :not_found
