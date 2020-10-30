@@ -19,7 +19,8 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(name: params[:task][:name], description: params[:task][:description], completed_at: params[:task][:completed_at])
     if @task.save
-      redirect_to tasks_path
+      task_id = Task.last.id
+      redirect_to "/tasks/#{task_id}"
       return
     else
     render :new
