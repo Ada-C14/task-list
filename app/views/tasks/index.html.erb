@@ -1,8 +1,8 @@
-<h1>Tasklist</h1>
+<h1>Task List</h1>
 <ul>
   <% Task.all.each do |task|  %>
     <li>
-      <%= task.name %>: <%= task.description %>
+      Task: <%= task.name %>, Description: <%= task.description %>, Completed at: <%= task.completed_at %>
     </li>
   <% end %>
 </ul>
