@@ -1,0 +1,15 @@
+<%= form_with model: @book do |f| %>
+  <h1>Adding a new book</h1>
+  <p>Please fill out the following easy form:</p>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.label :description %>
+  <%= f.text_field :author %>
+  <br>
+  <%= f.label :completed_at %>
+  <%= f.text_field :completed_at %>
+  <br>
+  <%= f.submit "Task-o Add-o!" %>
+<% end %>

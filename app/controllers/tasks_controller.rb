@@ -12,4 +12,15 @@ class TasksController < ApplicationController
       return
     end
   end
+
+  def new
+    @task = Task.new(name: parems[:task][:name], description: parems[:task][:description],
+                     completed_at: parems[:task][:completed_at])
+    if @task.save
+      redirect_to tasks_path
+      return
+    else
+      render :new
+      return
+  end
 end
