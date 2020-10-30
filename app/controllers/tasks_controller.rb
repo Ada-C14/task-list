@@ -8,22 +8,28 @@ class TasksController < ApplicationController
   end
 
   def create
-    # @task = Task.new(name: params[:task][:name], description: params[:task][:description])
-    #
-    # if @task.save
-    #   redirect_to tasks_path
-    #   return
-    # else
-    #   render :new
-    #   return
-    # end
+    # raise
+    @task = Task.new(
+        name: params[:task][:name],
+        description: params[:task][:description],
+        completed_at: nil
+    )
+
+    if @task.save
+      redirect_to tasks_path
+      return
+    else
+      render :new
+      return
+    end
   end
 
   def show
     task_id = params[:id].to_i
-    @task = Task.find(task_id)
+    @task = Task.find_by(id: task_id)
     if @task.nil?
-      head :not_found
+      flash[:notice] = "This task does not exist"
+      redirect_to tasks_path
       return
     end
   end
