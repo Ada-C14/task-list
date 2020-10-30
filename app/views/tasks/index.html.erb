@@ -1,18 +1,13 @@
 <h1>TASKS</h1>
 <ol class="tasks">
   <% @tasks.each do |task| %>
-    <li> Title: <%= task.name.capitalize %> Description: <%= task.description.capitalize %>
-      completed at: <%= task.completed_at %></li>
 
+    <li> Title: <%= link_to task.name, task_path(task.id) %>
+      <p> Description: <%= task.description %> </p>
+      <p> Completed at: <%= task.completed_at %>
+    </li>
   <% end %>
+
 </ol>
 
-
-
-<!--why did this one print the array, answer:value tag on line 11 before tasks. -->
-<!--<h1>TASKS</h1>-->
-<!--<ul class="tasks">-->
-  <%#= @tasks.each do |task| %>
-<!--    <li> <%#= task %> </li>-->
-  <%# end %>
-<!--</ul>-->
+<%= link_to "Create New Task", new_task_path %>

@@ -75,7 +75,8 @@ describe TasksController do
       expect {
         post tasks_path, params: task_hash
       }.must_change "Task.count", 1
-      
+
+      pp Task.all
       new_task = Task.find_by(name: task_hash[:task][:name])
       expect(new_task.description).must_equal task_hash[:task][:description]
       expect(new_task.completed_at).must_equal task_hash[:task][:completed_at]
