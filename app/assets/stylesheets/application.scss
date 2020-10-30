@@ -16,3 +16,83 @@
 @import "bootstrap";
 
 @import "**/*";
+
+/*
+*= require_self
+*= require_tree .
+*/
+
+body {
+  font-family: Gotham, helvetica, sans-serif;
+  color: white;
+  width: 100%;
+  line-height: 150%;
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #c97fe5;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+
+footer  {
+  margin-top: 1em;
+  font-size: 10px
+}
+
+main{
+  padding: 0 15px 0 0;
+  margin-top: 100px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+  list-style: none;
+}
+
+.items li {
+  background-color: grey;
+  width: 40%;
+  margin: 4px;
+  border-style: solid;
+}
+
+.items li p{
+  width:98%;
+  text-align: left;
+  margin: 4px 4px 1em;
+}
+
+nav{
+  background-image: linear-gradient(red, magenta);
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+}
+
+.nav-link {
+  padding: 0 15px 0 0;
+  margin: 10px;
+}
