@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: 'tasks#index' #is this necessary?
+  put '/tasks/:id', to: 'tasks#complete', as: 'task_complete'
+  put '/tasks/:id', to: 'tasks#incomplete', as: 'task_incomplete'
   resources :tasks
 
   # Custom routes
- 
+  # put '/tasks/:id', to: 'tasks#complete', as: 'task_complete'
+  # patch '/tasks/:id/incomplete', to: 'tasks#incomplete', as: 'incomplete_task'
 
   # get '/tasks', to: 'tasks#index', as: 'tasks'
   # get '/tasks/new', to: 'tasks#new', as: 'new_task'

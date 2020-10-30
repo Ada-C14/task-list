@@ -42,7 +42,7 @@ describe TasksController do
       get task_path(-1)
       
       # Assert
-      must_respond_with :redirect #Why redirect instead of not found?
+      must_respond_with :redirect
     end
   end
   
@@ -136,7 +136,7 @@ describe TasksController do
     
     it "will redirect to the root page if given an invalid id" do
       expect {
-        patch task_path(-1), params: new_task_hash #to access the database?
+        patch task_path(-1), params: new_task_hash
       }.wont_change "Task.count"
 
       # must_respond_with :redirect
@@ -159,10 +159,25 @@ describe TasksController do
       must_respond_with :redirect
       must_redirect_to tasks_path
     end
+
+    it "should not delete a book that doesn't exist and redirect to root path" do
+      expect {
+        delete task_path(-1)
+      }.wont_change "Task.count"
+
+      must_redirect_to tasks_path
+    end
   end
   
   # Complete for Wave 4
   describe "toggle_complete" do
     # Your tests go here
+    # it "can mark a task as completed" do
+    # end
+    #
+    # it "can change a completed task to an incomplete task" do
+    # end
+    #
+    #
   end
 end

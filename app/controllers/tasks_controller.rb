@@ -38,7 +38,6 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find_by(id: params[:id])
-
     if @task.nil?
       redirect_to tasks_path
       return
@@ -62,10 +61,26 @@ class TasksController < ApplicationController
     end
   end
 
+  def complete
+    @task = Task.find_by(id: params[:id])
+    @task.completed_at = Time.now
+    @task.save
+
+    redirect_to tasks_path
+  end
+
+  def incomplete
+    @task = Task.find_by(id: params[:id])
+    @task.completed_at = ""
+    @task.save
+
+    redirect_to tasks_path
+  end
+
 
   private
 
   def task_params
-    return params.require(:task).permit(:name, :description, :completed_at)
+    return params.require(:task).permit(:id, :name, :description, :completed_at)
   end
 end
