@@ -30,7 +30,7 @@ class TasksController < ApplicationController
             completed_at: params[:task][:completed_at]
             )
         
-        if task.save
+        if @task.save
             redirect_to tasks_path
         else
             render :new, :bad_request
@@ -48,7 +48,7 @@ class TasksController < ApplicationController
         end             
     end
 
-    def create
+    def update
         @task.update(
             name: params[:task][:name], 
             description: params[:task][:description], 
@@ -56,7 +56,7 @@ class TasksController < ApplicationController
             )
         
         if @task.update
-            redirect_to task
+            redirect_to tasks_path
         else
             render :edit, :bad_request
             return
@@ -64,9 +64,6 @@ class TasksController < ApplicationController
     end    
     
     def destroy
-    end    
-
-    def create
     end    
 
 end
