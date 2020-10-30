@@ -1,5 +1,5 @@
 <h1>TASKS LIST</h1>
 <h2>Baseline</h2>
 <%@tasks.each do |task| %>
-  <li> <%= task[:name] %> , was completed by <%= task[:completed_at] %></li>
+  <li> <%= task.name %>, Description: <%= task.description %> was completed by <%= task.completed_at %></li>
 <% end %>
