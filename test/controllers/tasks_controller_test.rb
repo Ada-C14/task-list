@@ -6,6 +6,16 @@ describe TasksController do
     completed_at: Time.now + 5.days
   }
 
+  let (:task_hash) {
+    {
+        task: {
+            name: "new task",
+            description: "new task description",
+            completed_at: nil,
+        }
+    }
+  }
+
   # Tests for Wave 1
   describe "index" do
     it "can get the index path" do
@@ -62,15 +72,6 @@ describe TasksController do
     it "can create a new task" do
       # skip
       
-      # Arrange
-      task_hash = {
-        task: {
-          name: "new task",
-          description: "new task description",
-          completed_at: nil,
-        }
-      }
-      
       # Act-Assert
       expect {
         post tasks_path, params: task_hash
@@ -102,8 +103,32 @@ describe TasksController do
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
+
+    before do
+      Task.create(name: "filler", description: "more filler")
+    end
+
     it "can update an existing task" do
-      # Your code here
+      # Arrange
+      task = Task.first
+      p Task.all
+      p task
+      p Task.count
+      p task_hash
+
+      # Act-Assert
+      expect {
+        patch task_path(task.id), params: task_hash
+      }.wont_change 'Task.count'
+
+      task = Task.find_by(id: task.id)
+
+      expect(task.name).must_equal task_hash[:task][:name]
+      expect(task.description).must_equal task_hash[:task][:description]
+      expect(task.completed_at).must_equal task_hash[:task][:completed_at]
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
     end
     
     it "will redirect to the root page if given an invalid id" do

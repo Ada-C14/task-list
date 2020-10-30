@@ -64,7 +64,7 @@ class TasksController < ApplicationController
         description: params[:task][:description],
         completed_at: params[:task][:completed_at]
     )
-      render :index
+      redirect_to tasks_path
       return
     else
       render :edit
