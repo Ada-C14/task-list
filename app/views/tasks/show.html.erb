@@ -1,31 +1,10 @@
-<div class="actions">
-  <div class="button"><%= link_to "All Tasks", tasks_path %></div>
-</div>
-
-<div class="compressed-list">
-  <h2>YOUR TASKS</h2>
-  <ol>
-    <% Task.all.each do |task| %>
-      <li>
-        <% if task.completed_at.nil? %>
-          <%= link_to task.name.downcase, task_path(task.id), class: "incomplete" %><br>
-          mark complete |
-        <% else %>
-          <%= link_to task.name.downcase, task_path(task.id), class: "complete" %><br>
-          mark incomplete |
-        <% end %>
-        <%= link_to "edit", edit_task_path(task.id) %> |
-        <%= link_to "delete", task_path(task.id), method: :destroy %>
-      </li>
-    <% end %>
-  </ol>
-</div>
-
-<div class="right-side-container">
+<div class="list">
   <h2><%= @task.name.downcase %></h2>
-  <ul>
-    <li>Status: <%= @task.completed_at.nil? ? "in-progress" : "complete" %></li>
-    <li><%= @task.description %></li>
-  </ul>
+  <ol>
+    <li>status:<br><%= @task.completed_at.nil? ? "in-progress" : "complete" %></li>
+    <li>description:<br><%= @task.description.downcase %></li>
+  </ol>
+  <div class="button"><%= link_to "go back", tasks_path %></div>
 </div>
+
 

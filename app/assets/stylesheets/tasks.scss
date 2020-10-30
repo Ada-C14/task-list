@@ -32,29 +32,10 @@ header .header-content {
   width: 90%;
 }
 
-//img {
-//  width: 4vw;
-//  height: auto;
-//}
-
 header h2 {
   margin-left: 5px;
   font-weight: 500;
   margin-top: 10px;
-}
-
-.actions {
-  grid-row: 2;
-  grid-column: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.break {
-  height: 0;
-  width: 0;
 }
 
 .list {
@@ -72,20 +53,20 @@ header h2 {
   box-shadow: 10px 10px 0px 0px #E29578;
 }
 
-.compressed-list {
-  grid-row: 2;
-  grid-column: 2 / span 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 5px solid black;
-  margin-left: 25px;
-  margin-right: 25px;
-  margin-top: 15px;
-  height: 80%;
-  background-color: #f9edcc;
-  box-shadow: 10px 10px 0px 0px #fea67f;
-}
+//.compressed-list {
+//  grid-row: 2;
+//  grid-column: 2 / span 2;
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//  border: 5px solid black;
+//  margin-left: 25px;
+//  margin-right: 25px;
+//  margin-top: 15px;
+//  height: 80%;
+//  background-color: #f9edcc;
+//  box-shadow: 10px 10px 0px 0px #fea67f;
+//}
 
 .list h2, .compressed-list h2, .right-side-container h2 {
   margin-top: 15px;
@@ -97,7 +78,6 @@ ol {
   overflow-y: auto;
   height: 200px;
   //width: 250px;
-  //border: 2px dotted #95a4ff;
 }
 
 li {
@@ -115,12 +95,12 @@ li a, footer a {
   font-weight: 500;
 }
 
-li .incomplete#a:link, li .incomplete#a:visited, li .complete#a:link, li .complete#a:visited {
-  color: #83C5BE;
+li a.incomplete:link, li a.incomplete:visited, li a.complete:link, li a.complete:visited {
+  color: #006D77;
   //text-decoration: none;
 }
 
-li .complete#a:link, li .complete#a:visited {
+li a.complete:link, li a.complete:visited {
   text-decoration: line-through;
 }
 
@@ -152,7 +132,11 @@ a:link, a:visited {
 
 a:hover {
   font-style: italic;
-  color: #95a4ff;
+  color: #83C5BE;
+}
+
+li a.incomplete:hover, li a.complete:hover {
+  color: #b94e27;
 }
 
 .button {
