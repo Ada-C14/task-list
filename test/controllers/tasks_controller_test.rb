@@ -133,8 +133,7 @@ describe TasksController do
       must_redirect_to tasks_path 
     end
 
-    it "should return a 404 status code when trying to delete a non-existing task" do
-      
+    it "should return a not found status code when trying to delete a non-existing task" do
       # Act 
       expect {
         delete task_path(-1)
@@ -146,7 +145,25 @@ describe TasksController do
   end
   
   # Complete for Wave 4
-  describe "toggle_complete" do
+  describe "mark_complete" do
     # Your tests go here
+    it "can mark a task as complete" do
+    end
+
+    it "should return a not found status code if the task does not exist" do
+      # Arrange
+      id = 1 
+
+      # Act
+      patch mark_complete_path(id)
+      
+      # Assert
+      must_respond_with :not_found
+
+    end
+
+    it "can update the database with the task's completed date" do
+    end
+
   end
 end

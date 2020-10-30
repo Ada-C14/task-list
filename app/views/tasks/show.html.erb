@@ -3,5 +3,10 @@
 <p>completed at: <%= @task.completed_at %></p>
 <%= link_to "Edit", edit_task_path(@task) %>
 <%= link_to "Delete", task_path(@task), method: :delete, data: {confirm: "Are you sure?"}%>
+<% if @task.completed_at.nil? %>
+                <%= link_to "Mark Complete", mark_complete_path(@task), method: :patch %>
+                <% else %>
+                <%= link_to "Mark Incomplete", mark_complete_path(@task), method: :patch %>
+            <% end %>
 
 <p><%= link_to "Return to Task List", tasks_path %></p> 

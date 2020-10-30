@@ -40,6 +40,7 @@ class TasksController < ApplicationController
 
       def update
         @task = Task.find_by(id: params[:id])
+
         if @task.nil?
           redirect_to root_path
           return
@@ -69,5 +70,19 @@ class TasksController < ApplicationController
     
         redirect_to tasks_path
         return
+    end
+
+    def mark_complete
+        @task = Task.find_by(id: params[:id])
+        
+        return head :not_found if @task.nil?
+        
+        if @task.completed_at.nil?
+            @task.update(completed_at: Date.today.to_formatted_s(:long))
+        elsif !@task.completed_at.nil?
+            @task.update(completed_at: nil)
+        end
+        
+        redirect_to root_path
     end
 end
