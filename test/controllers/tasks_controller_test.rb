@@ -124,8 +124,20 @@ describe TasksController do
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
-    
+
+    before do
+      @task2_hash = {task: {name: "sample task2", description: "this is a second example for a test", completed_at: Time.now + 6.days}}
+
+      Task.create(name: @task2_hash[:task][:name], description: @task2_hash[:task][:description], completed_at: @task2_hash[:task][:description])
+    end
+
+    it "deletes a valid task" do
+      task2 = Task.find_by(name: @task2_hash[:task][:name])
+      expect {
+      delete task_path(task2.id)
+      }.must_differ 'Task.count', -1
+    end
+
   end
   
   # Complete for Wave 4
@@ -133,3 +145,4 @@ describe TasksController do
     # Your tests go here
   end
 end
+
