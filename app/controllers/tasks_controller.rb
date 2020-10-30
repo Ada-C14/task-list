@@ -38,11 +38,32 @@ class TasksController < ApplicationController
     end
   end
 
-  def update
+  def edit
+    @task = task.find_by(id: params[:id])
+    if @task.nil?
+      redirect_to root_path
+      return
+    end
   end
 
-  def edite
+  def update
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      redirect_to root_path
+      return
+    elsif
+      @task.update(
+          name: params[:task][:name],
+          description: params[:task][:description],
+          completed_at: params[:task][:completed_at])
+      redirect_to(task_path) # go to the index
+      return
+    else #save failed
+      render :edit  # show the new book from view again
+      return
+    end
   end
+
 
   def destroy
   end
