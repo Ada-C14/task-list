@@ -2,3 +2,4 @@
 <h2><%= @task.description %></h2>
 <h3><%= display_task_completed_at(@task) %></h3>
 <%= link_to "Delete", task_path(@task), method: :delete %>
+<%= link_to "Mark Complete", complete_task_path(@task), method: :patch%>
