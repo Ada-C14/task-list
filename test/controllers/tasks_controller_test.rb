@@ -133,14 +133,37 @@ describe TasksController do
         patch task_path(id), params: new_task_hash
       }.wont_change "Task.count"
 
-      # must_respond_with :redirect
+      must_respond_with :redirect
       must_redirect_to root_path
     end
   end
 
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
+    it "can destroy a task" do
+      # Arrange
+      task_title_to_delete = "Test task"
+      task_to_delete = Task.create(name: task_title_to_delete, description: "test description", completed_at: nil)
+
+      # Act
+      expect {
+        delete task_path(task_to_delete.id)
+      }.must_change "Task.count", -1
+
+      deleted_task = Task.find_by(name: task_title_to_delete)
+      expect(deleted_task).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "should not delete non existing book" do
+      expect {
+        delete task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
+    end
 
   end
 
