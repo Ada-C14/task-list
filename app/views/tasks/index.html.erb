@@ -1,5 +1,6 @@
+<h2> To Do: </h2>
 <ul>
 <% @tasks.each do |task| %>
-<li> <%= task.name %> <%= task.description %></li>
+<li> <%= task[:name] %> - <%= task[:description] %> - Completed: <%= task[:completed_at]  %></li>
 <% end %>
 </ul>
