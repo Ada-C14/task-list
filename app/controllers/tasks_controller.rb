@@ -1,5 +1,6 @@
 # tasks controller class
 class TasksController < ApplicationController
+  # READ
   def index
     @tasks = Task.all
   end
@@ -12,6 +13,7 @@ class TasksController < ApplicationController
     end
   end
 
+  # CREATE
   def new
     @task = Task.new
   end
@@ -28,4 +30,14 @@ class TasksController < ApplicationController
     return
     end
   end
+
+  # UPDATE
+  def edit
+    begin
+      @task = Task.find(params[:id])
+    rescue StandardError
+      redirect_to root_path
+    end
+  end
+  # DESTROY
 end
