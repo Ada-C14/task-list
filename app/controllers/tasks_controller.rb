@@ -14,9 +14,25 @@ class TasksController < ApplicationController
 
   def show
     task_id = params[:id].to_i
-    @task = Task.find(task_id)
+    @task = Task.find_by(id: task_id)
     if @task.nil?
-      head :not_found
+      redirect_to tasks_path
+      return
+    end
+  end
+
+  def new
+    @task = Task.new
+    @task.name =
+  end
+
+  def create
+    @task = Task.new(name: params[:task][:name], description: params[:task][:description])
+    if @task.save
+      redirect_to task_path(@task.id)
+      return
+    else
+      render :new, :bad_request
       return
     end
   end
@@ -26,18 +42,11 @@ class TasksController < ApplicationController
   end
 
   def edit
-
+    @task.name = @task.name
+    @task.description = @task.description
   end
 
   def destroy
-
-  end
-
-  def new
-
-  end
-
-  def create
 
   end
 
