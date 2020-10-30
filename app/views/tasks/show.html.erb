@@ -8,23 +8,23 @@
     <% Task.all.each do |task| %>
       <li>
         <% if task.completed_at.nil? %>
-          <%= link_to task.name.capitalize, task_path(task.id), class: "incomplete" %><br>
-          Mark Complete |
+          <%= link_to task.name.downcase, task_path(task.id), class: "incomplete" %><br>
+          mark complete |
         <% else %>
-          <%= link_to task.name.capitalize, task_path(task.id), class: "complete" %><br>
-          Unmark Complete |
+          <%= link_to task.name.downcase, task_path(task.id), class: "complete" %><br>
+          mark incomplete |
         <% end %>
-        <%= link_to "Edit", edit_task_path(task.id) %> |
-        <%= link_to "Delete", task_path(task.id), method: :destroy %>
+        <%= link_to "edit", edit_task_path(task.id) %> |
+        <%= link_to "delete", task_path(task.id), method: :destroy %>
       </li>
     <% end %>
   </ol>
 </div>
 
 <div class="right-side-container">
-  <h2><%= @task.name.capitalize %></h2>
+  <h2><%= @task.name.downcase %></h2>
   <ul>
-    <li>Status: <%= @task.completed_at.nil? ? "In-progress" : "Complete" %></li>
+    <li>Status: <%= @task.completed_at.nil? ? "in-progress" : "complete" %></li>
     <li><%= @task.description %></li>
   </ul>
 </div>
