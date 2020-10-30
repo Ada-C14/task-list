@@ -1,8 +1,12 @@
-<h2>Task List</h2>
+<h1>Task List</h1>
 <% if @tasks.count > 0 %>
     <ul>
     <% @tasks.each do |task| %>
-      <li>Task name: <%= task.name %> Description: <%= task.description %> Date completed: <%= task.completed_at %></li>
+      <li>
+        <h3><%= task.name %></h3>
+        Description: <%= task.description %><br>
+        Date completed: <%= task.completed_at %>
+      </li>
     <% end %>
     </ul>
   <% else %>
