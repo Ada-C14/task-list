@@ -46,7 +46,7 @@ describe TasksController do
   
   describe "new" do
     it "can get the new task page" do
-      skip
+
       
       # Act
       get new_task_path
@@ -58,7 +58,6 @@ describe TasksController do
   
   describe "create" do
     it "can create a new task" do
-      skip
       
       # Arrange
       task_hash = {

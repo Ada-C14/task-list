@@ -1,5 +1,5 @@
 
-<h3>Here's your current list:</h3>
+<h3>Currently tasked:</h3>
 
 <% if @tasks.length > 0 %>
   <ol>
@@ -13,7 +13,7 @@
   <% else %>
     <h3>No tasks in system!</h3>
   <% end %>
-<p>Add a new task here:</p>
+
   <ul>
     <li><%= link_to "Add New Task", new_task_path %></li>
   </ul>
