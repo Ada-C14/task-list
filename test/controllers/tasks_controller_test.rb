@@ -173,5 +173,22 @@ describe TasksController do
   # Complete for Wave 4
   describe "toggle_complete" do
     # Your tests go here
+    before do
+      Task.create(name: "Cry in Bed", description: "Wahhhhhhhhhhhhhh")
+    end
+
+
+    it "can update an existing task" do
+      id = Task.first.id
+      expect {
+        patch complete_task_path(id)
+      }.wont_change "Task.count"
+
+      must_respond_with :redirect
+
+      task = Task.find_by(id: id)
+      expect(task.completed_at).must_be_instance_of ActiveSupport::TimeWithZone
+
+    end
   end
 end
