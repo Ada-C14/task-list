@@ -38,6 +38,12 @@ header h2 {
   margin-top: 10px;
 }
 
+.notice {
+  margin-top: 10px;
+  font-style: italic;
+  background-color: #FFF275;
+}
+
 .list {
   grid-row: 2;
   grid-column: 3 / span 2;

@@ -28,7 +28,7 @@ class TasksController < ApplicationController
     task_id = params[:id].to_i
     @task = Task.find_by(id: task_id)
     if @task.nil?
-      flash[:notice] = "This task does not exist"
+      flash[:notice] = "oops! that task does not exist..."
       redirect_to tasks_path
       return
     end
