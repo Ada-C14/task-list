@@ -5,9 +5,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
 
 * {
-  border: black 1px solid;
+  //border: black 1px solid;
   font-family: 'Roboto', sans-serif;
-  font-weight: 300;
+  font-weight: 500;
 }
 
 .body-container {
@@ -64,16 +64,11 @@ header h2 {
 .button {
   display: flex;
   justify-content: center;
-  border: 1px solid black;
-  border-radius: 15px;
+  border: 3px solid black;
   padding: 15px 25px;
   margin-bottom: 15px;
   margin-top: 15px;
-  font-weight: 500;
-}
-
-.actions .button a {
-  font-weight: 500;
+  background-color: #95ffc2;
 }
 
 .list {
@@ -114,22 +109,33 @@ ol {
   margin: 15px 0 0 0;
   padding: 0;
   overflow-y: auto;
+  height: 200px;
+  //width: 250px;
+  //border: 2px dotted #95a4ff;
 }
 
 li {
   margin-bottom: 15px;
   font-size: 1rem;
+
 }
 
-.incomplete {
-  font-weight: 500;
+li a {
+  font-weight: 300;
+}
+
+.incomplete, .complete {
   font-size: 1.2rem;
+  font-weight: 500;
+}
+
+li .incomplete#a:link, li .incomplete#a:visited, li .complete#a:link, li .complete#a:visited {
+  color: #95a4ff;
+  //text-decoration: none;
 }
 
 .complete {
-  font-weight: 500;
   text-decoration: line-through;
-  font-size: 1.2rem;
 }
 
 .right-side-container {
@@ -146,15 +152,26 @@ li {
   height: 80%;
 }
 
-.right-side-container h2 {
-  font-weight: 500;
-}
-
 ul {
   list-style-type: none;
   margin: 15px 0 0 0;
   padding: 0;
   overflow-y:auto;
+}
+
+a:link, a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  font-style: italic;
+  color: #95a4ff;
+}
+
+.button a:hover {
+  font-style: italic;
+  color: black;
 }
 
 footer {
