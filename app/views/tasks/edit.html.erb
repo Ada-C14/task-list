@@ -1,0 +1,20 @@
+<header>
+  <h3>Edit Task: <%= @task.name %></h3>
+</header>
+<main>
+  <%= form_with model: @task do |f| %>
+    <p>Enter information for the new task:</p>
+
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+
+    <%= f.label :completed_at %>
+    <%= f.text_field :completed_at %>
+
+    <%= f.submit "Update Task" %>
+  <% end %>
+
+</main>

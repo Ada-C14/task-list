@@ -42,6 +42,7 @@ class TasksController < ApplicationController
     if @task.nil?
       return head :not_found
     end
+
   end
 
   def update
@@ -51,7 +52,7 @@ class TasksController < ApplicationController
     if @task.nil?
       return head :not_found
     elsif @task.update(
-      name: params[:task][:name],
+      name: params[:name],
       description: params[:task][:description],
       completed_at: params[:task][:completed_at]
     )
