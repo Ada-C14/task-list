@@ -8,19 +8,24 @@ class TasksController < ApplicationController
     begin
       @task = Task.find(task_id)
     rescue ActiveRecord::RecordNotFound
-      redirect_to '/notfound'
+      redirect_to error_path(error: 'Task not found!')
       return
     end
   end
 
   def new
-    @task = Task.new(name: parems[:task][:name], description: parems[:task][:description],
-                     completed_at: parems[:task][:completed_at])
+    @task = Task.new
+  end
+
+  def create
+    @task = Task.new(name: params[:task][:name], description: params[:task][:description],
+                     completed_at: params[:task][:completed_at])
     if @task.save
-      redirect_to tasks_path
+      redirect_to task_path(@task.id)
       return
     else
-      render :new
+      redirect_to error_path, 'New task could not be created!'
       return
+    end
   end
 end
