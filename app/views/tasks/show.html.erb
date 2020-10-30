@@ -1,3 +1,6 @@
 <h3>TASK: <%= @task.name %></h3>
 <p><%=@task.description %></p>
-<p>Date Completed: <%=@task.completed_at %> </p>
+<p>Status: <%= @task.completed_at.nil? ? "in progress" : "completed on #{@task.completed_at}" %> </p>
+
+<p> <%= link_to "Edit task", edit_task_path(@task.id) %></p>
+<p> <%= link_to "Delete task", task_path(@task.id), method: :delete %></p>
