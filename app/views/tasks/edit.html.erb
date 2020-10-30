@@ -1,1 +1,14 @@
-<h1>edit</h1>
+<h1>Edit Task</h1>
+
+<%= form_with model: @task, class: 'edit-task' do |f| %>
+  <p>Please provide the following information to edit your task:</p>
+  <div>
+    <p><%= f.label :name %></p>
+    <p><%= f.text_field :name %></p>
+
+    <p><%= f.label :description %></p>
+    <p><%= f.text_area :description %></p>
+
+  </div>
+  <%= f.submit "Save Task", class: "task-button" %>
+<% end %>

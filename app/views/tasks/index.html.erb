@@ -2,7 +2,12 @@
 <ul>
   <% @tasks.each do |task|  %>
     <li>
-      Task: <%= task.name %> Description: <%= task.description %> Date completed: <%= task.completed_at.to_formatted_s(:twelvehr_long_ordinal) %>
+      Task: <%= task.name %> Description: <%= task.description %> Date completed:
+<%# unless task.nil? %>
+      <h3>
+        <%# #@task.completed_at.to_formatted_s(:twelvehr_long_ordinal)%>
+      </h3>
+<%#end %>
     </li>
   <% end %>
 </ul>
