@@ -200,7 +200,8 @@ describe TasksController do
 
     it "should return a not found status code if the task does not exist" do
       # Arrange
-      id = -1 
+      sample_task = Task.create(name: "sample task", description: "sample description")
+      id = Task.last.id + 1 
 
       # Act
       patch mark_complete_path(id)

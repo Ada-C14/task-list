@@ -77,12 +77,12 @@ class TasksController < ApplicationController
         
         return head :not_found if @task.nil?
         
-        if @task.completed_at.nil?
+        if @task.completed_at.nil? 
             @task.update(completed_at: Date.today.to_formatted_s(:long))
-        elsif !@task.completed_at.nil?
+        elsif !@task.completed_at.nil? 
             @task.update(completed_at: nil)
         end
-        
+
         redirect_to root_path
     end
 end
