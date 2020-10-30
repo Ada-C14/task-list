@@ -61,8 +61,14 @@ class TasksController < ApplicationController
   def destroy
     @task = find_by_id
 
-    @task.destroy
-    redirect_to task_path(@task.id)
+    if @task
+      @task.destroy
+      redirect_to tasks_path
+      return
+    else
+      redirect_to tasks_path
+      return
+    end
   end
 
   # helper method
