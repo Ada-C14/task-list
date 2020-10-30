@@ -79,6 +79,19 @@ describe TasksController do
       must_respond_with :redirect
       must_redirect_to task_path(new_task.id)
     end
+
+    it "will render :edit if attempts to enter an empty task are made" do
+      # Arrange
+      empty_task = {task: {name:nil, description:nil}}
+
+      # Act-Assert
+      expect {
+        post tasks_path, params: empty_task
+      }.wont_change "Task.count"
+
+      # success indicates rendering of page
+      assert_response :success
+    end
   end
   
   # DONE - Unskip and complete these tests for Wave 3
@@ -113,7 +126,7 @@ describe TasksController do
       }
     }
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
-    #        thing to test.
+    #        thing to test - used validation and added a test for "create" as well!
     it "can update an existing task" do
       # Arrange
       id = Task.find_by(name:"edit this task name")[:id]
@@ -137,6 +150,30 @@ describe TasksController do
       }.wont_change "Task.count"
 
       must_redirect_to :root
+    end
+
+    it "will redirect to the root page if given an invalid id" do
+      id = -1
+      # Act-Assert
+      expect {
+        patch task_path(id), params: edit_task_data
+      }.wont_change "Task.count"
+
+      must_redirect_to :root
+    end
+
+    it "will render :edit if attempts to enter an empty task are made" do
+      # Arrange
+      id = Task.find_by(name:"edit this task name")[:id]
+      empty_task = {task: {name:nil, description:nil}}
+
+      # Act-Assert
+      expect {
+        patch task_path(id), params: empty_task
+      }.wont_change "Task.count"
+
+      # success indicates rendering of page
+      assert_response :success
     end
   end
   
