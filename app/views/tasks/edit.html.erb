@@ -3,7 +3,7 @@
 <%= "Check this everyday!".upcase %>
 
 <%= form_with model: @task, class: "task_form" do |t| %>
-    <p>Please provide the following information to create a new task in our database:</p>
+    <p>Please provide the following information to update a task in our database:</p>
     <div>
         <%= t.label :name %>
         <%= t.text_field :name %>
@@ -16,5 +16,5 @@
         <%= t.label :completed_at %>
         <%= t.date_field :completed_at %>
     </div>
-    <%= t.submit "Add a task", class: 'task-button' %>
+    <%= t.submit "Update a task", class: 'task-button' %>
 <% end %>

@@ -1,3 +1,7 @@
 <h3><%= "Check this everyday!".upcase %></h3>
 
-<h4><%= @task.name %>: <%= @task.description %> -- Due by <%= @task.completed_at %></h4>
+<div>
+    <h4><%= @task.name %>:</h4>
+    <h5><%= @task.description %></h5>
+    <p>-- Due by <%= @task.completed_at %> --<%= link_to " Edit", edit_task_path(@task) %></p>
+</div>
