@@ -5,19 +5,16 @@
 </head>
 <body>
   <header>
+    <h1>Tasklist</h1>
     <nav>
       <ul>
-        <li>
-          All tasks
-        </li>
-        <li>
-          Add new task
-        </li>
+        <li>All tasks</li>
+        <li><a href="/tasks/new">Add new task</a></li>
       </ul>
     </nav>
   </header>
   <main>
-    <h1>Tasklist</h1>
+    <h1>Tasks</h1>
     <ul>
       <% @tasks.each do |task|  %>
         <li>
@@ -25,15 +22,10 @@
           <h3>Status: <%= task[:completed_at].nil? ? "Incomplete" : "Completed at #{task[:completed_at]}" %></h3>
           <p><%= task[:description] %></p>
           <ul>
-            <li>
-              <a href=<%="tasks/#{task[:id]}"%>>View</a>
-            </li>
-            <li>
-              Edit
-            </li>
-            <li>
-              Delete
-            </li>
+            <li><a href=<%="tasks/#{task[:id]}"%>>View</a></li>
+            <li>Edit</li>
+            <li>Mark complete</li>
+            <li>Delete</li>
           </ul>
         </li>
       <% end %>

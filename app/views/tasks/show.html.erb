@@ -5,19 +5,18 @@
 </head>
 <body>
 <header>
-  <h1><%= @task[:name] %></h1>
   <nav>
     <ul>
-      <li>
-        <a href="/">Home</a>
-      </li>
+      <li><a href="/">Home</a></li>
       <li>Edit</li>
+      <li>Mark complete</li>
       <li>Delete</li>
     </ul>
   </nav>
+  <h1><%= @task[:name] %></h1>
 </header>
 
-  <h2>Status: Completed at <%= @task[:completed_at] %></h2>
+  <h2>Status: <%= @task[:completed_at].nil? ? "Incomplete" : "Completed at #{@task[:completed_at]}" %></h2>
   <p><%= @task[:description] %></p>
 <a href="/">Back to Tasklist</a>
 </body>
