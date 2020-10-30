@@ -1,11 +1,38 @@
-<%= form_with model: @task, class: 'create-task' do |f| %>
-  <p>Create a new task:</p>
+<div class="actions">
+  <div class="button"><%= link_to "All Tasks", tasks_path %></div>
+</div>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<div class="compressed-list">
+  <h2>YOUR TASKS</h2>
+  <ol>
+    <% Task.all.each do |task| %>
+      <li>
+        <% if task.completed_at.nil? %>
+          <%= link_to task.name.capitalize, task_path(task.id), class: "incomplete" %><br>
+          Mark Complete |
+        <% else %>
+          <%= link_to task.name.capitalize, task_path(task.id), class: "complete" %><br>
+          Unmark Complete |
+        <% end %>
+        <%= link_to "Edit", edit_task_path(task.id) %> |
+        <%= link_to "Delete", task_path(task.id), method: :destroy %>
+      </li>
+    <% end %>
+  </ol>
+</div>
 
-  <%= f.label :description %>
-  <%= f.text_field :description %>
+<div class="right-side-container">
+  <div class="form">
+    <%= form_with model: @task, class: 'create-task' do |f| %>
+      <p>Create a new task:</p>
 
-  <%= f.submit "Save Task", class: "task-save-button" %>
-<% end %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+
+      <%= f.submit "Save Task", class: "task-save-button" %>
+    <% end %>
+  </div>
+</div>
