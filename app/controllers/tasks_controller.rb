@@ -8,17 +8,12 @@ class TasksController < ApplicationController
     task_id = params[:id].to_i
     @task = Task.find_by(id: task_id)
     if @task.nil?
-      # idk what this is in words..
-      head 300
+      redirect_to tasks_path
       return
     end
   end
 
   def new
-    # i also dont get this
-    # i just copied it from the video
-    # why am i overwriting this instance variable?
-    # why do we even need this?
     @task = Task.new
   end
 
