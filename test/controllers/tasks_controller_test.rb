@@ -1,6 +1,11 @@
 require "test_helper"
 
 describe TasksController do
+
+  before do
+    @task = Task.create(name: "Test Task")
+  end
+
   let (:task) {
     Task.create name: "sample task", description: "this is an example for a test",
                 completed_at: Time.now + 5.days
@@ -11,7 +16,6 @@ describe TasksController do
     it "can get the index path" do
       # Act
       get tasks_path
-      #get "/tasks"
 
       # Assert
       must_respond_with :success
@@ -29,33 +33,30 @@ describe TasksController do
   # Unskip these tests for Wave 2
   describe "show" do
     it "can get a valid task" do
-      skip
-      # Act
-      get task_path(task.id)
-      # get "/tasks/1" instead
+      # # Act
+      # get task_path(task.id)
+      # # Assert
+      # must_respond_with :success
 
+      #Arrange - this part is from using-active-record-in-code-galvanize
+      valid_task_id = @task.id
+      # Act
+      get task_path(valid_task_id)
       # Assert
       must_respond_with :success
-      # must_respond_with :ok
-
     end
 
     it "will redirect for an invalid task" do
-      skip
       # Act
       get task_path(-1)
-      # get "/tasks/100"
 
       # Assert
       must_respond_with :redirect
-      # must_respond_with :not_found
     end
   end
 
   describe "new" do
     it "can get the new task page" do
-      skip
-
       # Act
       get new_task_path
 
@@ -66,7 +67,6 @@ describe TasksController do
 
   describe "create" do
     it "can create a new task" do
-      skip
 
       # Arrange
       task_hash = {
