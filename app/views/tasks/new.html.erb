@@ -1,0 +1,18 @@
+
+<%= form_with model: @task, class: 'create-task' do |task|%>
+  <p>Enter your information to create a new task:</p>
+
+  <%= task.label :name %>
+  <%= task.text_field :name %>
+
+  <%= task.label :description %>
+  <%= task.text_field :description %>
+
+  <%= task.label :completed_at %>
+  <%= task.text_field :completed_at %>
+
+  <%= task.submit "Create Task", class: "task-botton" %>
+<%end %>
+
+
+<p><%= link_to "Return to Task List", tasks_path %></p>
