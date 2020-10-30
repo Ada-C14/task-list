@@ -1,8 +1,4 @@
 <h1><%= @task.name %></h1>
 <h2><%= @task.description %></h2>
-
-<%#unless task.nil? %>
-  <h3>
-        <%# @task.completed_at.to_formatted_s(:twelvehr_long_ordinal)%>
-  </h3>
-<%# end %>
+<h3><%= display_task_completed_at(@task) %></h3>
+<%= link_to "Delete", task_path(@task), method: :delete %>

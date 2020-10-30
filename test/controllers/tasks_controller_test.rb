@@ -151,8 +151,8 @@ describe TasksController do
 
       # Act
       expect {
-        delete book_path(id)
-      }.must_change 'Book.count', -1
+        delete task_path(id)
+      }.must_change 'Task.count', -1
 
       task = Task.find_by(name: "Cry in Bed")
 
