@@ -3,6 +3,6 @@ TASKS = ["Write Jeremy happy birthday", "Find credit card", "BECU Fraud", "Apple
 class TasksController < ApplicationController
 
   def index
-    @tasks = TASKS
+    @tasks = Task.all
   end  
 end
