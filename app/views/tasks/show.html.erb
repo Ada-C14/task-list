@@ -5,6 +5,7 @@
   <p><%= @task.description %></p>
   <p>Completed: <%= @task.completed_at %></p>
   <%= link_to "Edit this Task", edit_task_path %>
+  <%= link_to "Delete this Task", task_path(@task.id), method: :delete %>
   <hr/>
   <p><%= link_to "Return to Task List", root_path %></p>
 </main>

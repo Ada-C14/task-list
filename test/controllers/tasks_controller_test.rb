@@ -95,34 +95,38 @@ describe TasksController do
     end
   end
   
-  # Uncomment and complete these tests for Wave 3
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
-    it "can update an existing task" do
 
-      task_hash = {
-        task: {
-          name: task.name,
-          description: "Updated description of task",
-          completed_at: task.completed_at,
-        }
+    before do
+      @task_hash = {
+          task: {
+              name: task.name,
+              description: "Updated description of task",
+              completed_at: task.completed_at,
+          }
       }
+    end
+
+
+    it "can update an existing task" do
       expect {
-        patch task_path(task.id), params: task_hash
+        patch task_path(task.id), params: @task_hash
       }.wont_change "Task.count"
 
-      new_task = Task.find_by(name: task_hash[:task][:name])
-      expect(new_task.description).must_equal task_hash[:task][:description]
-      expect(new_task.completed_at).must_equal task_hash[:task][:completed_at]
+      new_task = Task.find_by(name: @task_hash[:task][:name])
+      expect(new_task.description).must_equal @task_hash[:task][:description]
 
       must_respond_with :redirect
       must_redirect_to task_path(task.id)
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
-      patch task_path(-1), params: {task: {name: task.name, description: "New Description", completed_at: task.completed_at}}
+      expect {
+        patch task_path(-1), params: @task_hash
+      }.wont_change "Task.count"
+
       must_redirect_to root_path
     end
   end
@@ -139,8 +143,17 @@ describe TasksController do
     it "deletes a valid task" do
       task2 = Task.find_by(name: @task2_hash[:task][:name])
       expect {
-      delete task_path(task2.id)
+        delete task_path(task2.id)
       }.must_differ 'Task.count', -1
+    end
+
+
+    it "will redirect to the not found page if given an invalid id" do
+      expect {
+        delete task_path(-1)
+      }.wont_change 'Task.count'
+      must_respond_with :redirect
+      must_redirect_to task_not_found_path
     end
 
   end
@@ -150,4 +163,3 @@ describe TasksController do
     # Your tests go here
   end
 end
-
