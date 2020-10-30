@@ -39,8 +39,7 @@ class TasksController < ApplicationController
     end               
 
     def edit
-        task_id = params[:id]
-        @task = Task.find_by(id: task_id)
+        @task = Task.find_by(id: params[:id])
 
         if @task.nil?
             head :not_found
@@ -49,14 +48,18 @@ class TasksController < ApplicationController
     end
 
     def update
-        @task.update(
+        @task = Task.find_by(id: params[:id])
+
+        if @task.nil?
+            redirect_to tasks_path
+            return
+        elsif @task.update(
             name: params[:task][:name], 
             description: params[:task][:description], 
             completed_at: params[:task][:completed_at]
             )
-        
-        if @task.update
             redirect_to tasks_path
+            return
         else
             render :edit, :bad_request
             return
