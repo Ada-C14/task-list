@@ -24,8 +24,6 @@ Rails.application.routes.draw do
   # delete task
   delete "/tasks/:id", to: 'tasks#destroy'
 
-  # get a... complete task?
-
   # mark the completed at
   patch "/tasks/complete/:id", to: 'tasks#complete', as: "complete_task"
 
