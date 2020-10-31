@@ -1,11 +1,19 @@
-<h1>Tasklist</h1>
+<h1>Task List</h1>
 <ol>
   <% @tasks.each do |task|  %>
     <li>
-      <%= link_to task.name, task_path(task) %>
-      <%= link_to "Edit", edit_task_path(task) %>
+      <h3>
+          <%= link_to task.name, task_path(task) %>
+      </h3>
+      <%= link_to "Mark Complete", task_complete_path(task), method: :put %> |
+      <%= link_to "Edit", edit_task_path(task) %> |
       <%= link_to "Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"}%>
     </li>
   <% end %>
 </ol>
-<%= link_to "Add Task", new_task_path %>
+<% @tasks.completed do |task| %>
+  <strike><%= task.title %></strike>
+<% end %>
+
+<button><%= link_to "Add Task", new_task_path %></button>
+<footer>copyright 2020</footer>
