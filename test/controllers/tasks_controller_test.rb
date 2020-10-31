@@ -152,7 +152,9 @@ describe TasksController do
     end
 
     it "can redirect when trying to delete a task that doesn't exist" do
-      delete task_path(-1)
+      expect {
+        delete task_path(-1)
+      }.wont_change "Task.count"
 
       must_respond_with :redirect
     end
