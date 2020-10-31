@@ -21,5 +21,8 @@ Rails.application.routes.draw do
   # edit the task
   patch "/tasks/:id", to: 'tasks#update'
 
+  # delete task
+  delete "/tasks/:id", to: 'tasks#destroy'
+
 
 end

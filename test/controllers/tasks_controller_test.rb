@@ -136,7 +136,23 @@ describe TasksController do
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
+    it "deletes an exisiting task" do
+      old_task = task
+      expect{
+        delete task_path(old_task.id)
+    }.must_change "Task.count", -1
+
+    end
+
+    it "redirects for a nonexsistent task" do
+      delete task_path(-1)
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+
+
     
   end
   
