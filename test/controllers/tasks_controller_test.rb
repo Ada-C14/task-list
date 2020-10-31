@@ -116,7 +116,7 @@ describe TasksController do
       expect {
         patch task_path(task.id), params: task_hash
       }.wont_change 'Task.count'
-      
+
       task.reload
 
       expect(task.name).must_equal task_hash[:task][:name]
@@ -135,8 +135,27 @@ describe TasksController do
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
-    
+
+    it "can destroy a task" do
+      id = task.id # this creates the task so count registers as 1
+      # Act
+      expect {
+        delete task_path(id)
+      }.must_change 'Task.count', -1 # Assert
+
+      task = Task.find_by(name: "sample task")
+
+      expect(task).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "can redirect when trying to delete a task that doesn't exist" do
+      delete task_path(-1)
+
+      must_respond_with :redirect
+    end
   end
   
   # Complete for Wave 4
