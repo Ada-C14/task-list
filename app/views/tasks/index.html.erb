@@ -24,7 +24,7 @@
           <ul>
             <li><%= link_to "View", task_path(task.id), method: :get %></li>
             <li><%= link_to "Edit", edit_task_path(task.id), method: :get %></li>
-            <li>Mark complete</li>
+            <li><%= link_to "Toggle complete", toggle_complete_task_path(task.id), method: :patch %></li>
             <li><%= link_to "Delete", task_path(task.id), method: :delete %></li>
           </ul>
         </li>
