@@ -111,10 +111,6 @@ describe TasksController do
     it "can update an existing task" do
       # Arrange
       task = Task.first
-      p Task.all
-      p task
-      p Task.count
-      p task_hash
 
       # Act-Assert
       expect {
@@ -132,7 +128,8 @@ describe TasksController do
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      patch task_path(-1)
+      must_respond_with :redirect
     end
   end
   
