@@ -85,33 +85,60 @@ describe TasksController do
   # Unskip and complete these tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      skip
-      # Your code here
+      #Task.create(name: "Test your Program!", description: "Because it's likely gonna have bugs in it!", completed_at: "September 9, 2020")
+      # act
+      get edit_task_path(task.id)
+
+      # assert
+      must_respond_with :success
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+
+      get edit_task_path(-1)
+
+      # Assert
+      must_respond_with :redirect
     end
   end
   
   # Uncomment and complete these tests for Wave 3
   describe "update" do
-    # Note:  If there was a way to fail to save the changes to a task, that would be a great
-    #        thing to test.
+
     it "can update an existing task" do
-      # Your code here
+      #arrange
+      task = Task.create(name: "Finish Rails homework", description: "Somewhat challenging.", completed_at: "Today")
+
+      task_hash = {
+          task: {
+              name: "new task",
+              description: "new task description",
+              completed_at: (Time.now + 5.days).to_s
+          }
+      }
+
+
+      id = task.id
+
+      expect {
+        patch task_path(id), params: task_hash
+      }.must_differ 'Task.count', 0 #updating the book, we're not adding a book
+
+      must_redirect_to task_path(id)
+
+      new_task = Task.find_by(id: id)
+      expect(new_task.name).must_equal task_hash[:task][:name]
+      expect(new_task.description).must_equal task_hash[:task][:description]
+      expect(new_task.completed_at).must_equal task_hash[:task][:completed_at]
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
     # Your tests go here
-    
   end
   
   # Complete for Wave 4
