@@ -5,15 +5,7 @@ class TasksController < ApplicationController
 
   def show
     id = params[:id].to_i
-    # if Task.find(id).nil?
-    #   flash[:error] = "Item not found"
-    # else
     @task = Task.find(id)
-    # end
-
-    # redirect_to tasks_path if @task.nil?
-
-    # head :redirect if @task.nil?
   end
 
   def new
@@ -31,5 +23,9 @@ class TasksController < ApplicationController
     else
       render :new, :bad_request
     end
+  end
+
+  def edit
+    # @task = Task.find_by(id: params[id])
   end
 end
