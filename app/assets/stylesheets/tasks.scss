@@ -69,6 +69,11 @@ header h2 {
   box-shadow: 10px 10px 0px 0px #ff6b6b;
 }
 
+.list.edit-list#form-page {
+  background-color: #F8C9CD;
+  box-shadow: 10px 10px 0px 0px #1D3557;
+}
+
 .list h2, .compressed-list h2, .right-side-container h2 {
   margin-top: 15px;
 }
@@ -101,6 +106,19 @@ form button {
 
 form button:hover {
   background-color: #7cb518;
+  font-style: italic;
+}
+
+.list.edit-list#form-page form button {
+  display: block;
+  letter-spacing: 2px;
+  outline: none;
+  border: 3px solid black;
+  background-color: #A8DADC;
+}
+
+.list.edit-list#form-page form button:hover {
+  background-color: #E63946;
   font-style: italic;
 }
 
@@ -183,6 +201,14 @@ li a.incomplete:hover, li a.complete:hover {
 
 #form-page .button:hover {
   background-color: #0d1321;
+}
+
+.edit-list#form-page .button {
+  background-color: #f1faee;
+}
+
+.edit-list#form-page .button:hover {
+  background-color: #1d3557;
 }
 
 .list .button a:link, .list .button a:visited {
