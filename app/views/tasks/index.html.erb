@@ -7,21 +7,17 @@
   <ul>
     <% @tasks.each do |task| %>
     <li>
-      <div class="row">
-        <input type="checkbox"> <span>
+      <% if task.completed_at.nil? %>
         <%= link_to task.name, task_path(task.id) %><%=" - " + task.description %>
-        <%= button_to "Edit", edit_task_path(task.id), method: :get %>
-        <%= button_to "Delete", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"}%>
-        <% if task.completed_at.nil? %>
-          <%= button_to "🔲 Mark Complete?", complete_task_path(task.id), method: :get %>
-        <% else %>
-          <%= button_to "☑️ Unmark Complete?", complete_task_path(task.id), method: :get %>
-          <%#= button_to "Mark Uncomplete?", complete_task_path(task.id), method: :get
-          # how do I then return the value to nil?  Have an entire uncomplete method too? %>
-        <% end %>
-
-      </span>
-      </div>
+        <%= button_to "🔲 Mark Complete?", complete_task_path(task.id), method: :get %>
+      <% else %>
+        <div class="strike-thru">
+          <%= link_to task.name, task_path(task.id) %><%=" - " + task.description %>
+        </div>
+        <%= button_to "☑️ Unmark Complete?", complete_task_path(task.id), method: :get %>
+      <% end %>
+    <%= button_to "Edit", edit_task_path(task.id), method: :get %>
+    <%= button_to "Delete", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"}%>
     </li>
     <% end %>
   </ul>
