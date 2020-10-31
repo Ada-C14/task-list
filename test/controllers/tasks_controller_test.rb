@@ -128,7 +128,7 @@ describe TasksController do
     end
     
     it "will redirect to the root page if given an invalid id" do
-      patch task_path(-1)
+      patch task_path(-1), params: task_hash
       must_respond_with :redirect
     end
   end
