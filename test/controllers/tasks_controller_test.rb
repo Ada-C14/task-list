@@ -76,12 +76,12 @@ describe TasksController do
         post tasks_path, params: task_hash
       }.must_change "Task.count", 1
       
-      new_task = Task.find_by(name: task_hash[:task][:name])
-      expect(new_task.description).must_equal task_hash[:task][:description]
-      expect(new_task.completed_at).must_equal task_hash[:task][:completed_at]
+      editted_task = Task.find_by(name: task_hash[:task][:name])
+      expect(editted_task.description).must_equal task_hash[:task][:description]
+      expect(editted_task.completed_at).must_equal task_hash[:task][:completed_at]
       
       must_respond_with :redirect
-      must_redirect_to task_path(new_task.id)
+      must_redirect_to task_path(editted_task.id)
     end
   end
   
@@ -111,11 +111,42 @@ describe TasksController do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
     it "can update an existing task" do
-      # Your code here
+
+      # Arrange
+
+      get task_path(task.id)
+
+      task_edit = {
+        task: {
+          name: "editted task name",
+          description: "editted task description",
+          completed_at: nil,
+        },
+      }
+      
+      # Act-Assert 
+
+      expect {
+        patch task_path(task.id), params: task_edit
+      }.wont_change "Task.count"
+      
+      editted_task = Task.find_by(name: task_edit[:task][:name])
+      expect(editted_task.description).must_equal task_edit[:task][:description]
+      expect(editted_task.completed_at).must_equal task_edit[:task][:completed_at]
+      
+      must_respond_with :redirect
+      must_redirect_to task_path(editted_task.id)
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      # it makes more sense to me to have it redirect to the edit page to have them try again??
+      id = -1
+
+      expect {
+        patch task_path(id), params: task
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
     end
   end
   

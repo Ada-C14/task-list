@@ -58,7 +58,7 @@ class TasksController < ApplicationController
             description: params[:task][:description], 
             completed_at: params[:task][:completed_at]
             )
-            redirect_to tasks_path
+            redirect_to task_path(@task.id)
             return
         else
             render :edit, :bad_request
