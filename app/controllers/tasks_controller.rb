@@ -6,7 +6,7 @@
 
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    @tasks = Task.all.order("created_at")
   end
 
   def show
@@ -79,6 +79,21 @@ class TasksController < ApplicationController
       render :notfound, status: :not_found
     end
   end
+
+  def complete
+    @task = Task.find_by(id: params[:id])
+      if @task.nil?
+        head :not_found
+        return
+      else
+        @task.update(completed_at: Time.now)
+        redirect_to tasks_path
+        return
+      end
+  end
+
 end
+
+
 
 
