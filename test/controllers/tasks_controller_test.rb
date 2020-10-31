@@ -116,8 +116,8 @@ describe TasksController do
       expect {
         patch task_path(task.id), params: task_hash
       }.wont_change 'Task.count'
-
-      task = Task.find_by(id: task.id)
+      
+      task.reload
 
       expect(task.name).must_equal task_hash[:task][:name]
       expect(task.description).must_equal task_hash[:task][:description]
