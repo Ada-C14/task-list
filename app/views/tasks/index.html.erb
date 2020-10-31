@@ -1,13 +1,18 @@
 <h1>TASKS</h1>
+<%= link_to "Create New Task", new_task_path %>
+
 <ol class="tasks">
   <% @tasks.each do |task| %>
 
-    <li> Title: <%= link_to task.name, task_path(task.id) %>
+    <li> Title:  <%= task.name %> <%= link_to "Edit", edit_task_path(task) %>
+      <%= link_to "Details", task_path(task.id) %>
+      <%= link_to "Delete", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"}  %>
+
       <p> Description: <%= task.description %> </p>
-      <p> Completed at: <%= task.completed_at %>
+      <p> Completed at: <%= task.completed_at %> </br>
     </li>
   <% end %>
 
 </ol>
 
-<%= link_to "Create New Task", new_task_path %>
+

@@ -25,7 +25,7 @@ class TasksController < ApplicationController
   def create
     #instantiate a new task
     @task = Task.new(
-        name: params[:task][:name],
+        name: params[:task][:title],           # my table colume is saved as name, but my form has title
         description: params[:task][:description],
         completed_at: params[:task][:completed_at])
 
@@ -38,6 +38,47 @@ class TasksController < ApplicationController
       render :new, :bad_request       #show the new task form view again
       return
     end
+
   end
 
+  def edit
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      head :not_found
+      return
+    end
+  end
+
+  def update
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      head :not_found
+      return
+    elsif @task.update(
+        name: params[:task][:title],
+        description: params[:task][:description],
+        completed_at: params[:task][:completed_at]
+    )
+      redirect_to tasks_path # go to the index so we can see the task in the list
+      return
+    else              # save failed :(
+      render :edit      # show the new task form view again
+      return
+    end
+  end
+
+  def destroy
+    task_id = params[:id]
+    @task = Task.find_by(id: task_id)
+
+    if @task
+      @task.destroy
+      redirect_to tasks_path
+    else
+      render :notfound, status: :not_found
+    end
+  end
 end
+
+
