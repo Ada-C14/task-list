@@ -13,7 +13,11 @@
       <li><%= link_to "Delete Task: #{@task.name}", task_path(@task.id), method: :delete , data: {confirm: "Are you sure you want to delete this task?"}%></li>
     </ul>
   </nav>
-  <h1><%= @task[:name] %></h1>
+  <% if @task[:completed_at].nil?%>
+    <h1><%= @task[:name] %></h1>
+  <% else %>
+    <h1><strike><%= @task[:name] %></strike></h1>
+  <% end %>
 </header>
 
   <h2>Status: <%= @task[:completed_at].nil? ? "Incomplete" : "Completed at #{@task[:completed_at]}" %></h2>
