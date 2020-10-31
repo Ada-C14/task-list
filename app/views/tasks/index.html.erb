@@ -1,8 +1,11 @@
 <h1>Task List</h1>
 <ul>
-  <% Task.all.each do |task|  %>
+  <% @tasks.each do |task|  %>
     <li>
-      Task: <%= task.name %>, Description: <%= task.description %>, Completed at: <%= task.completed_at %>
+      Task: <%= link_to task.name, task_path(task) %>,
+      Description: <%= task.description %>,
+      Completed at: <%= task.completed_at %> <%= link_to "Edit Task", edit_task_path(task) %>
     </li>
   <% end %>
 </ul>
+<%= link_to "Add Task", new_task_path %>
