@@ -16,7 +16,15 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new
+    # task_id = params[:id]
+    # @task = Task.find_by(id: task_id)
+    #
+    # if @task.nil?
+      @task = Task.new
+    # else
+    #   redirect_to edit_task_path(@task)
+    #   return
+    # end
   end
 
   def create
@@ -43,6 +51,7 @@ class TasksController < ApplicationController
       return
     else
       render :new
+      return
     end
   end
 
