@@ -10,7 +10,7 @@
       <li><%= link_to "Home", root_path, method: :get %></li>
       <li><%= link_to "Edit", edit_task_path(@task.id), method: :get %></li>
       <li><%= link_to "Toggle complete", toggle_complete_task_path(@task.id), method: :patch %></li>
-      <li><%= link_to "Delete Task: #{@task.name}", task_path(@task.id), method: :delete %></li>
+      <li><%= link_to "Delete Task: #{@task.name}", task_path(@task.id), method: :delete , data: {confirm: "Are you sure you want to delete this task?"}%></li>
     </ul>
   </nav>
   <h1><%= @task[:name] %></h1>

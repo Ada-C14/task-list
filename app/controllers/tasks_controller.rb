@@ -60,7 +60,7 @@ class TasksController < ApplicationController
   def destroy
     task_id = params[:id]
     @task = Task.find_by(id: task_id)
-
+    # NOTE: confirmation page is handled by index and show pages as a dialog box.
     if @task
       @task.destroy
       redirect_to tasks_path
