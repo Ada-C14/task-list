@@ -17,16 +17,44 @@
 
 @import "**/*";
 
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
 body {
-  display: flex;
-  align-items: center;
+  font-family: 'Merriweather', serif;
+  display: grid;
+  grid-template-rows: 100px 1fr 25px;
+  grid-template-columns: 1fr;
+  justify-content: center;
 }
 
 header {
+  grid-row: 1 / 2;
+  width: 100%;
   background-color: #e0b1ea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  grid-row: 2 / -2;
+  text-align: center;
 }
 
 footer {
+  grid-row: -2 / -1;
+  width: 100%;
+  display: flex;
   font-size: 8pt;
   background-color: #e0b1ea;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn a {
+  color: white;
+}
+
+.btn {
+  width: 175px;
 }

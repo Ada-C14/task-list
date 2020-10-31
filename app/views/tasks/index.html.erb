@@ -1,6 +1,3 @@
-<header>
-  <h3>Task List</h3>
-</header>
 <main>
   <ol>
     <% @tasks.each do |task| %>
@@ -10,5 +7,5 @@
     <% end %>
   </ol>
 
-  <%= link_to "Add New Task", new_task_path %>
+  <%= button_to "Add New Task", new_task_path, method: :get, class: "btn btn-success" %>
 </main>

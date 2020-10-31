@@ -1,11 +1,8 @@
-<header>
-  <h3>Task <%= @task.name %></h3>
-</header>
 <main>
+  <h5>Task <%= @task.name %></h5>
   <p><%= @task.description %></p>
   <p>Completed: <%= @task.completed_at %></p>
-  <%= link_to "Edit this Task", edit_task_path %>
-  <%= link_to "Delete this Task", task_path(@task.id), method: :delete %>
-  <hr/>
-  <p><%= link_to "Return to Task List", root_path %></p>
+  <%= button_to "Edit Task", edit_task_path, method: :get, class: "btn btn-warning btn-sm" %>
+  <%= button_to "Delete Task", confirm_delete_task_path(@task.id), method: :get, class: "btn btn-danger btn-sm" %>
+  <%= button_to "Return to Task List", root_path, method: :get, class: "btn btn-primary" %>
 </main>

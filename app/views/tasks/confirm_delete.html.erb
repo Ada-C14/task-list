@@ -1,0 +1,10 @@
+<main>
+  <h5>Task <%= @task.name %></h5>
+  <p><%= @task.description %></p>
+  <p>Completed: <%= @task.completed_at %></p>
+  <p<em>Are you sure you want to delete <%= @task.name %></em></p>
+  <%= button_to "Cancel", task_path(@task.id), method: :get, class: "btn btn-secondary btn-sm" %>
+  <%= button_to "Delete this Task", task_path(@task.id), method: :delete, class: "btn btn-danger btn-sm" %>
+  <%= button_to "Return to Task List", root_path, method: :get, class: "btn btn-primary" %>
+</main>
+

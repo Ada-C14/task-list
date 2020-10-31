@@ -1,20 +1,18 @@
-<header>
-  <h3>Create New Task</h3>
-</header>
 <main>
+  <h5>Create/Edit Task</h5>
   <%= form_with model: @task do |f| %>
     <p>Enter information for the new task:</p>
 
     <%= f.label :name %>
     <%= f.text_field :name %>
-
+    <br/>
     <%= f.label :description %>
     <%= f.text_field :description %>
-
+    <br/>
     <%= f.label :completed_at %>
     <%= f.text_field :completed_at %>
-
-    <%= f.submit "Add to Task List" %>
+    <br/>
+    <%= f.submit "Save Task" %>
   <% end %>
 
 </main>
