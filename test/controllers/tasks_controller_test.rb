@@ -153,12 +153,32 @@ describe TasksController do
   # Complete these tests for Wave 4
   describe "destroy" do
     it "deletes a task that previously existed" do
+      # Arrange
+      get task_path(task.id)
+
+      # Act-Assert
+      expect {
+        delete task_path(task.id)
+      }.must_change "Task.count", -1
     end
     
     it "redirects to root index after deleting said task" do
+            # Arrange
+            get task_path(task.id)
+
+            # Act-Assert
+            expect {
+              delete task_path(task.id)
+            }.must_respond_to :redirect
+            must_redirect_to tasks_path
     end
     
     it "responds with 404 error if task is not found" do
+       # Act
+       delete task_path(-1)
+      
+       # Assert
+       must_respond_with :not_found
     end  
     
   end
