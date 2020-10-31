@@ -43,12 +43,20 @@ main {
   text-align: center;
 }
 
-main .task-list {
+main.task-list {
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr;
-  justify-content: center;
-  align-items: center;
+}
+
+main.task-list a {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+main.task-list .btn {
+  grid-column: -2 / -1;
+  grid-row: 1 / 2;
 }
 
 footer {
@@ -61,10 +69,18 @@ footer {
   align-items: center;
 }
 
-.btn a {
-  color: white;
-}
-
 .btn {
   width: 175px;
+}
+
+.btn-outline-success {
+  font-size: 8pt;
+}
+
+.btn-outline-warning {
+  font-size: 8pt;
+}
+
+.completed {
+    text-decoration: line-through;
 }

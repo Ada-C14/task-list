@@ -10,7 +10,7 @@
     <%= f.text_field :description %>
     <br/>
     <%= f.label :completed_at %>
-    <%= f.text_field :completed_at %>
+    <%= f.text_field :completed_at.strftime("On %m/%d/%Y at %I:%M %p") %>
     <br/>
     <%= f.submit "Save Task", class: "btn btn-success btn-sm" %>
   <% end %>
