@@ -36,4 +36,13 @@ class TasksController < ApplicationController
       render :new, :bad_request
     end
   end
+
+  def edit
+  end
+
+  def update
+  end
+
+  def destroy
+  end
 end
