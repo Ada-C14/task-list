@@ -14,7 +14,7 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: task_id)
 
     if @task.nil?
-      redirect_to '/tasks'
+      redirect_to tasks_path
       return
     end
   end
@@ -38,9 +38,31 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      redirect_to root_path
+      return
+    end
   end
 
   def update
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      head :not_found
+      return
+    elsif @task.update(
+        name: params[:task][:name],
+        description: params[:task][:description],
+        completed_at: params[:task][:completed_at]
+    )
+      redirect_to tasks_path  # go to the index so we can see the task in the list
+      return
+    else  # save failed
+      render :edit  # show the new task form view again
+      return
+    end
   end
 
   def destroy
