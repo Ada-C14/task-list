@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   resources :tasks
 
+  patch '/tasks/:id/complete', to: 'tasks#toggle_complete', as: 'toggle' # save the new task?
+
   # Add routes that have to do with the collection of tasks
   # get '/tasks', to: 'tasks#index', as: 'tasks' # lists all books
   # get 'tasks/new', to: 'tasks#new', as: 'new_task' # gets a form for a new task

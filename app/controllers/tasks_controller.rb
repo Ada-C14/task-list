@@ -70,6 +70,34 @@ class TasksController < ApplicationController
         end
       end
 
+    def toggle_complete
+
+        @task = Task.find_by(id: params[:id])
+
+        # toggle_param = {
+        #     name: params[:task][:name], 
+        #     description: params[:task][:description], 
+        #     completed_at: Time.now
+        # } 
+        
+        if @task.nil?
+            redirect_to root_path
+            return
+        elsif @task.update(
+            completed_at: Time.now
+          )
+            # patch task_path(@task.id), params: toggle_param
+            redirect_to task_path(@task.id)
+            return    
+        # elsif @task.toggle_complete(toggle_param)
+        #     redirect_to task_path(@task.id)
+        #     return
+        # else
+        #     render :edit, :bad_request
+        #     return
+        end  
+    end      
+
     private
 
     def task_params
