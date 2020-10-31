@@ -1,2 +1,8 @@
 <h2>Selected task:</h2>
-<p><%= @task.name %> - <%= @task.description %> Completed:<%= @task.completed %></p>
+<p><%= @task.name %> - <%= @task.description %> Completed:<%= @task.completed_at %>
+  <%= button_to "Edit", edit_task_path(@task.id), method: :get %>
+  <%= button_to "Delete", task_path(@task), method: :delete, data: {confirm: "Are you sure?"}%>
+
+  <%= link_to "Mark Completed", complete_task_path(@task.id), method: #cannot do :patch here %>
+
+</p>

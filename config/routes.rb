@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   get '/tasks/new', to: 'tasks#new', as: 'new_task'
   post '/tasks', to: 'tasks#create'
 
-  # routes that operate on indvidual tasks
+  # routes that operate on individual tasks
+  get '/tasks/:id/edit', to: 'tasks#edit', as: 'edit_task'
   get '/tasks/:id', to: 'tasks#show', as: 'task' #get details of 1 task
+  patch '/tasks/:id/complete', to: 'tasks#complete', as: 'complete_task'
+  patch '/tasks/:id', to: 'tasks#update'
+  delete '/tasks/:id', to: 'tasks#destroy'
+
+  #delete is next
 end

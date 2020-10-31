@@ -6,9 +6,25 @@
 <% if @tasks.length > 0 %>
   <ul>
     <% @tasks.each do |task| %>
-    <li> <%= task.name + " - " + task.description %></li>
+    <li>
+      <div class="row">
+        <input type="checkbox"> <span>
+        <%= link_to task.name, task_path(task.id) %><%=" - " + task.description %>
+        <%= button_to "Edit", edit_task_path(task.id), method: :get %>
+        <%= button_to "Delete", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"}%>
+        <%#= if task.completed_at.nil? %>
+<!--          <p>Mark Complete?</p>-->
+        <%#= else %>
+<!--          <p>Unmark Complete?</p>-->
+        <%#= end %>
+
+      </span>
+      </div>
+    </li>
     <% end %>
   </ul>
-<%else %>
+<% else %>
   <h3>No tasks in the system yet😥 time to add some tasks!</h3>
 <% end %>
+
+<%= button_to "Create New Task", new_task_path, method: :get %>
