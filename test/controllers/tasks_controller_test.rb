@@ -87,7 +87,6 @@ describe TasksController do
     end
     
     it "will respond with redirect when attempting to edit a nonexistent task" do
-      # Your code here
       get edit_task_path(-1)
       must_respond_with :redirect
       must_redirect_to root_path
@@ -111,7 +110,6 @@ describe TasksController do
       }
     }
     it "can update an existing task" do
-      # Your code here
       id = Task.first.id 
       expect {
         patch task_path(id), params: new_task_hash
@@ -126,7 +124,6 @@ describe TasksController do
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
       id = -1 
 
       expect {
@@ -140,7 +137,6 @@ describe TasksController do
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
     it "should delete an existing task and redirect to the index page" do
       # Arrange
       sample_task = Task.create(name: "sample task", description: "sample description")
