@@ -68,7 +68,7 @@ class TasksController < ApplicationController
         completed_at:  Time.new.strftime("%Y-%m-%d")
         )
     end
-    # redirect_to tasks_path
+    redirect_to tasks_path
   end
 
 end

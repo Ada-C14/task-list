@@ -156,13 +156,22 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    it "updates a task completed at" do
+    it "updates a tasks completed at" do
       old_task = task
 
       patch complete_task_path(old_task.id)
 
       completed_task = Task.find_by(name: old_task.name)
       assert completed_task.completed_at != nil
+    end
+
+    it "redirects" do
+      old_task = tasks
+      patch complete_task_path(old_task.id)
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+
     end
 
   end
