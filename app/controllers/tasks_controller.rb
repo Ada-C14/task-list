@@ -1,6 +1,5 @@
 
 class TasksController < ApplicationController
-    
     def index
         @tasks =Task.all
     end
@@ -9,7 +8,7 @@ class TasksController < ApplicationController
         task_id = params[:id]
         @task = Task.find_by(id: task_id)
         if @task.nil?
-            head :not_found
+            redirect_to tasks_path
             return
         end
     end
@@ -52,4 +51,14 @@ class TasksController < ApplicationController
         end
     end
 
+    def delete
+        task = Task.find(params[:id])
+        if task.destroy
+            redirect_to tasks_path
+        end
+    end
+
+    def complete #need to make completed task an array?
+        @completed_tasks = Task.find(pramas[:id])
+    end
 end

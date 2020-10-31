@@ -2,10 +2,17 @@
 <% if @tasks.length > 0 %>
     <ul>
     <% @tasks.each do |task| %>
-        <li> <%= link_to task.name, task_path(task) %></li>
-        <%end %>
+        <% if task.completed_at.nil? %>
+            <li> <%= link_to  safe_task_name(task), task_path(task) %></li>
+        <% else %>
+            <li class="completed_task"> <%= link_to safe_task_name(task), task_path(task) %></li>
+        <% end %>
+    <% end %>
     </ul>
-
 <% else %>
         <h3>No tasks</h3>
 <% end %>
+
+<p>
+    <%= link_to "Add a New Task", new_task_path %>
+</p>
