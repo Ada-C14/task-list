@@ -1,1 +1,18 @@
-<h1> Edit page </h1>
+<h3> Edit task: </h3>
+<%= form_with model: @task, class: 'task-form' do |f| %>
+  <p> Please provide the following information to edit your task in our database: </p>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  <div>
+    <%= f.label :completed_at %>
+    <%= f.text_field :completed_at %>
+  </div>
+  <%= f.submit "Edit Task" %>
+<% end %>
+

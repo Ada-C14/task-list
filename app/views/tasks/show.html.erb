@@ -1,4 +1,6 @@
 <h1> Tasks</h1>
 <!--<h2>Name: <%#= @task[:name] %> Description: <%#= @task[:description] %> Completed at: <%#= @task[:completed_at] %></h2>-->
 
-<h2>Name: <%= link_to @task[:name], '/tasks/:id' %> Description: <%= link_to @task[:description], '/tasks/:id' %> Completed at: <%=  link_to @task[:completed_at], '/tasks/:id' %></h2>
+<h4>Name: <%= link_to @task[:name], '/tasks/:id' %> Description: <%= link_to @task[:description], '/tasks/:id' %> Completed at: <%=  link_to @task[:completed_at], '/tasks/:id' %></h4>
+<%= link_to "Edit Tasks", edit_task_path(@task) %>
+<h4><%= link_to "Return to home", tasks_path %></h4>

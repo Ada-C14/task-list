@@ -8,26 +8,53 @@ class TasksController < ApplicationController
   end
 
   def show
-
     task_id = params[:id].to_i
     @task = Task.find_by(id: task_id)
+    #
     if @task.nil?
        redirect_to root_path
     end
-
-
   end
 
   def update
-
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      redirect_to root_path
+      # head :not_found
+      return
+    elsif  @task.update(
+        name: params[:task][:name],
+        description: params[:task][:description],
+        completed_at: params[:task][:completed_at]
+    )
+      redirect_to task_path
+      return
+    else
+      render :edit # show the new book form view again
+    end
   end
 
   def edit
-
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      redirect_to tasks_path
+      return
+    end
   end
 
   def destroy
+    task_id = params[:id]
+    @task = Task.find_by(id: book_id)
 
+    if @task.nil?
+      head :not_found
+      return
+    end
+
+    @task.destroy
+
+    redirect_to tasks_path
+    return
   end
 
   def new

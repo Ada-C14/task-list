@@ -1,6 +1,7 @@
 <h2> To Do: </h2>
 <ul>
 <% @tasks.each do |task| %>
-<li> <%= task[:name] %> - <%= task[:description] %> - Completed: <%= task[:completed_at]  %></li>
-<% end %>
+<li> <%= link_to task[:name], task_path(task) %> - <%= task[:description] %> - Completed: <%= task[:completed_at]  %></li>
+<%= link_to "Edit Task", edit_task_path(task) %>
+  <% end %>
 </ul>
