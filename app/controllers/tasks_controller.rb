@@ -44,7 +44,7 @@ class TasksController < ApplicationController
 
   def destroy
     task_id = params[:id]
-    @task = Task.find_by(id: book_id)
+    @task = Task.find_by(id: task_id)
 
     if @task.nil?
       head :not_found
@@ -73,4 +73,18 @@ class TasksController < ApplicationController
 
     end
   end
+
+  # def toggle_complete
+  #   @task = Task.find(params[:id])
+  #   @task.completed = true
+  #   @task.save
+  #   redirect_to current_user
+  # end
+  #
+  # def incomplete
+  #   @task = Task.find(params[:id])
+  #   @task.completed = false
+  #   @task.save
+  #   redirect_to current_user
+  # end
 end

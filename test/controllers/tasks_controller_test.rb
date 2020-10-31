@@ -162,7 +162,32 @@ describe TasksController do
   # Complete these tests for Wave 4
   describe "destroy" do
     # Your tests go here
-    
+    it "can destroy a task" do
+      # Arrange
+      task_1 = Task.new(name: "voteeee", description: "voteeee before election", completed_at: "idk")
+
+      task_1.save
+      id = task_1.id
+
+      # Act
+      expect {
+        delete task_path(id)
+
+        # Assert
+      }.must_change "Task.count", -1
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+
+    it "will respond with not_found for invalid ids" do
+      expect {
+        delete task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
+    end
   end
   
   # Complete for Wave 4
