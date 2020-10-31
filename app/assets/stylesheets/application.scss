@@ -49,12 +49,12 @@ main.task-list {
   grid-template-rows: 1fr;
 }
 
-main.task-list a {
+main.task-list .task-name {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
 }
 
-main.task-list .btn {
+main.task-list .buttons {
   grid-column: -2 / -1;
   grid-row: 1 / 2;
 }

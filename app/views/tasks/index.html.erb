@@ -3,13 +3,17 @@
     <% @tasks.each do |task| %>
       <li>
         <% if task.completed_at == "N/A" %>
-          <%= link_to task.name, task_path(task) %>
+          <section class="task-name">
+            <%= link_to task.name, task_path(task) %>
+          </section>
           <article class="buttons">
             <%= button_to "Mark Task 'Complete'", task_path(task.id), method: :patch, data: { confirm: "Are you sure you want to mark this task as Completed?" }, params: {task: {name: task.name, description: task.description, completed_at: Time.now}}, class: "btn btn-outline-success" %>
             <%= button_to "Delete Task", task_path(task.id), method: :delete, data: { confirm: "Are you sure you want to delete this task?" }, class: "btn btn-danger btn-sm" %>
           </article>
         <% else %>
-          <%= link_to task.name, task_path(task), class: "completed" %>
+          <section class="task-name">
+            <%= link_to task.name, task_path(task), class: "completed" %>
+          </section>
           <article class="buttons">
             <%= button_to "Mark Task 'Incomplete'", task_path(task.id), method: :patch, params: {task: {name: task.name, description: task.description, completed_at: "N/A"}}, class: "btn btn-outline-warning" %>
             <%= button_to "Delete Task", task_path(task.id), method: :delete, data: { confirm: "Are you sure you want to delete this task?" }, class: "btn btn-danger btn-sm" %>
