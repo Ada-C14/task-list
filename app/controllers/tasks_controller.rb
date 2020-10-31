@@ -1,9 +1,3 @@
-# TASKS = [
-#     { id: "Task One"},
-#     { id: "Task Two"},
-#     { id: "Task Three"}
-# ]
-
 class TasksController < ApplicationController
     def index
         @tasks = Task.all
@@ -70,7 +64,6 @@ class TasksController < ApplicationController
       end
 
     def toggle_complete
-
         @task = Task.find_by(id: params[:id])
         
         if @task.nil?
