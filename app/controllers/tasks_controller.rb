@@ -1,22 +1,26 @@
-# TASKS = [
-#     {description: "pay bills", date: "10/12", priority: "high"},
-#     {description: "shopping", date: "10/25", priority: "low"},
-#     {description: "homework", date: "10/30", priority: "high"}
-# ]
-
-
 class TasksController < ApplicationController
-
+  # Tasks = [
+  #     {name: "The First Task", description: "", completed_at: random_time},
+  #     {name: "Go to Brunch", description: ""},
+  #     {name: "Go to Lunch", description: "", completed_at: random_time},
+  #     {name: "Go to Second Lunch", description: ""},
+  #     {name: "Play Video Games", description: "", completed_at: random_time},
+  #     {name: "High Five Somebody You Don't Know", description: "", completed_at: random_time},
+  #     {name: "Plant Flowers", description: "", completed_at: random_time},
+  #     {name: "Call Mom", description: ""},
+  #     {name: "She worries, you know.", description: ""},
+  #     {name: "Nap.", description: "", completed_at: random_time},
+  # ]
 
   def index
     @tasks = Task.all
   end
 
   def show
-    task_id = params[:id]
+    task_id = params[:id].to_i
     @task = Task.find_by(id: task_id)
     if @task.nil?
-      redirect_to action: "show"
+      redirect_to tasks_path
       return
     end
   end
@@ -31,7 +35,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path(@task.id) #send the user to the /tasks path
       return
     else
-      render :new, :bad_request
+      render :new
     end
   end
 
@@ -49,13 +53,11 @@ class TasksController < ApplicationController
     if @task.nil?
       redirect_to root_path
       return
-    elsif
-      @task.update(task_params)
-      redirect_to(task_path) # go to the index
+    elsif @task.update(task_params)
+      redirect_to tasks_path(@task.id) # go to the index
       return
     else #save failed
       render :edit  # show the new book from view again
-      return
     end
   end
 
