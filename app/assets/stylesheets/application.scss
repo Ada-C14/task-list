@@ -43,6 +43,14 @@ main {
   text-align: center;
 }
 
+main .task-list {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
 footer {
   grid-row: -2 / -1;
   width: 100%;

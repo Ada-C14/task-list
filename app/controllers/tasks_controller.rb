@@ -90,21 +90,25 @@ class TasksController < ApplicationController
     end
   end
 
-  def not_found
-    render :template => 'tasks/not_found',:status => :not_found
-    return
-  end
-
-  def confirm_delete
+  def mark_complete
     task_id = params[:id]
     @task = Task.find_by(id: task_id)
+
     if @task.nil?
       redirect_to task_not_found_path
       return
+    elsif @task.completed_at Time.now
+
+      return
     else
-      render :template => 'tasks/confirm_delete', :layout => true, :status => :not_found
+      redirect_to task_path(@task)
       return
     end
+  end
+
+  def not_found
+    render :template => 'tasks/not_found',:status => :not_found
+    return
   end
 
 end

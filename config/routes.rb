@@ -8,12 +8,10 @@ Rails.application.routes.draw do
   post '/tasks', to: 'tasks#create'
 
   get '/tasks/not_found', to: 'tasks#not_found', as: 'task_not_found'
-  get '/tasks/:id/confirm_delete', to: 'tasks#confirm_delete', as: 'confirm_delete_task'
 
   get '/tasks/:id', to: 'tasks#show', as: 'task'
   get '/tasks/:id/edit', to: 'tasks#edit', as: 'edit_task'
   patch '/tasks/:id', to: 'tasks#update'
   delete '/tasks/:id', to: 'tasks#destroy'
-
 
 end
