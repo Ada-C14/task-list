@@ -106,15 +106,14 @@ describe TasksController do
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
-    before do {
-        @task_update = {
-            task: {
-                name: "updated task",
-                description: "updated task description"
-            completed_at: Time.now + 5.days
-            }
-        }
-    }
+    before do
+      task_update = {
+        task: {
+            name: "updated task",
+            description: "updated task description",
+            completed_at: Time.now,
+        },
+      }
     end
     it "can update an existing task" do
 
@@ -153,7 +152,7 @@ describe TasksController do
     it "can delete an existing task" do
       expect {
         delete task_path(task.id)
-      }.must_differ "Task.count" -1
+      }.must_differ "Task.count", -1
 
       deleted_task = Task.find_by(id: task.id)
       expect(deleted_task).must_be_nil
@@ -173,8 +172,40 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    expect {
-      patch
-    }
+    it "sucessfully marks task completed" do
+      expect {
+        patch toggle_complete_path(task.id)
+      }.wont_change "Task.count"
+
+      completed_task = Task.find_by(id: task.id)
+      expect(completed_task.completed_at).wont_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+
+    end
+
+    it "succesfully unmarks task from completed" do
+      # mark task complete
+      patch toggle_complete_path(task.id)
+
+      # unmark complete
+      expect {
+        patch toggle_complete_path(task.id)
+      }.wont_change "Task.count"
+
+      incomplete_task = Task.find_by(id: task.id)
+      expect(incomplete_task.completed_at).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+
+    end
+
+    it "responds with not_found if task doesn't exist" do
+      patch toggle_complete_path(-1)
+      must_respond_with :not_found
+    end
   end
+
 end
