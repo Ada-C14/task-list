@@ -174,5 +174,30 @@ describe TasksController do
   # Complete for Wave 4
   describe "toggle_complete" do
     # Your tests go here
+    it "marks the task as complete" do
+      task_to_mark = Task.create(name: "test task", description: "test description", completed_at: nil)
+
+      expect {
+        patch mark_complete_path(task_to_mark)
+      }.wont_change "Task.count"
+
+      marked_task = Task.find_by(name: "test task")
+      expect(marked_task.completed_at).wont_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+
+    it "will redirect to the root page if task not found" do
+      id = -1
+
+      expect {
+        patch mark_complete_path(id)
+      }.wont_change "Task.count"
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+
   end
 end

@@ -43,6 +43,7 @@ class TasksController < ApplicationController
     end
   end
 
+
   def update
     @task = Task.find_by(id: params[:id])
     if @task.nil?
@@ -71,9 +72,24 @@ class TasksController < ApplicationController
     end
   end
 
+  def mark_complete
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      redirect_to root_path
+      return
+    else
+      @task.update(completed_at: Time.now)
+      redirect_to root_path
+      return
+    end
+  end
+
   private
 
+  # strong params
   def task_params
     return params.require(:task).permit(:name, :description, :completed_at)
   end
+
 end

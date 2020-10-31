@@ -7,8 +7,9 @@
       <li>
 <!--        <%#= task.name %> <%#= task.description %>, completed_at: <%# task.completed_at %>-->
         <%= link_to(task.name, task_path(task)) %> <%= task.description %>, completed_at: <%= task.completed_at %>
+        <%= link_to "Mark complete", mark_complete_path(task.id), method: :patch %>
         <%= link_to "Edit Task", edit_task_path(task) %>
-        <%= link_to "Delete Task", task_path(task), method: :delete%>
+        <%= link_to "Delete Task", task_path(task), method: :delete, data: {confirm: "Are you sure?"}%>
 
       </li>
     <% end %>

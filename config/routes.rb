@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   # patch '/tasks/:id', to: 'tasks#update' # Update an existing task
   # delete '/tasks/:id', to: 'tasks#destroy' # Destroy a given task
   #
-  # # custom route
-  # patch '/tasks/:id/mark_read', to: 'tasks#mark_read', as: 'task_read'
+  # custom route
+  patch '/tasks/:id/complete', to: 'tasks#mark_complete', as: 'mark_complete'
 
 end
