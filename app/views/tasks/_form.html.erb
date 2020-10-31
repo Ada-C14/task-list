@@ -1,5 +1,5 @@
 <%= form_with model: @task, class: 'create-task' do |f| %>
-  <p>Please provide the following information to <%= "#{action_name.downcase}" %>  your task in our database:</p>
+  <p>Please provide the following information to <%= "#{action_name.downcase}" %> your task in our database:</p>
 
   <%= f.label :name %>
   <%= f.text_field :name %>
@@ -15,4 +15,4 @@
   <%= f.submit "#{action_name} Task", class: "task-button" %>
 <% end %>
 
-
+<p><%= link_to "Return to Task List", tasks_path %></p> 
