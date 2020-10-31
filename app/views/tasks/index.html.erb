@@ -2,10 +2,8 @@
 <% if @tasks.length > 0 %>
     <ul>
     <% @tasks.each do |task| %>
-        <li>Task name: <%= task[:name]%>
-        Description: <%= task[:description]%>
-        Completed at: <%= task[:completed_at]%></li>
-        <% end %>
+        <li> <%= link_to task.name, task_path(task) %></li>
+        <%end %>
     </ul>
 
 <% else %>
