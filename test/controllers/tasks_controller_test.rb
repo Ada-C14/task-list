@@ -156,7 +156,26 @@ describe TasksController do
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
+    it "can destroy a model" do
+      # Arrange
+      task_to_delete = Task.new name: "task to delete", description: "task description", completed_at: nil
+
+      task_to_delete.save
+      id = task_to_delete.id
+
+      # Act
+      expect {
+        delete task_path(id)
+        # Assert
+      }.must_change 'Task.count', -1
+
+      deleted_task = Task.find_by(name: "task to delete")
+
+      expect(deleted_task).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
     
   end
   

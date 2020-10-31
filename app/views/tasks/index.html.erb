@@ -1,11 +1,17 @@
-<h1>For When You Finish Your Homework</h1>
+<h1>For When You Finish Yo ur Homework</h1>
+<h2>List of Tasks</h2>
+
 <ul>
+
   <% @tasks.each do |task| %>
+
     <li>
-
-      <%= link_to task.name, task_path(task) %>
-
+      <div class="button-list">
+        <%= link_to task.name, task_path(task) %>
+        <%= button_to "Delete Task", task_path(task.id), method: :delete, data: { confirm: "Are you sure?" } %>
+      </div>
     </li>
+
   <% end %>
 
 </ul>
