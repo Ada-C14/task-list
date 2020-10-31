@@ -49,7 +49,6 @@ describe TasksController do
   describe "new" do
     it "can get the new task page" do
       
-      
       # Act
       get new_task_path
       
@@ -60,7 +59,6 @@ describe TasksController do
   
   describe "create" do
     it "can create a new task" do
-      
       
       # Arrange
       task_hash = {
@@ -182,6 +180,36 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+
+    before do
+      existing_task = Task.create(
+      name: "existing task",  
+      description: "existing task description",
+      completed_at: nil
+    )
+
+    post tasks_path, params: existing_task
+    end
+
+    it "can mark an existing task complete (updates completed_at to current time)" do
+
+      id = Task.last.id
+
+      expect { 
+        patch toggle_path(id), params: {completed_at: Date.current} 
+      }.wont_change "Task.count"
+
+      expect(task.completed_at).must_equal Date.current
+
+    end
+    
+    it "can redirect if task id is not found" do
+      id = -1
+
+      patch toggle_path(id), params: {completed_at: Date.current}
+
+      must_redirect_to root_path
+    end
+
   end
 end
