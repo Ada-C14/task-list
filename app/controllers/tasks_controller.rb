@@ -4,8 +4,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    id = params[:id].to_i
-    @task = Task.find_by(id: id)
+    @task = Task.find_by(id: params[:id])
 
     if @task.nil?
       # head :not_found
@@ -19,11 +18,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(
-      name: params[:task][:name],
-      description: params[:task][:description],
-      completed_at: params[:task][:completed_at]
-    )
+    @task = Task.new(task_params)
     if @task.save
       redirect_to task_path(@task.id)
       return
@@ -34,8 +29,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-    id = params[:id].to_i
-    @task = Task.find_by(id: id)
+    @task = Task.find_by(id: params[:id])
 
     if @task.nil?
       redirect_to tasks_path
@@ -44,22 +38,34 @@ class TasksController < ApplicationController
   end
   
   def update
-    id = params[:id].to_i
-    @task = Task.find_by(id: id)
+    @task = Task.find_by(id: params[:id])
 
     if @task.nil?
       redirect_to tasks_path
       return
-    elsif @task.update(
-      name: params[:task][:name],
-      description: params[:task][:description],
-      completed_at: params[:task][:completed_at]
-    )
+    elsif @task.update(task_params)
       redirect_to task_path(@task.id)
       return
     else
       render :edit
       return
     end
+  end
+
+  def destroy
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      redirect_to tasks_path
+      return
+    end
+    @task.destroy
+    redirect_to tasks_path
+    return
+  end
+
+  private
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed_at)
   end
 end

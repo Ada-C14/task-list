@@ -138,8 +138,27 @@ describe TasksController do
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
-    
+    it "will redirect to the root page for the non-existent task" do
+      expect {
+        delete task_path(-1)
+      }.wont_change "Task.count"
+
+      must_redirect_to tasks_path
+    end
+
+    it "can delete an existing task and redirect to the tasks page" do
+      # Act & Assert
+      deleted_task = task.name
+      
+      expect { 
+        delete task_path(task.id)
+      }.must_differ "Task.count", -1
+
+      check_deleted_task = Task.find_by(name: deleted_task)
+      expect(check_deleted_task).must_be_nil
+
+      must_redirect_to tasks_path
+    end
   end
   
   # Complete for Wave 4
