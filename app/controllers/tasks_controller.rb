@@ -46,6 +46,7 @@ class TasksController < ApplicationController
         name: params[:task][:name],
         description: params[:task][:description]
     )
+
       redirect_to task_path(@task.id)
       return
     else
