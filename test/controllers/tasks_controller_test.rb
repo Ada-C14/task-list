@@ -148,7 +148,7 @@ describe TasksController do
         patch task_path(id), params: edited_task_hash
       }.wont_change "Task.count"
 
-      must_redirect_to tasks_path
+      must_redirect_to root_path
     end
   end
   
@@ -167,7 +167,7 @@ describe TasksController do
       expect(not_there_task).must_be_nil
 
       must_respond_with :redirect
-      must_redirect_to tasks_path
+      must_redirect_to root_path
     end
     
     it "responds with not_found if task is not found" do
