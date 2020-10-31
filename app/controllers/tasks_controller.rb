@@ -10,13 +10,12 @@ class TasksController < ApplicationController
     end
 
     def show
-        task_id = params[:id]
-        @task = Task.find_by(id: task_id)
-
-        if @task.nil?
-            redirect_to root_path
+        begin
+            @task = Task.find(params[:id])
+          rescue => error
+            redirect_to root_path, alert: "Error: #{error}"
             return
-        end    
+        end 
     end
 
     def new
