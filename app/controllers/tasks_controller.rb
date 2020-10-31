@@ -17,7 +17,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(name: params[:task][:name], description: params[:task][:description], completed_at: params[:task][:completed_at])
+    @task = Task.new(task_params)
     if @task.save #save returns true if successful
       redirect_to task_path(@task.id)
       return
@@ -27,5 +27,26 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+
+  end
+
+  def update
+
+  end
+
+  def destroy
+
+  end
+
+  def toggle_complete
+
+  end
+
+  private
+
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed_at)
+  end
 
 end
