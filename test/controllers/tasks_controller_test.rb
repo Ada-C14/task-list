@@ -156,15 +156,69 @@ describe TasksController do
   end
   end
 
-  # # Complete these tests for Wave 4
-  # xdescribe "destroy" do
-  #   # Your tests go here
-  #
-  # end
-  #
-  # # Complete for Wave 4
-  # xdescribe "toggle_complete" do
-  #   # Your tests go here
-  # end
+  #Complete these tests for Wave 4
+  describe "destroy" do
+    it "Should delete an existing task and redirect to the page" do
+      # Arrange
+      task = Task.new name: "Hair Cut", description: "Go to fairwood Hairstyle", completed_at: "10/29/2020"
 
+      task.save
+      id = task.id
+
+      # Act
+      expect {
+        delete task_path(id)
+
+      # Assert
+      }.must_change 'Task.count', -1
+
+      task = Task.find_by_id(name: "Hair Cut")
+
+      expect(task).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to task_path
+    end
+
+    it "will respond with not_found for invalid ids" do
+
+      expect {
+        delete task_path(-1)
+      }.wont_change 'Task.count'
+
+      must_respond_with :not_found
+    end
+  end
+
+  # # Complete for Wave 4
+  describe "toggle_complete" do
+    it "Should redirect to the index" do
+      # Arrange
+      task = Task.new name: "Hair Cut", description: "Go to fairwood Hairstyle"
+
+      task.save
+      id = task.id
+
+      # Act
+      patch toggle_complete_path(id)
+
+      # Assert
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "Should mark a task as completed" do
+      # Arrange
+      task = Task.new name: "Hair Cut", description: "Go to fairwood Hairstyle"
+
+      task.save
+      id = task.id
+
+      # Act
+      patch toggle_complete_path(id)
+
+      # Assert
+      expect(task.reload.completed_at).wont_be_nil
+    end
+  end
 end
