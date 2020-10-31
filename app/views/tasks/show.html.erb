@@ -3,6 +3,6 @@
   <%= button_to "Edit", edit_task_path(@task.id), method: :get %>
   <%= button_to "Delete", task_path(@task), method: :delete, data: {confirm: "Are you sure?"}%>
 
-  <%= link_to "Mark Completed", complete_task_path(@task.id), method: #cannot do :patch here %>
+  <%#= link_to "Mark Completed", complete_task_path(@task.id), method: #cannot do :patch here %>
 
 </p>

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # routes that operate on individual tasks
   get '/tasks/:id/edit', to: 'tasks#edit', as: 'edit_task'
   get '/tasks/:id', to: 'tasks#show', as: 'task' #get details of 1 task
-  patch '/tasks/:id/complete', to: 'tasks#complete', as: 'complete_task'
+  get '/tasks/:id/complete', to: 'tasks#complete', as: 'complete_task' #why is this a get request and not a patch request?
   patch '/tasks/:id', to: 'tasks#update'
   delete '/tasks/:id', to: 'tasks#destroy'
 
