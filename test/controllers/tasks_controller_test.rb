@@ -139,20 +139,27 @@ describe TasksController do
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # it makes more sense to me to have it redirect to the edit page to have them try again??
       id = -1
 
       expect {
         patch task_path(id), params: task
       }.wont_change "Task.count"
 
-      must_respond_with :not_found
+      must_respond_with :redirect
+      must_redirect_to tasks_path
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
+    it "deletes a task that previously existed" do
+    end
+    
+    it "redirects to root index after deleting said task" do
+    end
+    
+    it "responds with 404 error if task is not found" do
+    end  
     
   end
   
