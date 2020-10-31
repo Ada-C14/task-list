@@ -8,7 +8,12 @@
 <br>
 <%= link_to "Delete Task", delete_task_path(@task.id), method: :delete, data: {confirm: "Are you sure you want to delete this task?"} %>
 <br>
-<%= link_to "Mark as Complete", complete_task_path(@task.id) %>
+<% if @task.completed_at.nil? %>
+    <%= link_to "Mark as Complete", complete_task_path(@task.id), method: :patch %>
+<% else %>
+    <%= link_to "Unmark as Complete", uncomplete_task_path(@task.id), method: :patch %>
+<% end %>
+
 <br>
 <%= link_to "Back to Index", tasks_path %>
 </div>
