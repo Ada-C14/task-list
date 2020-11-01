@@ -40,10 +40,10 @@ class TasksController < ApplicationController
   def destroy
     task_id = params[:id].to_i
     task = Task.find_by(id: task_id)
-    if task.destroy
+    if task.delete
       redirect_to tasks_path
     else
-
+      render :head, :bad_request
     end
   end
 
@@ -66,4 +66,9 @@ end
 private
 def task_params
   return params.require(:task).permit(:name, :description, :completed_at)
+end
+
+def are_you_sure
+  puts "Are you sure you would like to delete #{@task.name}?"
+
 end
