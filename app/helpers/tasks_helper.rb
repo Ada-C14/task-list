@@ -1,10 +1,9 @@
 module TasksHelper
+  def display_task_completed_at(completed_at)
+    return completed_at ? "Completed: #{completed_at.to_formatted_s(:twelvehr_long_ordinal)}" : "In Progress"
+  end
 
-  def display_task_completed_at(task)
-    if task.completed_at.nil?
-      return "In Progress"
-    else
-      return task.completed_at.to_formatted_s(:twelvehr_long_ordinal)
-    end
+  def complete_button_text(completed_at)
+    return completed_at ? "Mark In-Progress" : "Mark Complete"
   end
 end

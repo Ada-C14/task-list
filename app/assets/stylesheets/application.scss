@@ -98,17 +98,26 @@ nav{
   padding: 0 15px 0 0;
   margin: 10px;
 }
-.button {
+.button a{
   border-radius: 25px;
   border-style: solid;
   width: 175px;
-  padding: 2px;
-  text-align: center;
-  margin: 10px;
+  padding: 5px;
+  text-align: left;
   background-color: #7fd6e5;
 }
 
-.button:hover{
-  background-color: #6bb4c1;
-  color: black;
+.button {
+  margin: 10px;
+  text-align: left;
+
+}
+
+.button-wrapper{
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
+  align-items: normal;
+  width: 100%;
+  margin: 0;
 }
