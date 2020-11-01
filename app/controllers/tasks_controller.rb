@@ -72,4 +72,16 @@ class TasksController < ApplicationController
     end
   end
 
+  def toggle_complete
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      head :not_found
+      return
+    else
+      @task.update(completed_at: Time.now)
+      redirect_to tasks_path
+      return
+    end
+  end
+
 end

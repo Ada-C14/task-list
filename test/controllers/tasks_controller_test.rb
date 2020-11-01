@@ -107,10 +107,10 @@ describe TasksController do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
       # Your code here
-      before do
+    before do
         Task.create(name: "Testing", description: " Testing description", completed_at: "Testing completes task")
-      end
-      let (:new_task_hash) {
+    end
+    let (:new_task_hash) {
         {
             task: {
                 name: "Make beds",
@@ -120,17 +120,17 @@ describe TasksController do
         }
       }
     it "can update an existing task" do
-        id = Task.first.id
-        expect {
-          patch task_path(id), params: new_task_hash
-        }.wont_change "Task.count"
+      id = Task.first.id
+      expect {
+        patch task_path(id), params: new_task_hash
+      }.wont_change "Task.count"
 
-        must_redirect_to tasks_path
+      must_redirect_to tasks_path
 
-        task = Task.find_by(id: id)
-        expect(task.name).must_equal new_task_hash[:task][:name]
-        expect(task.description).must_equal new_task_hash[:task][:description]
-        expect(task.completed_at).must_equal new_task_hash[:task][:completed_at]
+      task = Task.find_by(id: id)
+      expect(task.name).must_equal new_task_hash[:task][:name]
+      expect(task.description).must_equal new_task_hash[:task][:description]
+      expect(task.completed_at).must_equal new_task_hash[:task][:completed_at]
 
     end
     
@@ -175,11 +175,34 @@ describe TasksController do
 
       must_respond_with :not_found
     end
-    
   end
   
   # Complete for Wave 4
   describe "toggle_complete" do
     # Your tests go here
+    it "marks a task as completed" do
+      completed_task = Task.new(name: "Wash car", description: "Clean the inside and outside", completed_at: "time at completion")
+
+      completed_task.save
+      id = completed_task.id
+
+    # Act
+      expect {
+      patch toggle_complete_path(task.id)
+
+      # Assert
+      }.must_change "Task.count"
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it 'will respond with not_found for invalid ids ' do
+      expect {
+        patch toggle_complete_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
+    end
   end
 end
