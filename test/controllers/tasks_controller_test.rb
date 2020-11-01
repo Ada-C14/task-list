@@ -163,6 +163,55 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+    let (:task2) {
+    Task.create name: "sample task", description: "this is an example for a test",
+    completed_at: nil
+    }
+    let (:complete_task2) {
+      {
+        task: {
+          name: "sample task",
+          description: "this is an example for a test",
+          completed_at: Time.now.strftime("%Y-%m-%d at %I:%M %p"),
+        },
+      }
+    }
+    let (:imcomplete_task2) {
+      {
+        task: {
+          name: "sample task",
+          description: "this is an example for a test",
+          completed_at: nil,
+        },
+      }
+    }
+    it "will redirect to the root page for the non-existent task" do
+      patch complete_task_path(-1)
+
+      must_redirect_to tasks_path
+    end
+
+    it "will mark an existing task a complete time and redirect to the tasks page" do
+      # Act 
+      patch complete_task_path(task2.id), params: complete_task2
+
+      # Assert
+      task2.reload
+      p task2
+      expect(task2.completed_at).must_equal Time.now.strftime("%Y-%m-%d at %I:%M %p")
+      must_redirect_to tasks_path
+    end
+
+    it "will unmark an existing task to nil and redirect to the tasks page" do
+      # Act 
+      patch complete_task_path(task2.id), params: complete_task2 # mark the task completed
+      task2.reload
+      patch complete_task_path(task2.id), params: imcomplete_task2 # unmark the task
+
+      # Assert
+      task2.reload
+      expect(task2.completed_at).must_be_nil
+      must_redirect_to tasks_path
+    end
   end
 end

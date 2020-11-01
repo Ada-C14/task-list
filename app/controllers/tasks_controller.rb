@@ -73,7 +73,7 @@ class TasksController < ApplicationController
     end
 
     if @task.completed_at.nil?
-      @task.update_attribute(:completed_at, Time.now)
+      @task.update_attribute(:completed_at, Time.now.strftime("%Y-%m-%d at %I:%M %p"))
       redirect_to tasks_path
       return
     else
