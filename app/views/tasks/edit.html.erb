@@ -1,11 +1,7 @@
 <h1>Current Task Information</h1>
 
-<p><%= @task.name%></p>
-<p><%= @task.description %></p>
-<p>Completed: <%= @task.completed_at %></p>
-
 <%= form_with model: @task, class: "edit-task" do |f| %>
-  <p>Please re-enter updated information for this task</p>
+  <p>Please update information for this task</p>
 
   <%= f.label :name %>
   <%= f.text_field :name %>
