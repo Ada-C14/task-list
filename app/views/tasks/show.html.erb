@@ -1,17 +1,17 @@
 <h1>Tasks</h1>
 <ul>
     <li>
-      <%= task.name %>
+      <%= @task.name %>
       <ul>
-        <%= task.description %>
+        <%= @task.description %>
       </ul>
       <ul>
-        <%= task.started_at %>
+        <%= @task.started_at %>
       </ul>
       <ul>
-        <%= task.completed_at %>
+        <%= @task.completed_at %>
       </ul>
-      <%= link_to "Edit Task", edit_task_path(task) %>
+      <%= link_to "Edit Task", edit_task_path(@task) %>
     </li>
 
 </ul>

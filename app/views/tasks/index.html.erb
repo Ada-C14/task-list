@@ -5,7 +5,7 @@
       <%= link_to task.name, tasks_path(task) %>
       <ul>
 
-        Description: <%= task.description %> <%= link_to "Edit Task", edit_task_path(task) %>
+        Description: <%= task.description %> <%= link_to "Show Task", show_task_path %>, <%= link_to "Edit Task", edit_task_path(task) %>
       </ul>
     </li>
 
