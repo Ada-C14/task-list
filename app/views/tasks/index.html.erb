@@ -1,0 +1,17 @@
+<div class="tasks">
+  <h3>Your Tasks </h3>
+  <nav>
+    <ul>
+       <% @tasks.each do |task| %>
+       <a href="<%= task_path(task) %>"><%= task[:name] %></a>
+        <li> <% if task.completed_at.blank? %>
+          <%= link_to "Unmark done", toggle_complete_path(task.id), method: :patch %>
+        <% else %>
+          <%= link_to "Mark done", toggle_complete_path(task.id), method: :patch %>
+        <% end %>|
+          <%= link_to "Edit", edit_task_path(task.id) %>|
+          <%= link_to "Delete", task_path(task.id), method: :delete %></li>
+          <% end %>
+    </ul>
+  </nav>
+</div>

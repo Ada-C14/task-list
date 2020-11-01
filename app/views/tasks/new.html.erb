@@ -1,0 +1,18 @@
+<div class="tasks">
+  <%=form_with model: @task do |f|%>
+  <p>Please provide the information to add a new task</p>
+    <div class="label">
+      <%= f.label :name %> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <%= f.text_field :name %>
+    </div>
+    <div class="label">
+      <%= f.label :description %>&nbsp&nbsp&nbsp&nbsp
+      <%= f.text_area :description %>
+    </div>
+    <div class="label">
+      <label for="start">Completed_at</label>
+      <input type="date" id="start" name="trip-start"
+    </div>
+    <%= f.submit "Save" %>
+    <% end %>
+</div>
