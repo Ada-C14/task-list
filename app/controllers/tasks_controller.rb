@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    @tasks = Task.order(id: :asc).all
   end
 
   def show
@@ -28,19 +28,52 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @task = Task.find_by(id: params[:id])
 
+    if @task.nil?
+      redirect_to root_path
+      return
+    end
   end
 
   def update
-
+    @task = Task.find_by(id: params[:id])
+    if @task
+      @task.update(task_params)
+      redirect_to task_path(@task.id)
+      return
+    else
+      redirect_to root_path
+      return
+    end
   end
 
   def destroy
-
+    @task = Task.find_by(id: params[:id])
+    if @task
+      @task.destroy
+      redirect_to root_path
+      return
+    else
+      head :not_found
+      return
+    end
   end
 
   def toggle_complete
-
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      head :not_found
+      return
+    else
+      if @task.completed_at.nil?
+        @task.update(completed_at: Time.now)
+      else
+        @task.update(completed_at: nil)
+      end
+      redirect_to root_path
+      return
+    end
   end
 
   private
