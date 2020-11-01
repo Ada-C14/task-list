@@ -23,7 +23,6 @@ class TasksController < ApplicationController
       redirect_to task_path(@task.id)
       return
     else
-      # i don't understand this
       render :new
       return
     end
