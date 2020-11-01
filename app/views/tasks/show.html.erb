@@ -1,7 +1,9 @@
 <h2>Task Details</h2>
 
 <ul class="task-details">
-  <li>name: <%= @task.name %></li>
-  <li>description: <%= @task.description %></li>
-  <li>completed at: <%= @task.completed_at %></li>
+  <li>Name: <%= @task.name %></li>
+  <li>Description: <%= @task.description %></li>
+  <li>Completed at: <%= @task.completed_at %></li>
 </ul>
+
+<p><%= link_to "go back", tasks_path %></p>

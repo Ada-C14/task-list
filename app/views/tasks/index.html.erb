@@ -3,5 +3,8 @@
 <ul class="task-list">
   <% @tasks.each do |task| %>
     <li><%= task.name %></li>
+    <p><%= link_to "show details", task_path(task) %></p>
   <% end %>
 </ul>
+
+<p><%= link_to "add task", new_task_path %></p>
