@@ -63,18 +63,26 @@ class TasksController < ApplicationController
 
   def complete
     @task = Task.find_by(id: params[:id])
-    @task.completed_at = Time.now.to_s
-    @task.save
 
-    redirect_to tasks_path
+    if @task.nil?
+      head :not_found
+    else
+      @task.completed_at = Time.now.to_s
+      @task.save
+      redirect_to tasks_path
+    end
   end
 
   def incomplete
     @task = Task.find_by(id: params[:id])
-    @task.completed_at = ""
-    @task.save
 
-    redirect_to tasks_path
+    if @task.nil?
+      head :not_found
+    else
+      @task.completed_at = ""
+      @task.save
+      redirect_to tasks_path
+    end
   end
 
   private

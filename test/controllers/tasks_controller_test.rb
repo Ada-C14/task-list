@@ -207,5 +207,13 @@ describe TasksController do
       expect(incomplete_task.completed_at).must_equal ""
       must_redirect_to tasks_path
     end
+
+    it "will redirect if task to complete is nonexistant" do
+      id = -1
+
+      put task_complete_path(id)
+
+      must_respond_with :not_found
+    end
   end
 end
