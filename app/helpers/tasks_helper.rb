@@ -6,4 +6,8 @@ module TasksHelper
   def complete_button_text(completed_at)
     return completed_at ? "Mark In-Progress" : "Mark Complete"
   end
+
+  def delete_confirm
+    return {confirm: "Are you sure?"}
+  end
 end
