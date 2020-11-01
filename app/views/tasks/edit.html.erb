@@ -1,16 +1,18 @@
-<%=form_with model: @task do |f|%>
-  <p>Please provide the following information to save your task to our database</p>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-  <div>
-    <%= f.label :completed_at %>
-    <%= f.text_field :completed_at %>
-  </div>
-  <%= f.submit "Save task" %>
-<% end %>
+<div class="tasks">
+  <%=form_with model: @task do |f|%>
+    <p>Please provide the changes to update your task</p>
+    <div class="label">
+      <%= f.label :name %> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <%= f.text_field :name %>
+    </div>
+    <div class="label">
+      <%= f.label :description %>&nbsp&nbsp&nbsp&nbsp
+      <%= f.text_area :description %>
+    </div>
+    <div class="label">
+      <label for="start">Completed_at</label>
+      <input type="date" id="start" name="trip-start"
+    </div>
+    <%= f.submit "Save" %>
+  <% end %>
+</div>

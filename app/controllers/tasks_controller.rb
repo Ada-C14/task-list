@@ -1,8 +1,3 @@
-# TASKS = [
-#     { name: "Grocery List", description: "Write the name of items need to buy", completed_at: "10/26/2020"},
-#     { name: "Grocery shop", description: "Go to Trader Joe's to get groceries items", completed_at:"10/30/2020"}
-# ]
-
 class TasksController < ApplicationController
   def index
     @tasks = Task.all

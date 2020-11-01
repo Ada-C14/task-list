@@ -7,16 +7,32 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+<!--    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+<!--    <meta name="HandheldFriendly" content="true">-->
   </head>
-
   <body>
-  <header>TASKS SYSTEM</header>
-  <main>
-    <button><a href="<%= new_task_path %>">Add task</a></button>
-    <button><a href="<%= tasks_path %>">Show tasks</a></button>
-
-  </main>
-    <%= yield %>
-  <footer>&copy Alice Boone 2020</footer>
+    <header>
+      <div class="image-txt-container">
+        <img src="/images/tasks.png" alt="main" />
+        <h1>TASKS SYSTEM</h1>
+      </div>
+    </header>
+    <main>
+      <div class="row">
+        <div class="column">
+          <nav class="button">
+            <img src="/images/tasks1.png" alt="tasks1" />
+            <ul>
+              <li><button class="show"><a href="<%= new_task_path %>">Add task</a></button></li>
+              <li><button class="show"><a href="<%= tasks_path %>">Show tasks</a></button></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="column"><%= yield %></div>
+      </div>
+    </main>
+    <footer>&copy Alice Boone 2020</footer>
   </body>
 </html>
