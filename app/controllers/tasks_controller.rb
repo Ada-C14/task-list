@@ -71,26 +71,20 @@ class TasksController < ApplicationController
       redirect_to tasks_path
       return
     end
-    @task.update_attribute(:completed, true)
-    @task.update_attribute(:completed_at, Time.now)
-    redirect_to tasks_path
-    return
-  end
 
-  def uncomplete
-    @task = Task.find_by(id: params[:id])
-
-    if @task.nil?
+    if @task.completed_at.nil?
+      @task.update_attribute(:completed_at, Time.now)
+      redirect_to tasks_path
+      return
+    else
+      @task.update_attribute(:completed_at, nil)
       redirect_to tasks_path
       return
     end
-    @task.update_attribute(:completed, false)
-    redirect_to tasks_path
-    return
   end
 
   private
   def task_params
-    return params.require(:task).permit(:name, :description, :completed_at, :completed)
+    return params.require(:task).permit(:name, :description, :completed_at)
   end
 end

@@ -4,6 +4,5 @@ Rails.application.routes.draw do
   resources :tasks
   
   # Costomerized actions
-  put 'tasks/:id/complete', to: 'tasks#complete', as: 'complete_task'
-  put 'tasks/:id/uncomplete', to: 'tasks#uncomplete', as: 'uncomplete_task'
+  patch 'tasks/:id/complete', to: 'tasks#complete', as: 'complete_task'
 end
