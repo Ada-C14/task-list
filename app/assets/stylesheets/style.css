@@ -1,0 +1,119 @@
+body{
+    margin: 5vw;
+    background-color:#37718E;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-family: 'Gelasio', serif;
+    color: #254E70;
+}
+
+ul, nav{
+    list-style-type:none;
+    padding: 0;
+    margin: 0;
+}
+
+header{
+    background-color: #8EE3EF;
+    padding: 3vw;
+}
+
+nav a li, .task-options a li{
+    background-color: #C33C54;
+    padding: 0.2vw;
+    margin: 0.3vh;
+    color: #F5F1ED;
+}
+
+nav a:hover, .task-options a:hover{
+    text-decoration: line-through;
+    color: #F5F1ED;
+}
+
+
+main{
+    background-color: #F5F1ED;
+    padding: 3vw 1vw;
+}
+
+.tasklist li{
+    background-color: rgba(195, 60, 84, 0.5);
+    padding: 1vw;
+    margin: 1vw;
+}
+
+.tasklist h2{
+    margin: auto;
+    padding: 1vw;
+    background-color: #37718E;
+    color: #F5F1ED;
+}
+
+.toggle-complete, #show-page h2{
+    font-size: 2vw;
+    padding-top: 1vw;
+    text-transform: uppercase;
+    font-weight: bolder;
+}
+
+.toggle-complete{
+    color: #8EE3EF;
+}
+
+.task-options{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-column-gap: 0.5vw;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    white-space: nowrap;
+    align-content: center;
+    font-size: 1.7vw;
+    padding: 0 0.5vw;
+}
+
+/* show page */
+
+#show-page main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#show-page .task-options{
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+#show-page h1{
+    font-size: 5vw;
+}
+
+#show-page h2{
+    color: #C33C54;
+}
+
+/* forms */
+
+input[type=text] {
+    width: 100%;
+    padding: 2vw 3vw;
+    margin: 2vw 0;
+    box-sizing: border-box;
+}
+
+#form{
+    width: 100%;
+}
+
+#form h2{
+    font-size: 4vw;
+    text-decoration: underline;
+}
+
+#form h3, #form label{
+    font-size: 3vw;
+    margin: 0;
+}

@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Task: <%= @task[:name] %></title>
-</head>
-<body>
-<header>
-  <nav>
-    <ul>
-      <li><%= link_to "Home", root_path, method: :get %></li>
-      <li><%= link_to "Edit", edit_task_path(@task.id), method: :get %></li>
-      <li><%= link_to "Toggle complete", toggle_complete_task_path(@task.id), method: :patch %></li>
-      <li><%= link_to "Delete Task: #{@task.name}", task_path(@task.id), method: :delete , data: {confirm: "Are you sure you want to delete this task?"}%></li>
-    </ul>
-  </nav>
-  <% if @task[:completed_at].nil?%>
-    <h1><%= @task[:name] %></h1>
-  <% else %>
-    <h1><strike><%= @task[:name] %></strike></h1>
-  <% end %>
-</header>
-
-  <h2>Status: <%= @task[:completed_at].nil? ? "Incomplete" : "Completed at #{@task[:completed_at]}" %></h2>
-  <p><%= @task[:description] %></p>
-<li><%= link_to "Back to Tasklist", root_path, method: :get %></li>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <link href="stylesheets/style.css" rel="stylesheet">
+    <title>Task: <%= @task[:name] %></title>
+    <link href="https://fonts.googleapis.com/css2?family=Gelasio&display=swap" rel="stylesheet">
+  </head>
+  <body id = "show-page">
+    <header>
+      <% if @task[:completed_at].nil?%>
+        <h1><%= @task[:name] %></h1>
+      <% else %>
+        <h1><s><%= @task[:name] %></s></h1>
+      <% end %>
+      <h2 class="tasklist"><b><%= @task[:completed_at].nil? ? "Incomplete" : "Completed #{@task[:completed_at]}" %></b></h2>
+      <nav>
+        <ul class = "task-options">
+          <%= link_to content_tag(:li, "Home"), root_path, method: :get %>
+          <%= link_to content_tag(:li, "Edit"), edit_task_path(@task.id), method: :get %>
+          <%= link_to content_tag(:li, "Toggle complete"), toggle_complete_task_path(@task.id), method: :patch %>
+          <%= link_to content_tag(:li, "Delete"), task_path(@task.id), method: :delete , data: {confirm: "Are you sure you want to delete this task?"}%>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <p><%= @task[:description] %></p>
+    </main>
+  </body>
 </html>
 
 
