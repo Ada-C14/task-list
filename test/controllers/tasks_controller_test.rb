@@ -151,7 +151,7 @@ describe TasksController do
       must_redirect_to tasks_path
     end
 
-    it "can redirect when trying to delete a task that doesn't exist" do
+    it "will redirect when trying to delete a task that doesn't exist" do
       expect {
         delete task_path(-1)
       }.wont_change "Task.count"
@@ -162,6 +162,20 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+    it "will change completed_at field from blank to a datestr for an incomplete task being marked complete" do
+      test_task = Task.create(name: "filler", description: "more filler")
+
+      patch task_completion_path(test_task.id)
+      test_task.reload
+      expect(test_task.completed_at.present?).must_equal true
+    end
+
+    it "will change completed_at field from a string to blank for an complete task being changed to incomplete" do
+      test_task = Task.create(name: "filler", description: "more filler", completed_at: "filler date")
+
+      patch task_completion_path(test_task.id)
+      test_task.reload
+      expect(test_task.completed_at.blank?).must_equal true
+    end
   end
 end

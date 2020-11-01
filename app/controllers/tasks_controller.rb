@@ -76,7 +76,7 @@ class TasksController < ApplicationController
       )
     else
       @task.update(
-          completed_at: nil
+        completed_at: nil
       )
     end
 
