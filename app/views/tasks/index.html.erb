@@ -1,10 +1,10 @@
 <h2>Task List</h2>
 
-<ul class="task-list">
+<ol class="task-list">
   <% @tasks.each do |task| %>
     <li><%= task.name %></li>
-    <p><%= link_to "show details", task_path(task) %></p>
+    <p><%= link_to "show details", task_path(task) %> | <%= link_to "edit", edit_task_path(task) %></p>
   <% end %>
-</ul>
+</ol>
 
 <p><%= link_to "add task", new_task_path %></p>

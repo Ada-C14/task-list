@@ -1,7 +1,7 @@
-<h2>New Task</h2>
+<h2>Edit Task</h2>
 
 <%= form_with model: @task, class: 'task-form' do |f| %>
-  <p>Please provide the following information to save your task to our database.</p>
+  <p>Please provide the following information to edit your task in our database.</p>
 
   <%= f.label :name %>
   <%= f.text_field :name %>
@@ -12,7 +12,7 @@
   <%= f.label :completed_at %>
   <%= f.text_field :completed_at %>
 
-  <%= f.submit "save task", class: "save-button" %>
+  <%= f.submit "save changes", class: "save-button" %>
 <% end %>
 
-<p><%= link_to "go home", tasks_path %></p>
+<p><%= link_to "go back", tasks_path %></p>
