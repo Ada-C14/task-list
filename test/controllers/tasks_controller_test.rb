@@ -64,7 +64,7 @@ describe TasksController do
           completed_at: nil,
         },
       }
-      
+
       # Act-Assert
       expect {
         post tasks_path, params: task_hash
@@ -96,7 +96,6 @@ describe TasksController do
     end
   end
   
-  # Uncomment and complete these tests for Wave 3
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
@@ -106,19 +105,23 @@ describe TasksController do
     end
     
     it "will redirect to the root page if given an invalid id" do
-      skip
-      # Your code here
+       # Act
+       get task_path(-1)
+      
+       # Assert
+       must_respond_with :redirect
+       must_redirect_to tasks_path
     end
   end
   
-  # Complete these tests for Wave 4
+  # Tests for Wave 4
   describe "destroy" do
     it "can destroy a model" do
       # Arrange
-      # poodr = Task.new title: "Practical Object Oriented Programming in Ruby", author: "Sandi Metz"
+      test_task = Task.new name: "Shopping", description: "Holiday Shopping", completed_at: "11/1/2020"
   
-      # poodr.save
-      # id = poodr.id
+      test_task.save
+      id = test_task.id
   
       # Act
       expect {
@@ -127,9 +130,9 @@ describe TasksController do
         # Assert
       }.must_change 'Task.count', -1
   
-      # poodr = Task.find_by(title: "Practical Object Oriented Programming in Ruby")
+      test_task = Task.find_by(name: "Shopping")
   
-      # expect(poodr).must_be_nil
+      expect(test_task).must_be_nil
   
       must_respond_with :redirect
       must_redirect_to tasks_path
