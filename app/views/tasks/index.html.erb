@@ -5,7 +5,8 @@
       <%= link_to task.name, tasks_path(task) %>
       <ul>
 
-        Description: <%= task.description %> <%= link_to "Show Task", show_task_path %>, <%= link_to "Edit Task", edit_task_path(task) %>
+        Description: <%= task.description %> <%= link_to "Show Task", task_path(task.id) %>, <%= link_to "Edit Task", edit_task_path(task) %><%= link_to "Delete #{task.name}", task_path(task.id), method: :delete %>
+
       </ul>
     </li>
 
