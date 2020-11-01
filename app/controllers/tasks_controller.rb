@@ -13,8 +13,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = Task.new(name: params[:task][:name], description: params[:task][:description])
-
+    task = Task.new(task_params)
     action_success_check(task.save, task_path(task.id))
   end
 
@@ -34,7 +33,7 @@ class TasksController < ApplicationController
 
     redirect_to tasks_path and return if task.nil?
 
-    action_success_check(task.update(name: params[:task][:name], description: params[:task][:description]), task_path)
+    action_success_check(task.update(task_params), task_path)
   end
 
   def destroy
@@ -68,4 +67,7 @@ class TasksController < ApplicationController
     end
   end
 
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed_at)
+  end
 end
