@@ -2,7 +2,12 @@
 
 <ul>
   <% @tasks.each do |task| %>
-    <li> <%= link_to(task.name, task_path(task.id)) %> </li>
+    <li class="<%= 'strike' unless task.completed_at.nil? %>">
+      <%= link_to task.name, task_path(task.id) %>
+    </li>
   <%end%>
-    <li> <%= link_to "ADD NEW TASK", new_task_path %> </li>
 </ul>
+
+<div>
+  <%= button_to "ADD NEW TASK", new_task_path, method: :get %>
+</div>

@@ -76,6 +76,22 @@ class TasksController < ApplicationController
     end
   end
 
+  def mark_complete
+    @task = find_by_id
+
+    if @task.completed_at.nil?
+      @task.completed_at = Date.today
+      @task.save
+      redirect_to task_path(@task.id)
+      return
+    else
+      @task.completed_at = nil
+      @task.save
+      redirect_to task_path(@task.id)
+      return
+    end
+  end
+
   # helper method
   def find_by_id
     task_id = params[:id].to_i

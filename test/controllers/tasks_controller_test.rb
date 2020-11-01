@@ -136,8 +136,8 @@ describe TasksController do
         patch task_path(id), params: @update_params
       }.wont_change "Task.count"
 
-        must_respond_with :redirect
-        must_redirect_to tasks_path
+      must_respond_with :redirect
+      must_redirect_to tasks_path
     end
   end
 
@@ -174,6 +174,43 @@ describe TasksController do
 
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+
+    let (:incomplete_task) {
+      Task.create name: "incomplete task", description: "a task in progress",
+                  completed_at: nil
+    }
+
+    it "can set completed_at to today's date" do
+
+      id = incomplete_task.id
+
+      expect {
+        patch mark_complete_path(id)
+      }.wont_change "Task.count"
+
+      toggle_task = Task.find_by(id: id)
+
+      expect(toggle_task.completed_at).must_equal Date.today
+
+      must_respond_with :redirect
+      must_redirect_to task_path(toggle_task.id)
+    end
+
+    it "can set completed_at to nil if task is completed" do
+
+      id = task.id
+
+      expect {
+        patch mark_complete_path(id)
+      }.wont_change "Task.count"
+
+      toggle_task = Task.find_by(id: id)
+
+      expect(toggle_task.completed_at).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to task_path(toggle_task.id)
+    end
+
   end
 end
