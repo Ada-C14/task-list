@@ -17,12 +17,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    # raise
-    @task = Task.new(
-        name: params[:task][:name],
-        description: params[:task][:description],
-        completed_at: nil
-    )
+    @task = Task.new(task_params)
 
     if @task.save
       redirect_to task_path(@task.id)
@@ -59,11 +54,7 @@ class TasksController < ApplicationController
     if @task.nil?
       task_error_notice
       return
-    elsif @task.update(
-        name: params[:task][:name],
-        description: params[:task][:description],
-        completed_at: params[:task][:completed_at]
-    )
+    elsif @task.update(task_params)
       redirect_to tasks_path
       return
     else
@@ -80,8 +71,8 @@ class TasksController < ApplicationController
       return
     else
       @task.update(
-        # name: params[:task][:name],
-        # description: params[:task][:description],
+        name: params[:task][:name],
+        description: params[:task][:description],
         completed_at: Time.now.strftime("%m/%d/%Y")
       )
     end
@@ -106,5 +97,11 @@ class TasksController < ApplicationController
 
     redirect_to tasks_path
     return
+  end
+
+  private
+
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed_at)
   end
 end
