@@ -3,7 +3,7 @@
   <p><%= @task.description %></p>
   <% if @task.completed_at %>
     <p>Completed: <%= @task.completed_at %></p>
-    <%= button_to "Mark Task 'Incomplete'", task_path(@task.id), method: :patch, params: {task: {name: @task.name, description: @task.description, completed_at: "N/A"}}, class: "btn btn-outline-warning" %>
+    <%= button_to "Mark Task 'Incomplete'", task_path(@task.id), method: :patch, params: {task: {name: @task.name, description: @task.description, completed_at: nil}}, class: "btn btn-outline-warning" %>
   <% else %>
     <p>Completed: N/A</p>
     <%= button_to "Mark Task 'Complete'", task_path(@task.id), method: :patch, data: { confirm: "Are you sure you want to mark this task as Completed?" }, params: {task: {name: @task.name, description: @task.description, completed_at: Time.now}}, class: "btn btn-outline-success" %>

@@ -123,6 +123,7 @@ describe TasksController do
     end
     
     it "will redirect to the root page if given an invalid id" do
+
       expect {
         patch task_path(-1), params: @task_hash
       }.wont_change "Task.count"
@@ -158,8 +159,41 @@ describe TasksController do
 
   end
   
-  # Complete for Wave 4
-  describe "toggle_complete" do
-    # Your tests go here
+  describe "toggle complete" do
+
+    before do
+      @task3_hash = {task: {name: "sample task 3", description: "description of task 3", completed_at: Time.now + 6.days}}
+      new_task = Task.new
+      new_task.name = @task3_hash[:task][:name]
+      new_task.description = @task3_hash[:task][:description]
+      new_task.completed_at = @task3_hash[:task][:completed_at]
+      new_task.save
+    end
+
+    it "removes completed_at time and saves nil to database when marked as Incomplete" do
+      task3 = Task.find_by(name: @task3_hash[:task][:name])
+      @task3_hash[:task][:completed_at] = nil
+
+      expect {
+        patch task_path(task3.id), params: @task3_hash
+      }.wont_change "Task.count"
+
+      expect(task3.completed_at).wont_equal task3.reload.completed_at
+
+      expect(task3.completed_at).must_be_nil
+    end
+
+    it "saves completed_at time to database when marked as Complete" do
+      task3 = Task.find_by(name: @task3_hash[:task][:name])
+      @task3_hash[:task][:completed_at] = Time.now
+
+      expect {
+        patch task_path(task3.id), params: @task3_hash
+      }.wont_change "Task.count"
+
+      expect(task3.completed_at).wont_equal task3.reload.completed_at
+
+      expect(task3.completed_at).wont_be_nil
+    end
   end
 end
