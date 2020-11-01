@@ -63,7 +63,7 @@ class TasksController < ApplicationController
 
   def complete
     @task = Task.find_by(id: params[:id])
-    @task.completed_at = Time.now
+    @task.completed_at = Time.now.to_s
     @task.save
 
     redirect_to tasks_path
@@ -76,7 +76,6 @@ class TasksController < ApplicationController
 
     redirect_to tasks_path
   end
-
 
   private
 

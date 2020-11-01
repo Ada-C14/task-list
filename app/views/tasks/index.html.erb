@@ -10,6 +10,7 @@
           <%= link_to "Mark complete", task_complete_path(task), method: :put %> ||
         <% else %>
           Completed at: <%= task.completed_at %> ||
+        <%= link_to "Mark incomplete", task_incomplete_path(task), method: :put %> ||
       <% end %>
 
         <%= link_to "Edit task", edit_task_path(task) %> ||

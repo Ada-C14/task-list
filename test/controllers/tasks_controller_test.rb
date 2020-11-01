@@ -112,8 +112,8 @@ describe TasksController do
     let (:new_task_hash) {
       {
         task: {
-            name: "new task",
-            description: "new task description",
+            name: "Wash dishes",
+            description: "Clear sink",
             completed_at: nil,
         },
       }
@@ -127,7 +127,6 @@ describe TasksController do
       must_redirect_to tasks_path
 
       update_task = Task.find_by(id: id)
-      #why don't i need to include an action like update_task.update? calling the update action?
 
       expect(update_task.name).must_equal new_task_hash[:task][:name]
       expect(update_task.description).must_equal new_task_hash[:task][:description]
@@ -139,7 +138,6 @@ describe TasksController do
         patch task_path(-1), params: new_task_hash
       }.wont_change "Task.count"
 
-      # must_respond_with :redirect
       must_redirect_to tasks_path
     end
   end
@@ -171,13 +169,43 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
-    # it "can mark a task as completed" do
-    # end
-    #
-    # it "can change a completed task to an incomplete task" do
-    # end
-    #
-    #
+    it "can update a task as complete" do
+      Task.create(name: 'Wash dishes', description: 'Clear sink', completed_at: nil)
+      new_task_hash = {
+          task: {
+              name: "Wash dishes",
+              description: "",
+              completed_at: nil,
+          },
+      }
+      task_to_complete = Task.find_by(completed_at: nil)
+
+      #issues the put - act
+      put task_complete_path(task_to_complete)
+      completed_task = Task.find_by(id: task_to_complete.id)
+
+      #assert
+      expect(completed_task.completed_at).wont_be_nil
+      expect(completed_task.completed_at).wont_equal ""
+      must_redirect_to tasks_path
+    end
+
+    it "can change a completed task to an incomplete task" do
+      Task.create(name: 'Wash dishes', description: 'Clear sink', completed_at: "2020-11-01 20:25:58")
+      new_task_hash = {
+          task: {
+              name: "Wash dishes",
+              description: "Clear sink",
+              completed_at: "2020-11-01 20:25:58",
+          },
+      }
+      completed_task = Task.find_by(completed_at: "2020-11-01 20:25:58")
+
+      put task_incomplete_path(completed_task)
+      incomplete_task = Task.find_by(id: completed_task.id)
+
+      expect(incomplete_task.completed_at).must_equal ""
+      must_redirect_to tasks_path
+    end
   end
 end
