@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   root 'tasks#index'
   resources :tasks
 
-  patch 'tasks/:id/mark_complete', to: 'tasks#mark_complete', as: :task_complete
-  patch 'tasks/:id/mark_incomplete', to: 'tasks#mark_incomplete', as: :task_incomplete
+  patch 'tasks/:id/toggle_completion', to: 'tasks#toggle_completion', as: :task_completion
+  # patch 'tasks/:id/mark_incomplete', to: 'tasks#mark_incomplete', as: :task_incomplete
 end

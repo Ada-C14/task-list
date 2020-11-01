@@ -63,26 +63,25 @@ class TasksController < ApplicationController
     end
   end
 
-  def mark_complete
+  def toggle_completion
+    # raise
     @task = Task.find_by(id: params[:id])
 
     if @task.nil?
       task_error_notice
       return
+    elsif @task.completed_at.blank?
+      @task.update(
+        completed_at: Time.now.strftime("%m/%d/%Y")
+      )
     else
       @task.update(
-        name: params[:task][:name],
-        description: params[:task][:description],
-        completed_at: Time.now.strftime("%m/%d/%Y")
+          completed_at: nil
       )
     end
 
     render :index
     return
-  end
-
-  def mark_incomplete
-
   end
 
   def destroy

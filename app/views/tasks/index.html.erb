@@ -8,10 +8,10 @@
       <li>
         <% if task.completed_at.nil? || task.completed_at.empty? %>
           >> <%= link_to task.name.downcase, task_path(task.id), class: "incomplete" %><br>
-          <%= link_to "mark complete", task_complete_path(task.id) %> |
+          <%= link_to "mark complete", task_completion_path(task.id), method: :patch %> |
         <% else %>
           >> <%= link_to task.name.downcase, task_path(task.id), class: "complete" %><br>
-          <%= link_to "mark incomplete", task_incomplete_path(task.id) %> |
+          <%= link_to "mark incomplete", task_completion_path(task.id), method: :patch %> |
         <% end %>
         <%= link_to "edit", edit_task_path(task.id) %> |
         <%= link_to "delete", task_path(task.id), method: :delete, data: { confirm: "are we sure?" } %>
