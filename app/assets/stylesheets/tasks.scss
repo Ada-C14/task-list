@@ -2,11 +2,24 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+p {
+  margin-top: 16px;
+  margin-bottom: 4px;
+}
 
-.strike {
+p.strike {
   text-decoration: line-through;
+}
+
+
+li {
+  font-weight: bold;
+  list-style: none;
+  text-decoration: none;
 }
 
 .button {
   display: inline-block;
+  padding-right: 4px;
+
 }

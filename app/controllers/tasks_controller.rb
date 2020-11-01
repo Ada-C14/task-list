@@ -82,12 +82,12 @@ class TasksController < ApplicationController
     if @task.completed_at.nil?
       @task.completed_at = Date.today
       @task.save
-      redirect_to task_path(@task.id)
+      redirect_to tasks_path
       return
     else
       @task.completed_at = nil
       @task.save
-      redirect_to task_path(@task.id)
+      redirect_to tasks_path
       return
     end
   end
