@@ -101,20 +101,67 @@ describe TasksController do
   
   # Uncomment and complete these tests for Wave 3
   describe "update" do
+    before do
+      Task.create(name: "old task name", description: "old task description", completed_at: "old day")
+    end
+    let (:updated_task_hash) {
+      {
+        task: {
+          name: "updated task name",
+          description: "updated task description",
+          completed_at: "updated new day",
+        }
+      }
+    }
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
-    it "can update an existing task" do
-      # Your code here
+    #
+    it "won't change number of existing tasks" do
+      task = Task.first
+      expect {
+        patch task_path(task.id), params: updated_task_hash
+      }.wont_change "Task.count" # doesn't change number of existing tasks
     end
-    
+
+    it "can update an existing task" do
+      task = Task.first
+      patch task_path(task.id), params: updated_task_hash
+
+      task = Task.find_by(id: task.id)
+      expect(task.name).must_equal updated_task_hash[:task][:name]
+      expect(task.description).must_equal updated_task_hash[:task][:description]
+      expect(task.completed_at).must_equal updated_task_hash[:task][:completed_at]
+    end
+
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+
+      patch task_path(-1), params: updated_task_hash
+
+      must_redirect_to tasks_path
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
+    before do
+      Task.create(name: "old task name", description: "old task description", completed_at: "old day")
+    end
+
+    it "will reduce number of existing tasks by 1" do
+      task = Task.first
+
+      expect(task).must_be_instance_of Task
+
+      expect {
+        delete task_path(task.id)
+      }.must_change "Task.count", -1
+    #
+    #   expect(Task).must_be_nil
+    #
+    #   must_respond_with :redirect
+    #   must_redirect_to tasks.path
+    end
+
     
   end
   

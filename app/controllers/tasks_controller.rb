@@ -26,6 +26,40 @@ class TasksController < ApplicationController
   end
 
   def edit
-    # @task = Task.find_by(id: params[id])
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      record_not_found
+    end
+    return # should this be here/why
+  end
+
+  def update
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      record_not_found
+      return
+    elsif @task.update(
+      name: params[:task][:name],
+      description: params[:task][:description],
+      completed_at: params[:task][:completed_at]
+    )
+      redirect_to tasks_path
+     return
+    else
+      render :edit
+      return
+    end
+  end
+
+  def destroy
+    task = Task.find_by(id: params[:id])
+    if task.nil?
+      record_not_found
+      return
+    else task.destroy
+      redirect_to tasks_path
+    # else
+      #something
+    end
   end
 end
