@@ -28,7 +28,6 @@ describe TasksController do
   # Unskip these tests for Wave 2
   describe "show" do
     it "can get a valid task" do
-      skip
       # Act
       get task_path(task.id)
       
@@ -37,7 +36,6 @@ describe TasksController do
     end
     
     it "will redirect for an invalid task" do
-      skip
       # Act
       get task_path(-1)
       
@@ -48,7 +46,6 @@ describe TasksController do
   
   describe "new" do
     it "can get the new task page" do
-      skip
       
       # Act
       get new_task_path
@@ -60,7 +57,6 @@ describe TasksController do
   
   describe "create" do
     it "can create a new task" do
-      skip
       
       # Arrange
       task_hash = {
@@ -83,42 +79,193 @@ describe TasksController do
       must_respond_with :redirect
       must_redirect_to task_path(new_task.id)
     end
+
+    it "will render :edit if attempts to enter an empty task are made" do
+      # Arrange
+      empty_task = {task: {name:nil, description:nil}}
+
+      # Act-Assert
+      expect {
+        post tasks_path, params: empty_task
+      }.wont_change "Task.count"
+
+      # success indicates rendering of page
+      assert_response :success
+    end
   end
   
-  # Unskip and complete these tests for Wave 3
+  # DONE - Unskip and complete these tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      skip
-      # Your code here
+      # Act
+      get edit_task_path(task.id)
+
+      # Assert
+      must_respond_with :success
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+      # Act
+      get edit_task_path(-1)
+
+      # Assert
+      must_respond_with :redirect
     end
   end
   
   # Uncomment and complete these tests for Wave 3
   describe "update" do
+    # Arrange
+    before do
+      Task.create(name:"edit this task name", description: "edit this description")
+    end
+    let (:edit_task_data) {
+      {
+        task: {name: "Task edited!",
+                description:"Description edited!"}
+      }
+    }
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
-    #        thing to test.
+    #        thing to test - used validation and added a test for "create" as well!
     it "can update an existing task" do
-      # Your code here
+      # Arrange
+      id = Task.find_by(name:"edit this task name")[:id]
+      # Act-Assert
+      expect{
+        patch task_path(id), params: edit_task_data
+      }.wont_change "Task.count"
+
+      must_redirect_to task_path(id)
+
+      edited_task = Task.find_by(name: edit_task_data[:task][:name])
+      expect(edited_task.description).must_equal edit_task_data[:task][:description]
+      expect(edited_task.completed_at).must_equal edit_task_data[:task][:completed_at]
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      id = -1
+      # Act-Assert
+      expect {
+        patch task_path(id), params: edit_task_data
+      }.wont_change "Task.count"
+
+      must_redirect_to :root
+    end
+
+    it "will redirect to the root page if given an invalid id" do
+      id = -1
+      # Act-Assert
+      expect {
+        patch task_path(id), params: edit_task_data
+      }.wont_change "Task.count"
+
+      must_redirect_to :root
+    end
+
+    it "will render :edit if attempts to enter an empty task are made" do
+      # Arrange
+      id = Task.find_by(name:"edit this task name")[:id]
+      empty_task = {task: {name:nil, description:nil}}
+
+      # Act-Assert
+      expect {
+        patch task_path(id), params: empty_task
+      }.wont_change "Task.count"
+
+      # success indicates rendering of page
+      assert_response :success
     end
   end
   
-  # Complete these tests for Wave 4
+  # DONE - Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
-    
+    it "can destroy a model" do
+      # Arrange
+      delete_me = Task.new name: "Delete me", description: "Delete me"
+
+      delete_me.save
+      id = delete_me.id
+
+      # Act
+      expect {
+        delete task_path(id)
+
+        # Assert
+      }.must_change 'Task.count', -1
+
+      assert_nil(Task.find_by(name: delete_me.name))
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+    it "directs to 404 error page if task doesn't exist" do
+      # Act
+      expect {
+        delete task_path(-1)
+
+        # Assert
+      }.wont_change 'Task.count'
+
+      must_respond_with :not_found
+    end
   end
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+    # Arrange
+    before do
+      Task.create(name:"test", description: "testing")
+    end
+    # Note:  If there was a way to fail to save the changes to a task, that would be a great
+    #        thing to test - used validation and added a test for "create" as well!
+    it "can toggle a task between incomplete and complete" do
+      # Arrange
+      id = Task.find_by(name:"test")[:id]
+      # Act-Assert
+      # incomplete -> incomplete
+      expect{
+        patch toggle_complete_task_path(id)
+      }.wont_change "Task.count"
+
+      must_redirect_to :root
+
+      toggled_task = Task.find_by(name:"test")
+      expect(toggled_task.description).must_equal "testing"
+      expect(toggled_task.completed_at).must_be_instance_of String
+
+      # complete -> incomplete
+      # try on task page
+
+      expect{
+        get task_path(id)
+        patch toggle_complete_task_path(id)
+      }.wont_change "Task.count"
+
+      must_redirect_to :root
+
+      toggled_task = Task.find_by(name:"test")
+      expect(toggled_task.description).must_equal "testing"
+      assert_nil(toggled_task.completed_at)
+    end
+
+    it "will redirect to the root page if given an invalid id" do
+      id = -1
+      # Act-Assert
+      expect {
+        patch toggle_complete_task_path(id)
+      }.wont_change "Task.count"
+
+      must_redirect_to :root
+    end
+
+    it "will redirect to the root page if given an invalid id" do
+      id = -1
+      # Act-Assert
+      expect {
+        patch toggle_complete_task_path(id)
+      }.wont_change "Task.count"
+
+      must_redirect_to :root
+    end
   end
 end

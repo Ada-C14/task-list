@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link href="stylesheets/style.css" rel="stylesheet">
+  <title>Edit <%=@task[:name]%></title>
+  <link href="https://fonts.googleapis.com/css2?family=Gelasio&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+  <h1><b><%=@task[:name]%></b></h1>
+  <nav><%= link_to content_tag(:li, "Home"), root_path, method: :get %></nav>
+</header>
+<main id = "form">
+  <h2>Edit below:</h2>
+  <%= render partial: "form", locals: { action_name: "Edit" } %>
+</main>
+</body>
+</html>
