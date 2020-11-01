@@ -100,9 +100,6 @@ describe TasksController do
 
       # Assert
       must_respond_with :redirect
-
-
-      # Your code here
     end
   end
   
@@ -131,7 +128,6 @@ describe TasksController do
 
       must_respond_with :redirect
       must_redirect_to task_path(new_task.id)
-      # redirect_to tasks_path
     end
     
     it "will redirect to the root page if given an invalid id" do
@@ -190,8 +186,6 @@ describe TasksController do
       end
 
     it "will redirect for an invalid task" do
-
-      # task_id = task.id
       task_id = -1
 
       expect {

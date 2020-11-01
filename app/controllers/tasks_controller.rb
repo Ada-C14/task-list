@@ -87,11 +87,4 @@ class TasksController < ApplicationController
     @task.save
     redirect_to tasks_path
   end
-
-  # def incomplete
-  #   @task = Task.find(params[:id])
-  #   @task.completed = false
-  #   @task.save
-  #   redirect_to current_user
-  # end
 end
