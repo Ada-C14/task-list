@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   # all tasks
   root to: 'tasks#index'
   resources :tasks
-  put '/tasks/:id/complete', to: 'tasks#complete', as: 'task_complete'
-  put '/tasks/:id/incomplete', to: 'tasks#incomplete', as: 'task_incomplete'
+  patch '/tasks/:id/complete', to: 'tasks#complete', as: 'task_complete'
+  patch '/tasks/:id/incomplete', to: 'tasks#incomplete', as: 'task_incomplete'
+  #keeping this as future reference
   # get '/tasks', to: 'tasks#index', as: 'tasks'
   # get '/tasks/new', to: 'tasks#new', as: 'new_task'
   # post '/tasks', to: 'tasks#create'

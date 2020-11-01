@@ -55,8 +55,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    task_id = params[:id]
-    @task = Task.find_by(id: task_id)
+    @task = Task.find_by(id: params[:id])
 
     if @task.nil?
       head :not_found
@@ -71,13 +70,14 @@ class TasksController < ApplicationController
 
   def complete
     @task = Task.find_by(id: params[:id])
+
     if @task.nil?
       redirect_to tasks_path
       return
     end
 
     @task.update_attribute(:completed, true)
-    @task.completed_at = Time.now
+    @task.update(completed_at: Time.now)
     @task.save
     redirect_to tasks_path
     return
@@ -85,11 +85,13 @@ class TasksController < ApplicationController
 
   def incomplete
     @task = Task.find_by(id: params[:id])
+
     if @task.nil?
       redirect_to tasks_path
       return
     end
-    @task.completed_at = nil
+    @task.update_attribute(:completed, false)
+    @task.update(completed_at: nil)
     @task.save
     redirect_to tasks_path
     return
@@ -99,7 +101,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    return params.require(:task).permit(:name, :description, :completed_at)
+    return params.require(:task).permit(:name, :description, :completed_at, :completed)
   end
 end
 

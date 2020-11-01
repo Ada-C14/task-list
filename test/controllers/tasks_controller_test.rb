@@ -86,7 +86,7 @@ describe TasksController do
   # Unskip and complete these tests for Wave 3
   describe "edit" do
     before do
-      task = Task.create(name:"test", description:"test", completed_at:"")
+      Task.create(name:"test", description:"test", completed_at:"")
     end
     it "can get the edit page for an existing task" do
 
@@ -164,6 +164,40 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+    before do
+      Task.create(name:"test", description:"test", completed_at:nil)
+    end
+
+    it "will update time completed_at when marked complete" do
+      id = Task.first.id
+      patch task_complete_path(id)
+
+      must_respond_with :redirect
+      task = Task.find_by(id: id)
+      expect(task.completed_at).wont_be_nil
+    end
+
+    it "will respond with redirect when attempting to mark complete a nonexistant task" do
+      patch task_complete_path(-1)
+
+      must_respond_with :redirect
+    end
+
+    it "will update time completed_at to nil when unmarked complete" do
+      id = Task.first.id
+      patch task_complete_path(id)
+
+      patch task_incomplete_path(id)
+
+      must_respond_with :redirect
+      task = Task.find_by(id: id)
+      expect(task.completed_at).must_be_nil
+    end
+
+    it "will respond with redirect when attempting to unmark complete a nonexistant task" do
+      patch task_complete_path(-1)
+
+      must_respond_with :redirect
+    end
   end
 end
