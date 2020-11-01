@@ -38,7 +38,13 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    task_id = params[:id].to_i
+    task = Task.find_by(id: task_id)
+    if task.destroy
+      redirect_to tasks_path
+    else
 
+    end
   end
 
   def new

@@ -113,7 +113,7 @@ describe TasksController do
           task: {
               name: "new task",
               description: "new task description",
-              completed_at: (Time.now + 5.days).to_s
+              completed_at: "Yesterday"
           }
       }
 
