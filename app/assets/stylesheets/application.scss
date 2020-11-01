@@ -16,3 +16,88 @@
 @import "bootstrap";
 
 @import "**/*";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;1,300&display=swap');
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  //padding: 10px;
+}
+
+h3 {
+  font-weight: bolder;
+}
+
+header, footer{
+  width: 100%;
+  position: fixed;
+  background-color: #6281ab;
+  color: white;
+  left: 0;
+}
+
+header{
+  height: 48px;
+  top: 0;
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+  padding-left: 60px;
+
+  h1 {
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+}
+
+footer {
+  bottom: 0;
+
+  p {
+    padding-left: 60px;
+    font-weight: bold;
+  }
+}
+
+a {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+label {
+  font-weight: bolder;
+}
+
+#tasks {
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  max-width: 600px;
+}
+
+#tasks_container {
+  padding-top: 5em;
+
+  & > .row {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+#action_btns {
+  flex-grow: 0;
+}
+
+.action-btn {
+  align-items: center;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+  width: 100px;
+}
+
+li {
+  font-size: 20px;
+}

@@ -1,18 +1,19 @@
-<%= form_with model: @task, class: 'create-task' do |f| %>
-  <p>Please provide the following information to edit your book in our database:</p>
+<div id="tasks_container">
+    <%= form_with model: @task, class: 'create-task' do |f| %>
+      <div class="form-group w-75 p-3">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="form-group w-75 p-3">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+      <div class="form-group w-75 p-3">
+        <%= f.label :completed_at %>
+        <%= f.text_field :completed_at, class: "form-control" %>
+      </div>
 
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-  <div>
-    <%= f.label :completed_at %>
-    <%= f.text_field :completed_at %>
-  </div>
-
-  <%= f.submit "Edit Task", class: "task-button" %>
+      <%= f.submit "Edit Task", class: "action-btn btn btn-primary" %>
+      <%= link_to "Back", tasks_path, :class => "action-btn btn btn-primary" %>
 <% end %>
+</div>

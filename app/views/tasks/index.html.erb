@@ -1,14 +1,27 @@
-<h2>Your Tasks</h2>
-
-<% if @tasks.length > 0 %>
-  <ul>
-    <% @tasks.each do |task| %>
-      <li>
-        <%= link_to task.name, task_path(task) %> (<%= link_to "Edit", edit_task_path(task) %>)
-      </li>
-    <% end %>
-  </ul>
-  <%= link_to "Add Book", new_task_path %>
-<% else %>
-  <p>You have no tasks.</p>
-<% end %>
+<div id="tasks_container" class="container">
+  <div class="row">
+    <div id="action_btns" class="col">
+      <%= link_to "Add Task", new_task_path, :class => "action-btn btn btn-primary" %>
+      <%= link_to "All Tasks", tasks_path, :class => "action-btn btn btn-primary" %>
+    </div>
+    <div id="tasks" class="col">
+      <h3>Your Tasks</h3>
+      <% if @tasks.length > 0 %>
+        <ol>
+          <% @tasks.each do |task| %>
+            <li>
+              <%= link_to task.name, task_path(task) %>
+              <p>
+                <%= link_to "Mark Complete" %> |
+                <%= link_to "Edit", edit_task_path(task) %> |
+                <%= link_to "Delete", task, data: {confirm: "Are you sure you want to delete this task?"}, :method => :delete %>
+              </p>
+            </li>
+          <% end %>
+        </ol>
+      <% else %>
+        <p>You have no tasks.</p>
+      <% end %>
+    </div>
+  </div>
+</div>

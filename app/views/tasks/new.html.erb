@@ -1,19 +1,18 @@
-<h3>Add A New Task</h3>
-
-<%= form_with model: @task, class: 'task-form' do |f| %>
-  <p>Please enter the following information to save a new task:</p>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-  <div>
-    <%= f.label :completed_at %>
-    <%= f.text_field :completed_at %>
-  </div>
-
-  <%= f.submit "Add A New Task" %>
-<% end %>
+<div id="tasks_container">
+  <h3>Add A New Task</h3>
+  <%= form_with model: @task, class: 'task-form' do |f| %>
+    <div class="form-group w-75 p-3">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control col" %>
+    </div>
+    <div class="form-group w-75 p-3">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: "form-control col" %>
+    </div>
+    <div class="form-group w-75 p-3">
+      <%= f.label :completed_at %>
+      <%= f.text_field :completed_at, class: "form-control col" %>
+    </div>
+    <%= f.submit "Add A New Task", class: "btn btn-primary" %>
+  <% end %>
+</div>
