@@ -72,7 +72,7 @@ class TasksController < ApplicationController
         elsif @task.update(
             completed_at: Date.current
           )
-            redirect_to task_path(@task.id)
+            redirect_to root_path
             return    
         else
             render :edit, :bad_request

@@ -181,34 +181,26 @@ describe TasksController do
   # Complete for Wave 4
   describe "toggle_complete" do
 
-    it "can mark an existing task complete (updates completed_at to current time)" do
+    it "can mark an existing task complete (updates completed_at to current time) and redirect to root" do
 
-      task_hash = {
-        task: {
-          name: "create this existing task",
-          description: "task description",
-          completed_at: nil,
-        },
-      }
+      task_to_complete = Task.create(
+        name: "create this existing task",
+        description: "task description",
+        completed_at: nil,
+      )
 
-      post tasks_path, params: task_hash
-      
-      task_to_complete = Task.find_by(name: task_hash[:task][:name])
-
-      task_completed = {
-        task: {
-          name: "create this existing task",
-          description: "task description",
-          completed_at: Date.current.to_s,
-        },
-      }
-
-      expect { 
-        patch toggle_path(task_to_complete), params: task_completed
+      expect{
+        patch toggle_path(task_to_complete.id)
       }.wont_change "Task.count"
 
-      expect(task_to_complete.completed_at).must_equal Date.current
-      expect(task_to_complete.completed_at).must_equal task_completed[:task][:completed_at]
+      completed_task = Task.find_by(name:"create this existing task")
+
+      expect(completed_task.completed_at).wont_be_nil
+      expect(completed_task.completed_at).must_equal Date.current.to_s
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+      
     end
     
     it "can redirect if task id is not found" do
