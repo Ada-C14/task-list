@@ -83,20 +83,20 @@ class TasksController < ApplicationController
       return
     else
       if @task.completed_at
-        @task.update_attribute(completed_at: nil)
-        @task.save
+        @task.completed_at = nil
       elsif @task.completed_at.nil?
-        @task.update_attribute(completed_at: Time.now)
-        @task.save
+        @task.completed_at = Time.now
       else
         render :show
       end
+      @task.save
+      redirect_to task_path(@task.id)
       return
     end
   end
 
   def not_found
-    render :template => 'tasks/not_found',:status => :not_found
+    render :template => 'tasks/not_found', :status => :not_found
     return
   end
 
