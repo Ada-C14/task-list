@@ -11,8 +11,8 @@
       <ul>
         <%= @task.completed_at %>
       </ul>
-      <%= link_to "Edit Task", edit_task_path(@task) %>
-      <%= link_to "Delete #{@task.name}", task_path(@task.id), method: :delete %>
+      <%= link_to "Edit", edit_task_path(@task) %> or
+      <%= link_to "Delete", task_path(@task.id), method: :delete %>
 
     </li>
 
