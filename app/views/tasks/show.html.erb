@@ -1,1 +1,10 @@
 <h1><%= @task.name %></h1>
+<p><%= @task.description %></p>
+
+
+<ul>
+  <li><%= link_to "Edit", edit_task_path(@task.id) %></li>
+  <li><%= link_to "Delete", task_path(@task.id), method: :delete, data: {confirm: "Are you sure you want to delete?"} %></li>
+</ul>
+
+<%= link_to "Show all", root_path %>
