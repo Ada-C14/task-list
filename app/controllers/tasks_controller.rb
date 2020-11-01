@@ -11,6 +11,7 @@ class TasksController < ApplicationController
     if @task.nil?
       # head :not_found
       head :temporary_redirect
+
       return
     end
   end
@@ -20,6 +21,7 @@ class TasksController < ApplicationController
     if @task.nil?
       head :not_found
       return
+      # redirect_to tasks_path
     elsif @task.update(
         name: params[:task][:name],
         description: params[:task][:description],
