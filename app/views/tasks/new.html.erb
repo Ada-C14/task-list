@@ -1,0 +1,13 @@
+<%= form_with model: @task, class: 'create-task' do |field| %>
+
+<p>Please provide the following information to save the task to your list:</p>
+
+    <%= field.label :name %>
+    <%= field.text_field :name %>
+    <br>
+    <%= field.label :description %>
+    <%= field.text_field :description %>
+    <br>
+    <br>
+    <%= field.submit "Save Task", class: "task-button" %>
+<% end %> 
