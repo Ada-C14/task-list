@@ -13,3 +13,11 @@
 .form-group {
   max-width: 600px;
 }
+
+.completed-task {
+  text-decoration: black line-through;
+}
+
+.completed-task:hover {
+  text-decoration: black line-through;
+}

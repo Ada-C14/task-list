@@ -157,7 +157,7 @@ describe TasksController do
 
     it 'responds with not found if task does not exist' do
       id = -1
-      
+
       expect {
         delete task_path(id)
       }.wont_change "Task.count"
@@ -168,6 +168,31 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+    it 'updates completed_at with current date if initially empty' do
+      new_task = Task.create(name: "Walk the dog", description: "Don't forget the leash", completed_at: nil)
+      id = new_task.id
+
+      put toggle_complete_task_path(id)
+      must_respond_with :redirect
+
+      new_task = Task.find_by(id: id)
+      expect(new_task.completed_at).wont_be_nil
+    end
+
+    it 'updates completed_at to nil if user selects Mark Incomplete' do
+      new_task = Task.create(name: "Walk the dog", description: "Don't forget the leash", completed_at: 'October 30, 2020')
+      id = new_task.id
+
+      put toggle_complete_task_path(id)
+      must_respond_with :redirect
+
+      @new_task = Task.find_by(id: id)
+      expect(@new_task.completed_at).must_be_nil
+    end
+
+    it 'responds with not found if task does not exist' do
+      put toggle_complete_task_path(9999999)
+      must_respond_with :not_found
+    end
   end
 end
