@@ -27,11 +27,21 @@ class TasksController < ApplicationController
   end
 
   def new
-
+    @task = Task.new
   end
 
   def create
+    task = Task.new(
+      name: params[:task][:name],
+      description: params[:task][:description],
+      completed_at: params[:task][:completed_at]
+    )
 
+    if task.save
+      redirect_to task_path(task.id) # Send them to the '/tasks' path
+    else
+      render :new, :bad_request
+    end
   end
 
 end

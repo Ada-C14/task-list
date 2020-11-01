@@ -1,1 +1,26 @@
-<h2>New Page</h2>
+<%= form_with model: @task, class: 'task-form' do |f| %>
+  <p>Please provide the following information to save your task to our database:</p>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+  </div>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <%= f.label :completed_at %>
+    <%= f.text_field :completed_at %>
+  </div>
+
+<!--  <div>-->
+<!--  <label for="completed_at">Choose a due date for your task:</label>-->
+<!--  <input type="datetime-local" id="completed_at"-->
+<!--         name="completed_at">-->
+<!--  </div>-->
+
+  <%= f.submit "Add a task!" %>
+<% end %>
