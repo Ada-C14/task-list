@@ -99,8 +99,10 @@ describe TasksController do
 
       # Assert
       must_respond_with :redirect
+
     end
   end
+
   
   # Uncomment and complete these tests for Wave 3
   describe "update" do
@@ -117,7 +119,6 @@ describe TasksController do
           }
       }
 
-
       id = task.id
 
       expect {
@@ -133,12 +134,29 @@ describe TasksController do
     end
     
     it "will redirect to the root page if given an invalid id" do
+      patch task_path(-1)
+
+      # Assert
+      must_redirect_to root_path
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
+    it "will delete a task from the database" do
+      #arrange
+      task = Task.create(name: "Finish Rails homework", description: "Somewhat challenging.", completed_at: "Today")
+      id = task.id
+
+      #act
+      expect{
+        delete task_path(id)
+      }.must_change "Task.count", -1
+
+      #Assert
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
   end
   
   # Complete for Wave 4

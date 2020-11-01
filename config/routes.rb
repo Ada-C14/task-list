@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   #routes related to collection of tasks
   root to: 'tasks#index'
-
   resources :tasks
 
   # #Routes that operate on the book collection

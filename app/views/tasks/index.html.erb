@@ -5,8 +5,8 @@
   <ol>
     <% @tasks.each do |task| %>
       <li>
-        <strong><%= link_to task.name, task_path(task)%>
-        </strong>: <em><%= task.description %></em>
+        <strong><%= link_to task.name, task_path(task)%></strong>
+        <br>
         <%= link_to 'Delete Task', task_path(task.id), method: :delete, data: {confirm: "Are you sure?"} %></li>
 
       </li>
