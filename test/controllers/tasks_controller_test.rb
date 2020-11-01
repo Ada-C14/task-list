@@ -107,16 +107,16 @@ describe TasksController do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
     before do
-      task_update = {
+      @task_update = {
         task: {
             name: "updated task",
             description: "updated task description",
-            completed_at: Time.now,
-        },
+            completed_at: Time.now.to_s
+        }
       }
     end
     it "can update an existing task" do
-
+      original_task = task
       # check that the number of tasks doesn't change
       expect {
         patch task_path(task.id), params: @task_update
@@ -127,7 +127,7 @@ describe TasksController do
       updated_task = Task.find_by(id: task.id)
       expect(updated_task.name).must_equal @task_update[:task][:name]
       expect(updated_task.description).must_equal @task_update[:task][:description]
-      expect(updated_task.completed_at).must_equal @task_update[:task][:description]
+      expect(updated_task.completed_at).must_equal @task_update[:task][:completed_at]
 
       # confirm redirection to show page
       must_respond_with :redirect
@@ -150,6 +150,8 @@ describe TasksController do
   # Complete these tests for Wave 4
   describe "destroy" do
     it "can delete an existing task" do
+      original_task = task
+
       expect {
         delete task_path(task.id)
       }.must_differ "Task.count", -1
@@ -172,12 +174,17 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
+    before do
+      @task = Task.create name: "sample task", description: "this is an example for a test"
+    end
+
     it "sucessfully marks task completed" do
+
       expect {
-        patch toggle_complete_path(task.id)
+        patch toggle_complete_path(@task.id)
       }.wont_change "Task.count"
 
-      completed_task = Task.find_by(id: task.id)
+      completed_task = Task.find_by(id: @task.id)
       expect(completed_task.completed_at).wont_be_nil
 
       must_respond_with :redirect
@@ -186,15 +193,13 @@ describe TasksController do
     end
 
     it "succesfully unmarks task from completed" do
-      # mark task complete
-      patch toggle_complete_path(task.id)
-
+      patch toggle_complete_path(@task.id)
       # unmark complete
       expect {
-        patch toggle_complete_path(task.id)
+        patch toggle_complete_path(@task.id)
       }.wont_change "Task.count"
 
-      incomplete_task = Task.find_by(id: task.id)
+      incomplete_task = Task.find_by(id: @task.id)
       expect(incomplete_task.completed_at).must_be_nil
 
       must_respond_with :redirect
