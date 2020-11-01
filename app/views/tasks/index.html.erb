@@ -9,13 +9,29 @@
     <li>
       <% if task.completed_at.nil? %>
         <%= link_to task.name, task_path(task.id) %><%=" - " + task.description %>
-        <%= button_to "🔲 Mark Complete?", complete_task_path(task.id), method: :patch %>
+        <br />
+        <div class="task-buttons">
+          <%= button_to "🔲 Mark Complete?", complete_task_path(task.id), method: :patch %>
+        </div>
       <% else %>
         <s><%= link_to task.name, task_path(task.id) %><%=" - " + task.description %></s>
-        <%= button_to "✅ Unmark Complete?", complete_task_path(task.id), method: :patch %>
+        <br />
+        <div class="task-buttons">
+          <%= button_to "✅ Unmark Complete?", complete_task_path(task.id), method: :patch %>
+        </div>
       <% end %>
-    <%= button_to "Edit", edit_task_path(task.id), method: :get %>
-    <%= button_to "Delete", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"}%>
+
+      <div class="task-buttons">
+        <%= button_to "Edit", edit_task_path(task.id), method: :get %>
+      </div>
+      <div class="task-buttons">
+        <%= button_to "Delete", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"}%>
+      </div>
+<!--      new if statement so that this will print on a new line under the flex box of buttons-->
+      <% if !task.completed_at.nil? %>
+        <br />
+        <%= "Completed: " + task.completed_at %>
+      <% end %>
     </li>
     <% end %>
   </ul>

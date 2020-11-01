@@ -1,8 +1,30 @@
 <h2>Selected task:</h2>
-<p><%= @task.name %> - <%= @task.description %> Completed:<%= @task.completed_at %>
-  <%= button_to "Edit", edit_task_path(@task.id), method: :get %>
-  <%= button_to "Delete", task_path(@task), method: :delete, data: {confirm: "Are you sure?"}%>
+
+  <% if @task.completed_at.nil? %>
+    <%= link_to @task.name, task_path(@task.id) %><%=" - " + @task.description %>
+    <br />
+    <div class="task-buttons">
+      <%= button_to "🔲 Mark Complete?", complete_task_path(@task.id), method: :patch %>
+    </div>
+  <% else %>
+    <s><%= link_to @task.name, task_path(@task.id) %><%=" - " + @task.description %></s>
+    <br />
+    <div class="task-buttons">
+      <%= button_to "✅ Unmark Complete?", complete_task_path(@task.id), method: :patch %>
+    </div>
+  <% end %>
+
+  <div class="task-buttons">
+    <%= button_to "Edit", edit_task_path(@task.id), method: :get %>
+  </div>
+  <div class="task-buttons">
+    <%= button_to "Delete", task_path(@task.id), method: :delete, data: {confirm: "Are you sure?"}%>
+  </div>
+
+<!--  <%#= @task.name %> - <%#= @task.description %> Completed:<%#= @task.completed_at %>-->
+  <%#= button_to "Edit", edit_task_path(@task.id), method: :get %>
+  <%#= button_to "Delete", task_path(@task), method: :delete, data: {confirm: "Are you sure?"}%>
 
   <%#= link_to "Mark Completed", complete_task_path(@task.id), method: #cannot do :patch here %>
 
-</p>
+
