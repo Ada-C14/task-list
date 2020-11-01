@@ -27,10 +27,44 @@ class TasksController < ApplicationController
     if @task.save #true if the db insert succeeds
       redirect_to task_path(@task.id) # go to the new task page
       return
-    else save failed :/
+    else #save failed :/
       render :new #show new task form view again
     end
   end
-   
+  
+  def edit
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      head :not_found
+      return
+    end
+  end
+
+  def update
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      head :not_found
+      return
+    elsif @task.update(task_params)
+      redirect_to task_path(@task.id) 
+      return
+    else 
+      render :edit 
+      return
+    end
+  end
+  
+
+  def delete
+
+  end
+
+  private
+
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed_at)
+  end
 
 end
