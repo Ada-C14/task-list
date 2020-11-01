@@ -7,7 +7,7 @@ class TasksController < ApplicationController
     task_id = params[:id]
     @task = Task.find_by(id: task_id)
     if @task.nil?
-      redirect_to tasks_path
+      redirect_to task_path
       return
     end
   end
@@ -24,7 +24,7 @@ class TasksController < ApplicationController
       completed_at: params[:task][:completed_at]
     )
     if @task.save # save returns true if the database insert succeeds
-      redirect_to tasks_path
+      redirect_to task_path(@task.id)
       return
     else
       render :new
@@ -59,5 +59,11 @@ class TasksController < ApplicationController
       render :edit # show the new book form view again
       return
     end
+  end
+
+  private
+
+  def task_params
+    return params.require(:task, :name).permit(  :description, :started_at, :completed_at)
   end
 end
