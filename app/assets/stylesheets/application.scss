@@ -43,20 +43,9 @@ main {
   text-align: center;
 }
 
-main.task-list {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr;
-}
-
-main.task-list .task-name {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-}
-
-main.task-list .buttons {
-  grid-column: -2 / -1;
-  grid-row: 1 / 2;
+li {
+  list-style: none;
+  margin-left: -35px;
 }
 
 footer {
@@ -72,6 +61,8 @@ footer {
 .btn {
   width: 175px;
 }
+
+
 
 .btn-outline-success {
   font-size: 8pt;

@@ -82,20 +82,6 @@ class TasksController < ApplicationController
     end
   end
 
-  # def mark_complete
-  #   task_id = params[:id]
-  #   @task = Task.find_by(id: task_id)
-  #
-  #   if @task.nil?
-  #     redirect_to task_not_found_path
-  #     return
-  #   else
-  #     @task.update(name: params[:task][:name], description: params[:task][:description], completed_at: Time.now)
-  #     redirect_to task_path(@task)
-  #     return
-  #   end
-  # end
-
   def not_found
     render :template => 'tasks/not_found',:status => :not_found
     return

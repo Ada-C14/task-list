@@ -2,7 +2,7 @@
   <ol>
     <% @tasks.each do |task| %>
       <li>
-        <% if task.completed_at == "N/A" %>
+        <% if task.completed_at.nil? %>
           <section class="task-name">
             <%= link_to task.name, task_path(task) %>
           </section>
