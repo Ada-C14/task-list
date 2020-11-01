@@ -2,13 +2,19 @@
 <ul>
   <% @tasks.each do |task| %>
     <li>
+    <% if task.completed_at.nil? %>
       <%= link_to "#{task.name}", task_path(task.id)%>
-      <%= link_to "Edit Task", edit_task_path(task.id) %>
-      <%= link_to "Delete Task", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"} %>
       <%= button_to "Mark complete", complete_task_path(task.id), method: :patch%>
+    <% else %>
+      <s><%= link_to "#{task.name}", task_path(task.id)%></s>
+      <%= button_to "Mark uncomplete", complete_task_path(task.id), method: :patch%>
+    <% end %>
+    <%= link_to "Edit Task", edit_task_path(task.id) %>
+    <%= link_to "Delete Task", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"} %>
     </li>
   <% end %>
-<% end %>
 </ul>
+<% end %>
+
 
 <%= link_to "Add a new task", new_task_path%>

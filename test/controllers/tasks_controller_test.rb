@@ -156,13 +156,23 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    it "updates a tasks completed at" do
+    it "marks an uncompleted task as completed" do
+      task.update(
+        completed_at: nil
+      )
+
+      patch complete_task_path(task.id)
+      completed_task = Task.find_by(name: task.name)
+      assert completed_task.completed_at != nil
+    end
+
+    it "changes a completed task to uncompleted" do
       old_task = task
 
       patch complete_task_path(old_task.id)
 
-      completed_task = Task.find_by(name: old_task.name)
-      assert completed_task.completed_at != nil
+      uncompleted_task = Task.find_by(name: old_task.name)
+      assert uncompleted_task.completed_at == nil
     end
 
     it "redirects" do
