@@ -9,7 +9,8 @@ class TasksController < ApplicationController
     #@task = Task.find(id)
     @task = Task.find_by(id: id)
     if @task.nil?
-      head :not_found
+      # head :not_found
+      head :temporary_redirect
       return
     end
   end
@@ -20,7 +21,7 @@ class TasksController < ApplicationController
       head :not_found
       return
     elsif @task.update(
-        name: params[:book][:name],
+        name: params[:task][:name],
         description: params[:task][:description],
         completed_at: params[:task][:completed_at]
     )
