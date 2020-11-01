@@ -4,8 +4,20 @@
   <ul>
     <% @tasks.each do |task| %>
       <li>
-      <%= link_to task.name, task_path(task.id) %>: <%= task.description %> -- Due by <%= task.completed_at %>
-      <%= link_to " Edit", edit_task_path(task) %> / <%= link_to " Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
+        <% if task.completed == true %>
+          <%= form_with model: @task, :url => uncomplete_task_path(task), method: :put do |f| %>
+            <s><%= link_to task.name, task_path(task.id) %>: <%= task.description %> -- Due by <%= task.completed_at %></s>
+            <%= f.submit "Unmark complete", class: 'task-button' %> /
+            <%= link_to " Edit", edit_task_path(task) %> / <%= link_to " Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
+          <% end %>  
+        <% else %>  
+          <%= form_with model: @task, :url => complete_task_path(task), method: :put do |f| %>  
+            <%= link_to task.name, task_path(task.id) %>: <%= task.description %> 
+            -- Due by <%= task.completed_at %> --
+            <%= f.submit "Mark complete", class: 'task-button' %> /
+            <%= link_to " Edit", edit_task_path(task) %> / <%= link_to " Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
+          <% end %>
+        <% end %>
       </li>
     <% end %>
   </ul>

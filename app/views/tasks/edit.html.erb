@@ -2,19 +2,19 @@
 
 <%= "Check this everyday!".upcase %>
 
-<%= form_with model: @task, class: "task_form" do |t| %>
+<%= form_with model: @task, class: "task_form" do |f| %>
     <p>Please provide the following information to update a task in our database:</p>
     <div>
-        <%= t.label :name %>
-        <%= t.text_field :name %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
     </div>
     <div>
-        <%= t.label :description %>
-        <%= t.text_area :description %>
+        <%= f.label :description %>
+        <%= f.text_area :description %>
     </div>
     <div>
-        <%= t.label :completed_at %>
-        <%= t.date_field :completed_at %>
+        <%= f.label :completed_at %>
+        <%= f.date_field :completed_at %>
     </div>
-    <%= t.submit "Update a task", class: 'task-button' %>
+    <%= f.submit "Update a task", class: 'task-button' %>
 <% end %>
