@@ -1,9 +1,18 @@
 <div>
+    <h4> Task Details</h4>
+    <br>
     <ul>
-        <li>
-            Name: <%= @task.name %>,
-            Description: <%= @task.description %>,
-            Completed At: <%= @task.completed_at %>
-        </li>
+        <li>Name: <%= @task.name %> </li>
+        <br>
+        <li> Description: <%= @task.description %></li> 
+        <br>
+        <li>Completed At: <%= @task.completed_at %></li> 
+        <br>
+        <li><%= link_to "Update #{@task.name}", edit_task_path(@task.id) %></li> <%# @task or @task.id is both accepted %>
+        <br>
+        <li><%= link_to "Delete #{@task.name}", task_path(@task), method: :delete %></li>
     </ul>
 </div>
+
+ <p><%= link_to "Return to Task List", tasks_path %></p>
+

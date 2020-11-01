@@ -24,8 +24,8 @@ describe TasksController do
       must_respond_with :success
     end
   end
-  
-  # Unskip these tests for Wave 2
+
+  # Tests for Wave 2
   describe "show" do
     it "can get a valid task" do
       # Act
@@ -46,8 +46,6 @@ describe TasksController do
   
   describe "new" do
     it "can get the new task page" do
-      skip
-      
       # Act
       get new_task_path
       
@@ -58,8 +56,6 @@ describe TasksController do
   
   describe "create" do
     it "can create a new task" do
-      skip
-      
       # Arrange
       task_hash = {
         task: {
@@ -83,16 +79,20 @@ describe TasksController do
     end
   end
   
-  # Unskip and complete these tests for Wave 3
+  # Tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      skip
-      # Your code here
+      get edit_task_path(task.id)
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+      # Act
+      get task_path(-1)
+      
+      # Assert
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+     
     end
   end
   
@@ -113,7 +113,27 @@ describe TasksController do
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
+    it "can destroy a model" do
+      # Arrange
+      # poodr = Task.new title: "Practical Object Oriented Programming in Ruby", author: "Sandi Metz"
+  
+      # poodr.save
+      # id = poodr.id
+  
+      # Act
+      expect {
+        delete task_path(id)
+  
+        # Assert
+      }.must_change 'Task.count', -1
+  
+      # poodr = Task.find_by(title: "Practical Object Oriented Programming in Ruby")
+  
+      # expect(poodr).must_be_nil
+  
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
     
   end
   
