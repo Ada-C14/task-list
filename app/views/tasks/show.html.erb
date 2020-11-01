@@ -3,4 +3,5 @@
 <p><%= @task.description %></p>
 <p>Completed: <%= @task.completed_at %></p>
 
+<%= link_to "Edit Task", edit_task_path(@task) %>
 <%= link_to "All Tasks", tasks_path %>
