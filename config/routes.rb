@@ -6,5 +6,4 @@ Rails.application.routes.draw do
   resources :tasks
 
   patch 'tasks/:id/toggle_completion', to: 'tasks#toggle_completion', as: :task_completion
-  # patch 'tasks/:id/mark_incomplete', to: 'tasks#mark_incomplete', as: :task_incomplete
 end
