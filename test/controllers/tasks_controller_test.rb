@@ -127,7 +127,7 @@ describe TasksController do
         patch task_path(task.id), params: new_task_hash
       }.wont_change "Task.count"
 
-      must_redirect_to tasks_path
+      must_redirect_to task_path(task.id)
 
       task = Task.find_by(id: task.id)
       expect(task.name).must_equal new_task_hash[:task][:name]
@@ -146,7 +146,28 @@ describe TasksController do
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
+    it "will destroy a task" do
+      trash = Task.create(name: "throw this away", description: "delete this task")
+
+      expect {
+        delete task_path(trash.id)
+      }.must_change "Task.count", -1
+
+      trash = Task.find_by(name: "throw this away")
+
+      expect trash.must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "will respond not_found for invalid tasks" do
+      expect {
+        delete task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
+    end
     
   end
   
