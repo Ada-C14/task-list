@@ -1,11 +1,13 @@
 <h1>Welcome!</h1>
 <h2>Let's checkout our tasks:</h2>
-<ul>
+<ol>
   <% @tasks.each do |task| %>
   <li>
     <%= link_to task.name, task_path(task)%> || <%=task.description %> || <%= task.completed_at %>
+    <%= link_to "Edit", edit_task_path(task) %>
   </li>
     <%end %>
-</ul>
+</ol>
 
-<%= link_to "Add A Task", new_task_path %>
+<p><%= link_to "Home", root_path, class: "home_button" %></p>
+<%= link_to "Add A Task", new_task_path, class: "task_button" %>
