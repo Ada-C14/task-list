@@ -166,7 +166,7 @@ describe TasksController do
     end
 
     it "redirects" do
-      old_task = tasks
+      old_task = task
       patch complete_task_path(old_task.id)
 
       must_respond_with :redirect
