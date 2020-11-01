@@ -181,6 +181,39 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
+    before do
+      @task_hash = {
+          task: {
+              name: "new task",
+              description: "new task description",
+              completed_at: nil,
+          },
+      }
+    end
     # Your tests go here
+    it "can update the time completed" do
+
+      # Arrange
+      post tasks_path, params: @task_hash
+      patch complete_task_path(Task.first)
+
+      # Act-Assert
+      expect(Task.first.completed_at).must_be_kind_of String
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+
+    end
+
+    it "will redirect to the root page if given an invalid id" do
+      # Arrange
+      patch task_path(-1)
+
+      #Act-Assert
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
   end
+
+
 end

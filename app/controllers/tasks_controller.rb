@@ -1,11 +1,5 @@
-#
-# TASKS = [
-#     {todo: "Walk the dog"},
-#     {todo: "Make the mung beans"},
-#     {todo: "Go to the wine store"},
-#     {todo: "Eat a vegetable"},
-#     {todo: "Call your girl"}
-# ]
+require 'time'
+
 
 class TasksController < ApplicationController
   def index
@@ -13,8 +7,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    task_id = params[:id].to_i
-    @task = Task.find_by(id: task_id)
+    @task = find_by
     if @task.nil?
       redirect_to tasks_path
       return
@@ -26,7 +19,11 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(name: params[:task][:name], description: params[:task][:description])
+    @task = Task.new(
+        name: params[:task][:name],
+        description: params[:task][:description],
+        completed_at: params[:task][:completed_at]
+    )
     if @task.save
       redirect_to task_path(@task.id)
       return
@@ -37,7 +34,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find_by(id: params[:id])
+    @task = find_by
 
     if @task.nil?
       redirect_to tasks_path
@@ -46,7 +43,6 @@ class TasksController < ApplicationController
         name: params[:task][:name],
         description: params[:task][:description]
     )
-
       redirect_to task_path(@task.id)
       return
     else
@@ -56,7 +52,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find_by(id: params[:id])
+    @task = find_by
 
     if @task.nil?
       redirect_to tasks_path
@@ -68,8 +64,8 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    task_id = params[:id]
-    @task = Task.find_by(id: task_id)
+    task_id = find_by
+    @task = find_by
 
     if @task
       @task.destroy
@@ -77,7 +73,28 @@ class TasksController < ApplicationController
     else
       render :notfound, status: :not_found
     end
-
   end
+
+  def complete
+    @task = find_by
+
+    if @task.nil?
+      head :not_found
+      redirect_to tasks_path
+      return
+    else
+      t = Time.now
+      formatted_time = t.strftime("%m/%d/%Y, %I:%M %p")
+      @task.update(completed_at: formatted_time)
+      redirect_to tasks_path
+      return
+    end
+  end
+
+  def find_by
+    task_id = params[:id].to_i
+    task = Task.find_by(id: task_id)
+  end
+
 
 end

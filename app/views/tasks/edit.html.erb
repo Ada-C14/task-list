@@ -1,17 +1,29 @@
-<h1>For When You Finish Your Homework</h1>
-<h2>Edit Task</h2>
+<header>
+  <h1><%= link_to "For When You Finish Your Homework", tasks_path, class:"header-link-text" %></h1>
+</header>
+
+<main>
+
+  <h2>Edit Task</h2>
 
 
-<%= form_with model: @task, class: 'create-task' do |f| %>
-  <p>Please enter the following information about the task:</p>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <%= form_with model: @task, class: 'create-task' do |f| %>
+    <p class="text">Please enter the following information about the task:</p>
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+    </div>
+    <%= f.submit "SUBMIT TASK", :class => 'button' %>
+  <% end %>
+
+</main>
+
+<footer>
+  <div id="footer">
+    <h2>&#169; SCHANEN 2020</h2>
   </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </div>
-  <%= f.submit "Submit Task" %>
-<% end %>
-
+</footer>

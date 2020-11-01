@@ -1,9 +1,31 @@
-<h1>For When You Finish Your Homework</h1>
-<h2><%= @task.name %></h2>
-<p>Description - <%= @task.description %></p>
+<header>
+  <h1><%= link_to "For When You Finish Your Homework", tasks_path, class:"header-link-text" %></h1>
+</header>
 
+<main>
+  <% if @task.completed_at == nil %>
+    <h2><%= @task.name %></h2>
+    <% else %>
+    <strike id="strike"><h2><%= @task.name %></h2></strike>
+    <% end %>
 
-<div class="button-list">
-  <%= button_to "EDIT", edit_task_path(@task.id), method: :get %>
-  <%= button_to "DELETE", tasks_path, method: :delete, data: { confirm: "Are you sure?" } %>
-</div>
+  <p class="text">Description - <%= @task.description %></p>
+  <% if @task.completed_at != nil %>
+    <div>
+      <span class="text" id="completed">completed: </span>
+      <span id="time-completed"><%= @task.completed_at %></span>
+    </div>
+    <% end %>
+
+  <div class="list-buttons">
+    <%= button_to "EDIT", edit_task_path(@task.id), method: :get, :class => "button" %>
+    <%= button_to "DELETE", task_path(@task.id), method: :delete, data: { confirm: "Are you sure?" }, :class => "button" %>
+  </div>
+
+</main>
+
+<footer>
+  <div id="footer">
+    <h2>&#169; SCHANEN 2020</h2>
+  </div>
+</footer>
