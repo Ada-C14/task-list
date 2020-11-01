@@ -68,19 +68,26 @@ class TasksController < ApplicationController
     if @task.save # save returns true if the database insert succeeds
       redirect_to task_path(@task.id) # go to the index so we can see the task in the list
       #
-    else # save failed :(
+    else # save failed
     render :new, :bad_request # show the new task form view again
 
     end
   end
 
-  # def toggle_complete
-  #   @task = Task.find(params[:id])
-  #   @task.completed = true
-  #   @task.save
-  #   redirect_to current_user
-  # end
-  #
+  def toggle_complete
+    @task = Task.find_by_id(params[:id])
+
+    if @task.nil?
+      redirect_to tasks_path
+      return
+    end
+
+    @task.completed_at = Time.now.to_s
+
+    @task.save
+    redirect_to tasks_path
+  end
+
   # def incomplete
   #   @task = Task.find(params[:id])
   #   @task.completed = false

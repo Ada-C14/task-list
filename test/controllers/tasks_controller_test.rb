@@ -48,8 +48,7 @@ describe TasksController do
   
   describe "new" do
     it "can get the new task page" do
-      # skip
-      
+
       # Act
       get new_task_path
       
@@ -89,19 +88,6 @@ describe TasksController do
   describe "edit" do
     it "can get the edit page for an existing task" do
       get edit_task_path(task.id) # call task, get it's ID, get to the edit path page
-      #Act
-    #   @task = Task.find_by(id: params[:id])
-    #
-    #
-    #   # Arrange
-    #   new_task = {
-    #       task: {
-    #           name: "new task",
-    #           description: "new task description",
-    #           completed_at: "today",
-    #       },
-    #   }
-    #   new_task[:task][:name] = "Edited new task"
 
       # Assert
       must_respond_with :success #web server responded with 200 ok
@@ -125,9 +111,6 @@ describe TasksController do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
     it "can update an existing task" do
-      # Your code here
-
-
       task_hash = {
           task: {
               name: "edited new task",
@@ -169,11 +152,8 @@ describe TasksController do
       task_1.save
       id = task_1.id
 
-      # Act
       expect {
         delete task_path(id)
-
-        # Assert
       }.must_change "Task.count", -1
 
       must_respond_with :redirect
@@ -190,8 +170,35 @@ describe TasksController do
     end
   end
   
-  # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+      it "redirects to homepage after a task has been completed" do
+        task_id = task.id
+        task_complete = {
+            task: {
+                name: "new task",
+                description: "new task description",
+                completed_at: Time.now.to_s,
+            },
+        }
+        expect {
+          patch complete_task_path(task_id), params: task_complete
+        }.wont_change "Task.count"
+        new_task = Task.find(task_id)
+        expect(new_task.completed_at).must_equal task_complete[:task][:completed_at]
+
+        must_redirect_to tasks_path
+      end
+
+    it "will redirect for an invalid task" do
+
+      # task_id = task.id
+      task_id = -1
+
+      expect {
+        patch complete_task_path(-1)
+      }.wont_change "Task.count"
+
+      must_redirect_to tasks_path
+    end
   end
 end
