@@ -151,6 +151,10 @@ describe TasksController do
         delete task_path(id)
       }.must_change "Task.count", -1
 
+      deleted_task = Task.find_by(name: "Walk the dog")
+
+      expect(deleted_task).must_be_nil
+
       must_respond_with :redirect
       must_redirect_to root_path
     end
@@ -172,7 +176,7 @@ describe TasksController do
       new_task = Task.create(name: "Walk the dog", description: "Don't forget the leash", completed_at: nil)
       id = new_task.id
 
-      put toggle_complete_task_path(id)
+      patch toggle_complete_task_path(id)
       must_respond_with :redirect
 
       new_task = Task.find_by(id: id)
@@ -183,7 +187,7 @@ describe TasksController do
       new_task = Task.create(name: "Walk the dog", description: "Don't forget the leash", completed_at: 'October 30, 2020')
       id = new_task.id
 
-      put toggle_complete_task_path(id)
+      patch toggle_complete_task_path(id)
       must_respond_with :redirect
 
       @new_task = Task.find_by(id: id)
@@ -191,7 +195,7 @@ describe TasksController do
     end
 
     it 'responds with not found if task does not exist' do
-      put toggle_complete_task_path(9999999)
+      patch toggle_complete_task_path(9999999)
       must_respond_with :not_found
     end
   end
