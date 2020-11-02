@@ -1,0 +1,25 @@
+<h3>My Tasks:</h3>
+<ul>
+  <% if @tasks.length > 0 %>
+    <% @tasks.each do |task| %>
+      <li>
+        Task: <%= link_to task.name, task_path(task) %> ||
+        Description: <%= task.description %> ||
+
+        <% if task.completed_at.blank? %>
+          <%= link_to "Mark complete", task_complete_path(task), method: :put %> ||
+        <% else %>
+          Completed at: <%= task.completed_at %> ||
+        <%= link_to "Mark incomplete", task_incomplete_path(task), method: :put %> ||
+      <% end %>
+
+        <%= link_to "Edit task", edit_task_path(task) %> ||
+        <%= link_to "Delete task", task_path(task), method: :delete, data:
+            {confirm: "Are you sure you want to delete this task?"} %>
+
+      </li>
+    <% end %>
+  <% else %>
+    No tasks
+  <% end %>
+</ul>
