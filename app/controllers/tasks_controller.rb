@@ -1,6 +1,7 @@
 require "time"
 
 class TasksController < ApplicationController
+
   def index
     @tasks = Task.all
   end
@@ -54,7 +55,7 @@ class TasksController < ApplicationController
   end
 
   private
-  
+
   def action_success_check(action, redirect_path)
     if action
       redirect_to redirect_path
@@ -70,4 +71,5 @@ class TasksController < ApplicationController
   def find_task
     return Task.find_by(id: params[:id].to_i)
   end
+
 end
