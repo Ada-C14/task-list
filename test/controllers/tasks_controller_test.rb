@@ -122,14 +122,14 @@ describe TasksController do
       id = Task.first.id
       expect {
         patch task_path(id), params: new_task_hash
-    }.wont_change "Task.count"
+      }.wont_change "Task.count"
 
-    must_respond_with :redirect
+      must_respond_with :redirect
 
-    task = Task.find_by(id: id)
-    expect(task.name).must_equal new_task_hash[:task][:name]
-    expect(task.description).must_equal new_task_hash[:task][:description]
-    expect(task.completed_at).must_equal new_task_hash[:task][:completed_at]
+      task = Task.find_by(id: id)
+      expect(task.name).must_equal new_task_hash[:task][:name]
+      expect(task.description).must_equal new_task_hash[:task][:description]
+      expect(task.completed_at).must_equal new_task_hash[:task][:completed_at]
     end
     
     it "will redirect to the root page if given an invalid id" do
@@ -171,5 +171,19 @@ describe TasksController do
   # Complete for Wave 4
   describe "toggle_complete" do
     # Your tests go here
+    it "can update the time" do
+      task = Task.new(name: "watch game", description: "watch redzone")
+
+      task.save
+      id = task.id
+
+      expect {
+        patch complete_task_path(id)
+      }.wont_equal nil
+
+      #must_respond_with :redirect
+    end
+      
+
   end
 end
