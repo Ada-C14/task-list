@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'tasks#index'
 
   get '/error', to: 'tasks#error', as: :error
+  post '/tasks/:id/toggle_complete', to: 'tasks#toggle_complete', as: :toggle_complete
   resources :tasks
   # # Routes that operate on the task collection
   # get '/tasks', to: 'tasks#index', as: :tasks

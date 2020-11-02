@@ -215,6 +215,48 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+    before do
+      task_hash = {
+          task: {
+              name: 'cat',
+              description: 'cat',
+              completed_at: 'cat'
+          }
+      }
+
+      post tasks_path, params: task_hash
+    end
+
+    it 'can mark a task as complete' do
+      task = Task.first
+      expect{
+        post toggle_complete_path(task.id)
+      }.wont_change 'Task.count'
+
+      expect(task.is_complete).must_equal true
+      expect(task.completed_at).wont_equal 'cat'
+
+      must_respond_with :redirect
+    end
+
+    it 'can mark a task as uncomplete' do
+      task = Task.first
+      task.completed_at = true
+      expect{
+        post toggle_complete_path(task.id)
+      }.wont_change 'Task.count'
+
+      expect(task.is_complete).must_equal nil
+      # Completed at doesn't change on toggle off
+      expect(task.completed_at).must_equal 'cat'
+
+      must_respond_with :redirect
+    end
+
+    it 'refuses to toggle incorrect task' do
+      post toggle_complete_path(-1)
+
+      must_redirect_to error_path(error: 'Can\'t find task to toggle!')
+    end
   end
 end
