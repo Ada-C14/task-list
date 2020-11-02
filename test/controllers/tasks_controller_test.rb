@@ -136,6 +136,7 @@ describe TasksController do
 
   # Tests for Wave 4
 describe 'destroy' do
+
   it 'can destroy a model' do
     # Arrange
     test_task = Task.new name: 'Shopping', description: 'Holiday Shopping', completed_at: '11/1/2020'
@@ -158,6 +159,7 @@ describe 'destroy' do
     must_redirect_to tasks_path
 
   end
+
   it 'will respond with not_found for invalid ids' do
     expect {
       delete task_path(-1)

@@ -65,9 +65,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(name: params[:task][:name],
-      description: params[:task][:description],
-      completed_at: params[:task][:completed_at]
+    @task = Task.new(task_params)
     ) #instantiate a new task
     if @task.save #save returns true if the database insert succeeds
       redirect_to task_path(@task.id) #go to the index so we can see the task in the list
@@ -86,12 +84,18 @@ class TasksController < ApplicationController
       head :not_found
       return
     elsif @task
-    @task.destroy
-    redirect_to tasks_path
+      @task.destroy
+      redirect_to tasks_path
     else
       render :not_found, status: not_found
     end
     return
+  end
+
+  private
+
+  def task_params
+    return params.require(:task).permit(:name, :description, completed_at)
   end
   
 end
