@@ -5,14 +5,12 @@
 
   <%= f.label :name %>
   <%= f.text_field :name %>
-
+  <br>
   <%= f.label :description %>
   <%= f.text_area :description %>
-
+  <br>
   <%= f.label :completed_at %>
   <%= f.text_field :completed_at %>
-
-  <%= f.submit "save changes", class: "save-button" %>
+  <br>
+  <%= f.submit "save changes" %>
 <% end %>
-
-<p><%= link_to "go home", tasks_path %></p>
