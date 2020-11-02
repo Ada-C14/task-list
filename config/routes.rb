@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/tasks', to: 'tasks#index', as: 'tasks'
   get '/tasks/new', to: 'tasks#new', as: 'new_task'
   post '/tasks', to: 'tasks#create'
-  patch 'tasks/toggle', to: 'tasks#mark_complete', as: 'mark_complete'
+  patch 'tasks/:id/markup', to: 'tasks#markup', as: 'markup_task'
 
 
   get '/tasks/:id', to: 'tasks#show', as: "task"

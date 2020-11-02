@@ -44,6 +44,20 @@ class TasksController < ApplicationController
     end
   end
 
+  def update
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      head :not_found
+      return
+    elsif @task.update(task_params)
+      redirect_to tasks_path # go to the index so we can see the task in the list
+      return
+    else # save failed :(
+    render :edit
+    return
+    end
+  end
+
   def destroy
     task_id = params[:id]
     @task = Task.find_by(id: task_id)
@@ -58,9 +72,29 @@ class TasksController < ApplicationController
     redirect_to tasks_path
     return
   end
+
   def markup
     task_id = params[:id]
 
+    @task = Task.find_by(id: task_id)
 
+    if @task.nil?
+      head :not_found
+      redirect_to tasks_path
+      return
+    else
+      time = Time.now
+      @task.update(completed_at: time)
+      redirect_to tasks_path
+      return
+    end
   end
+
+  private
+
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed_at)
+  end
+
 end
+
