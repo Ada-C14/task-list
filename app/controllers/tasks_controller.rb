@@ -54,7 +54,7 @@ class TasksController < ApplicationController
       redirect_to task_path(@task)
       return
     else
-      render :edit
+      render :new
       return
     end
   end
