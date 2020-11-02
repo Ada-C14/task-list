@@ -112,7 +112,7 @@ describe TasksController do
 
       expect {
         patch task_path(task.id), params: new_task_hash
-      }.wont_change 'Task.count', 1
+      }.must_differ 'Task.count', 0
 
       must_redirect_to tasks_path
 
@@ -135,7 +135,7 @@ describe TasksController do
 
       expect {
         patch task_path(invalid_task_id), params: new_task_hash
-      }.wont_change 'Task.count'
+      }.must_differ 'Task.count', 0
 
       must_respond_with :not_found
     end
