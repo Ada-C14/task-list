@@ -10,4 +10,9 @@
   </li>
 </ul>
   <%= link_to 'Edit Task', edit_task_path(@task.id) %>
+  <br>
+  <%= link_to 'Delete Task', delete_task_path(@task.id), method: :delete %>
+  <br>
+  <%= link_to 'Back to Index', tasks_path %>
 </div>
+
