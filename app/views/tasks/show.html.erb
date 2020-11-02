@@ -2,4 +2,4 @@
 <h2>Description: <%= @task.description %></h2>
 <p><%= link_to "Return to Task List", tasks_path %></p>
 <p><%= link_to "Edit Task", edit_task_path(@task.id) %></p>
-<p><%= link_to "Delete Task", task_path(@task), method: :delete %></p>
+<p><%= link_to "Delete Task", task_path(@task), method: :delete,  data: {confirm: "Are you sure?"} %></p>

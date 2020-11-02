@@ -61,7 +61,6 @@ describe TasksController do
   describe "create" do
     it "can create a new task" do
       # skip
-      
       # Arrange
       task_hash = {
         task: {
@@ -70,16 +69,16 @@ describe TasksController do
           completed_at: nil,
         },
       }
-      
+
       # Act-Assert
       expect {
         post tasks_path, params: task_hash
       }.must_change "Task.count", 1
-      
+
       new_task = Task.find_by(name: task_hash[:task][:name])
       expect(new_task.description).must_equal task_hash[:task][:description]
       expect(new_task.completed_at).must_equal task_hash[:task][:completed_at]
-      
+
       must_respond_with :redirect
       must_redirect_to task_path(new_task.id)
     end
@@ -90,16 +89,19 @@ describe TasksController do
     it "can get the edit page for an existing task" do
       # skip
       # Your code here
-            # Act
-      # get edit_task_path
+      # # Act
+      get edit_task_path(task.id)
       #
       # # Assert
-      # must_respond_with :success
+      must_respond_with :success
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+      # skip
+      get edit_task_path(-1)
+
+      # Assert
+      must_respond_with :redirect
     end
   end
   
@@ -108,7 +110,29 @@ describe TasksController do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
     it "can update an existing task" do
-      # Your code here
+      # skip
+      # Arrange
+
+      old_task = task
+      edited_task_hash = {
+          task: {
+              name: "edited task",
+              description: "edited task description",
+              # completed_at: nil,
+          },
+      }
+
+      # Act-Assert
+      expect {
+        patch task_path(old_task.id), params: edited_task_hash
+      }.wont_change "Task.count" # won't change runs before the expect block
+
+      edited_task = Task.find_by(id: old_task.id) ### expect name & description thank!
+      expect(edited_task.name).must_equal edited_task_hash[:task][:name]
+      expect(edited_task.description).must_equal edited_task_hash[:task][:description]
+
+      must_respond_with :redirect
+      must_redirect_to task_path(old_task.id)
     end
     
     it "will redirect to the root page if given an invalid id" do

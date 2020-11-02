@@ -7,7 +7,7 @@ class TasksController < ApplicationController
     task_id = params[:id].to_i
     @task = Task.find_by(id: task_id)
     if @task.nil?
-      head 300
+      redirect_to tasks_path
       return
     end
   end
@@ -21,10 +21,10 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(name: params[:task][:name], description: params[:task][:description]) #instantiate a new book
     if @task.save # save returns true if the database insert succeeds
-      redirect_to task_path(@task.id) # go to the index so we can see the book in the list
+      redirect_to task_path(@task.id) # go to the index so we can see the task in the list
       return
     else # save failed :(
-    render :new # show the new book form view again
+    render :new # show the new task form view again
     return
     end
   end
@@ -33,7 +33,7 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
 
     if @task.nil?
-      head :not_found #need to test, and decide what error expected
+      redirect_to tasks_path
       return
     end
   end
