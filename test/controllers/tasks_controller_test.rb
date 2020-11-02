@@ -144,7 +144,7 @@ describe TasksController do
       expect(task.name).must_equal updated_task_hash[:task][:name]
     end
     
-    it "will redirect to the root page if given an invalid id" do
+    it "will responde with not found if given an invalid id" do
       updated_task_hash = {
           task: {
             name: 'Do nothing, relax',
@@ -156,18 +156,43 @@ describe TasksController do
         patch task_path(-1), params: updated_task_hash
       }.wont_change "Task.count"
 
-      must_redirect_to tasks_path
+      must_respond_with :not_found
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
-    
+    it "can destroy a model and redirect to the index page" do
+      #arrange
+
+      task_to_delete = Task.new(name: "Task for tests")
+      task_to_delete.save
+      id = task_to_delete.id
+
+      #act
+      expect {
+        delete task_path(id)
+      #assert
+      }.must_change 'Task.count', -1
+
+      task_to_delete = Task.find_by(name: "Task for tests")
+      expect(task_to_delete).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "will respond with not_found for nonexisting tasks id" do
+      expect {
+        delete task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
+    end  
   end
   
   # Complete for Wave 4
-  describe "toggle_complete" do
-    # Your tests go here
+  describe "complete" do
+    
   end
 end

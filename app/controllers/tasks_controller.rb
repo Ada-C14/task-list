@@ -53,7 +53,7 @@ class TasksController < ApplicationController
 
         if @task.nil?
             redirect_to tasks_path
-        return
+            return
         end
     end
 
@@ -67,7 +67,7 @@ class TasksController < ApplicationController
             description: params[:task][:description], 
             completed_at: params[:task][:completed_at]
             )
-            redirect_to task_path # go to the index so we can see the book in the list
+            redirect_to task_path # go to the index so we can see the tasks in the list
             return
         else # save failed :(
             render :edit # show the new task form view again
@@ -76,6 +76,36 @@ class TasksController < ApplicationController
     end
 
     def destroy
+        task_id = params[:id]
+        @task = Task.find_by(id: task_id)
+
+        if @task
+            @task.destroy
+            redirect_to tasks_path
+            return
+        else
+            head :not_found  
+            return
+        end  
+    end
+
+    def complete
+        task_id = params[:id]
+        @task = Task.find_by(id: task_id)
+
+        if @task.nil?
+            head :not_found
+            return
+        elsif @task.update(
+            completed_at: Time.now.strftime("%m/%d/%Y")
+            )
+            redirect_to tasks_path
+            return
+        else
+            redirect_to tasks_path
+            return
+        end
+
     end
 
 end

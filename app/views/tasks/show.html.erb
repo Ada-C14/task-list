@@ -1,6 +1,8 @@
-<h1> <%= @task.name %> </h1>
-<h2> <%= @task.description %></h2>
-<h2> <%= @task.completed_at %></h2>
+<p> <%= link_to "Home", root_path %></p>
+
+<p> Name: <%= @task.name %> </p>
+<p> Description: <%= @task.description %></p>
+<p> Data of completion: <%= @task.completed_at %></p>
 
 <p> 
   <%= link_to "Edit task", edit_task_path %>
