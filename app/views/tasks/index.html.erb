@@ -1,0 +1,33 @@
+
+
+<main>
+  <ul>
+    <% @tasks.each do |task| %>
+      <li>
+        <% if task.completed_at.blank? %>
+          <%= link_to "#{task.name}", task_path(task.id), class: 'task-name incomplete-task' %>: <%= task.description %>
+          <div class="task-actions">
+            <%= link_to "Mark Completed", toggle_complete_path(task.id), method: :patch %>
+            <span> | </span>
+            <%= link_to "Edit", edit_task_path(task.id) %>
+            <span> | </span>
+            <%= link_to "Delete", task_path(task.id), method: :delete, data: {confirm: "Are you sure you want to delete?"} %>
+          </div>
+
+        <% else %>
+          <del><%= link_to "✅ #{task.name}", task_path(task.id), class: 'task-name complete-task'%>: <%= task.description %></del>
+          <div class="task-actions">
+            <%= link_to "Mark Incomplete", toggle_complete_path(task.id), method: :patch %>
+            <span> | </span>
+            <%= link_to "Edit", edit_task_path(task.id) %>
+            <span> | </span>
+            <%= link_to "Delete", task_path(task.id), method: :delete, data: {confirm: "Are you sure you want to delete?"} %>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</main>
+
+
+
