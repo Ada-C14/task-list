@@ -48,7 +48,6 @@ describe TasksController do
   
   describe "new" do
     it "can get the new task page" do
-
       
       # Act
       get new_task_path
@@ -61,7 +60,6 @@ describe TasksController do
   describe "create" do
     it "can create a new task" do
 
-      
       # Arrange
       task_hash = {
         task: {
@@ -91,7 +89,6 @@ describe TasksController do
       get edit_task_path(task.id)
 
       must_respond_with :success
-
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
@@ -109,9 +106,9 @@ describe TasksController do
     before do
       @task_update = {
         task: {
-            name: "updated task",
-            description: "updated task description",
-            completed_at: Time.now.to_s
+          name: "updated task",
+          description: "updated task description",
+          completed_at: Time.now.to_s
         }
       }
     end
@@ -119,12 +116,11 @@ describe TasksController do
       original_task = task
       # check that the number of tasks doesn't change
       expect {
-        patch task_path(task.id), params: @task_update
+        patch task_path(original_task.id), params: @task_update
       }.wont_change "Task.count"
 
       # check that updates made it into database
-
-      updated_task = Task.find_by(id: task.id)
+      updated_task = Task.find_by(id: original_task.id)
       expect(updated_task.name).must_equal @task_update[:task][:name]
       expect(updated_task.description).must_equal @task_update[:task][:description]
       expect(updated_task.completed_at).must_equal @task_update[:task][:completed_at]
@@ -136,7 +132,6 @@ describe TasksController do
     end
     
     it "will redirect to the root page if given an invalid id" do
-
       # check that the number of tasks doesn't change
       expect {
         patch task_path(-1), params: @task_update
@@ -179,7 +174,6 @@ describe TasksController do
     end
 
     it "sucessfully marks task completed" do
-
       expect {
         patch toggle_complete_path(@task.id)
       }.wont_change "Task.count"
@@ -189,7 +183,6 @@ describe TasksController do
 
       must_respond_with :redirect
       must_redirect_to root_path
-
     end
 
     it "succesfully unmarks task from completed" do
@@ -204,7 +197,6 @@ describe TasksController do
 
       must_respond_with :redirect
       must_redirect_to root_path
-
     end
 
     it "responds with not_found if task doesn't exist" do

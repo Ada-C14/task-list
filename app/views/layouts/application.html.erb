@@ -10,6 +10,16 @@
   </head>
 
   <body>
+    <h1>Tasklist</h1>
+
+    <nav>
+      <%= link_to "Add New Task", new_task_path, class: "add-task-link" %>
+      <%= link_to "Show all", root_path, class: "show-all-link" %>
+    </nav>
+
     <%= yield %>
+    <footer>
+      <p>Copyright © 2020 Jasmine Lopez</p>
+    </footer>
   </body>
 </html>
