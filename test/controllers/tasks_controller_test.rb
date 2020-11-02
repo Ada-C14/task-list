@@ -134,6 +134,24 @@ describe TasksController do
       # Assert
       must_redirect_to tasks_path
     end
+
+    it "will be fail to save the bad changes to a task" do
+      # Arrange
+      bad_data = {
+        task: {
+          name: "new task",
+          completed: false,
+          completed_at: nil,
+        },
+      }
+
+      id = task.id
+
+      # Act-Assert
+      expect {
+        patch task_path(id), params: bad_data
+      }.wont_change 'Task.count'
+    end
   end
   
   # Complete these tests for Wave 4
