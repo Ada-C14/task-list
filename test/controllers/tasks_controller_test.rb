@@ -51,13 +51,13 @@ describe TasksController do
       must_respond_with :success
     end
     
-    it "will redirect for an invalid task" do
+    it "will respond with not_found for an invalid task" do
     
       # Act
       get task_path(-1)
       
       # Assert
-      must_respond_with :redirect
+      must_respond_with :not_found
     end
   end
   
@@ -109,12 +109,12 @@ describe TasksController do
       must_respond_with :success
     end
     
-    it "will respond with redirect when attempting to edit a nonexistant task" do
+    it "will respond with not_found when attempting to edit a nonexistant task" do
       # Act
       get edit_task_path(-1)
       
       # Assert
-      must_respond_with :redirect
+      must_respond_with :not_found
    end
   end
   

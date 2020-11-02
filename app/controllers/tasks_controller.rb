@@ -15,8 +15,8 @@ class TasksController < ApplicationController
         end
 
         if @task.nil?
-            # head :not_found
-            redirect_to tasks_path
+            head :not_found
+            # redirect_to tasks_path
             return
         end
     end
@@ -52,7 +52,7 @@ class TasksController < ApplicationController
         end
 
         if @task.nil?
-            redirect_to tasks_path
+            head :not_found
             return
         end
     end
