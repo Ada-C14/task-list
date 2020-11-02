@@ -138,10 +138,6 @@ describe TasksController do
       # must_respond_with :not_found
     end
 
-    it "will not update if the params are invalid" do
-
-    end
-
   end
 
   # Complete these tests for Wave 4
@@ -178,5 +174,36 @@ describe TasksController do
   # Complete for Wave 4
   describe "toggle_complete" do
     # Your tests go here
+
+    it "can update an existing task's status from completed to not completed" do
+      # Your code here
+      expect {
+        post task_done_path(@task.id)
+      }.must_differ 'Task.count', 0
+
+      must_redirect_to tasks_path
+
+      updated_task = Task.find(@task.id)
+      expect(updated_task.completed_at).must_equal "Not completed yet"
+    end
+
+    it "can update an existing task's status from not completed to completed" do
+      # Your code here
+      task2 = Task.create(name: "Original name", description: "Original description", completed_at: "Not completed yet")
+
+      expect {
+        post task_done_path(task2.id)
+      }.must_differ 'Task.count', 0
+
+      must_redirect_to tasks_path
+
+      updated_task = Task.find(task2.id)
+      expect(updated_task.completed_at).must_be_instance_of String
+
+      # if parse doesn't work on the string, then it's not a string formed from a Time instance
+      Time.parse(updated_task.completed_at)
+
+    end
+
   end
 end

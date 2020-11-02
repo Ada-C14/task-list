@@ -51,7 +51,8 @@ class TasksController < ApplicationController
       @task.destroy
       redirect_to tasks_path
     else
-      render :notfound, status: :not_found
+       # render :not_found, status: :not_found
+       head :not_found
     end
   end
 
@@ -87,15 +88,15 @@ class TasksController < ApplicationController
     if(task.completed_at != "Not completed yet")
       # takes a complete task and marks incomplete
       task.completed_at = "Not completed yet"
-
     else
       # taskes an incomplete task, marks complete
       task.completed_at = Time.now
     end
-
-    # save
+      # save
     task.save
 
     redirect_to tasks_path
+
+
   end
 end
