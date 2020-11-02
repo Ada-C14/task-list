@@ -26,11 +26,12 @@ class TasksController < ApplicationController
         description: params[:task][:description],
         completed_at: params[:task][:completed_at]
     )
-
     if @task.save
       redirect_to task_path(@task.id)
+      return
     else
-      render :new, :bad_request
+      render :new
+      return
     end
   end
 end
