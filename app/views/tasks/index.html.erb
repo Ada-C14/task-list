@@ -1,0 +1,21 @@
+<h1>Tasks</h1>
+<ul>
+    <% @tasks.each do |task| %>
+        <li>
+            <% if task.completed_at != "" %>
+                <strike><%= link_to task.name, task_path(task) %></strike>
+            <% else %>
+                <%= link_to task.name, task_path(task) %>
+                <%= link_to "Completed", complete_task_path(task.id), method: :patch %>
+            <% end %>
+
+        </li>
+    <% end %>
+</ul>
+
+<h3>Actions</h3>
+<ul>
+    <li>
+        <%= link_to "Add Task", new_task_path %>
+    </li>
+</ul>
