@@ -1,0 +1,29 @@
+<h2>tasks</h2>
+
+<p>
+<ul class="task-list">
+  <% @tasks.each do |task| %>
+    <%if task.completed_at == "" || task.completed_at == nil%>
+      <li><b><%= link_to task.name.upcase, task_path(task) %></b></li>
+    <%else %>
+      <li><b><s><%= link_to task.name.upcase, task_path(task) %> </s></b></li>
+    <% end %>
+
+    <ul><li>
+      <%if task.completed_at == "" || task.completed_at == nil%>
+        <%= link_to "mark complete", complete_task_path(task.id), method: :patch %>
+      <%else %>
+        <%= link_to "unmark complete", incomplete_task_path(task.id), method: :patch %>
+      <% end%>
+      --
+      <%= link_to "edit", edit_task_path(task) %> --
+      <%= link_to "delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
+    </li>
+    </ul>
+
+<%end %>
+</ul>
+
+<br>
+<h5> ** <%= link_to "Create a Task", new_task_path%> ** </h5>
+
