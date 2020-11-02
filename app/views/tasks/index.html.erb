@@ -1,0 +1,14 @@
+<h1>Tasks</h1>
+<% if @tasks.length > 0 %>
+
+<ul>
+  <% @tasks.each do |task|  %>
+    <li>
+      <%= link_to task.name, task_path(task) %> | About: <%= task.description %> | Completed On: <%= task.completed_at %> | <%= link_to "Edit", edit_task_path(task) %> | <%= link_to "Delete", task_path(task), method: :delete %> | <%= link_to "Mark Complete", toggle_path(task), method: :patch %> 
+    </li>
+  <% end %>
+</ul>
+
+<% else %>
+  <h3>No tasks in the system!</h3>
+<% end %>
