@@ -17,12 +17,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(
-      name: params[:task][:name],
-      description: params[:task][:description],
-      started_at: params[:task][:started_at],
-      completed_at: params[:task][:completed_at]
-    )
+    @task = Task.new(task_params)
     if @task.save # save returns true if the database insert succeeds
       redirect_to task_path(@task.id)
       return
@@ -49,12 +44,7 @@ class TasksController < ApplicationController
     if @task.nil?
       redirect_to root_path
       return
-    elsif @task.update(
-      name: params[:task][:name],
-      description: params[:task][:description],
-      started_at: params[:task][:started_at],
-      completed_at: params[:task][:completed_at]
-    )
+    elsif @task.update(task_params)
       redirect_to root_path # go to the index so we can see the book in the list
       return
     else
