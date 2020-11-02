@@ -220,7 +220,8 @@ describe TasksController do
           task: {
               name: 'cat',
               description: 'cat',
-              completed_at: 'cat'
+              completed_at: 'cat',
+              is_complete: nil
           }
       }
 
@@ -230,9 +231,10 @@ describe TasksController do
     it 'can mark a task as complete' do
       task = Task.first
       expect{
-        post toggle_complete_path(task.id)
+        post toggle_complete_path(task)
       }.wont_change 'Task.count'
 
+      task.reload
       expect(task.is_complete).must_equal true
       expect(task.completed_at).wont_equal 'cat'
 
@@ -241,22 +243,28 @@ describe TasksController do
 
     it 'can mark a task as uncomplete' do
       task = Task.first
-      task.completed_at = true
+      task.is_complete = true
+      task.save
       expect{
-        post toggle_complete_path(task.id)
+        post toggle_complete_path(task)
       }.wont_change 'Task.count'
 
-      expect(task.is_complete).must_equal nil
+      task.reload
+      expect(task.is_complete).must_be_nil
       # Completed at doesn't change on toggle off
       expect(task.completed_at).must_equal 'cat'
 
       must_respond_with :redirect
     end
 
-    it 'refuses to toggle incorrect task' do
+    it 'refuses to toggle nonexistent task' do
       post toggle_complete_path(-1)
 
       must_redirect_to error_path(error: 'Can\'t find task to toggle!')
+    end
+    it 'refuses to toggle invalid task' do
+      skip
+      # TODO: figure out how to do this
     end
   end
 end

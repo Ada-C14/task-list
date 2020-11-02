@@ -69,6 +69,32 @@ class TasksController < ApplicationController
     end
   end
 
+  def toggle_complete
+    task_id = params[:id].to_i
+    begin
+      @task = Task.find(task_id)
+    rescue ActiveRecord::RecordNotFound
+      redirect_to error_path(error: 'Can\'t find task to toggle!')
+      return
+    end
+
+    if @task.is_complete
+      @task.is_complete = nil
+    else
+      @task.is_complete = true
+      @task.completed_at = Time.now.to_s
+    end
+
+    if @task.save
+      redirect_back(fallback_location: root_path)
+      return
+    else
+      redirect_to error_path(error: 'Can\'t toggle task!')
+      return
+    end
+
+  end
+
   private
 
   def task_params

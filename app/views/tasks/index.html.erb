@@ -1,16 +1,14 @@
 <h1>Task List!</h1>
 <ul>
 <% @tasks.each do |task| %>
-  <li><h2>
-    <%= "<del>" if task.is_complete %>
+  <li><h2 class="<%= 'strike' if task.is_complete %>">
       <%= link_to task.name, task_path(task) %>
-    <%= "</del>" if task.is_complete %>
   </h2></li>
   <li>Description: <%= task.description %></li>
   <li>Completed at: <%= task.completed_at %></li>
     <li><h4>
-      <% string = "Mark as done" if task.completed_at %>
-      <% string = "Mark not done" unless task.completed_at %>
+      <% string = "Mark not done" if task.is_complete %>
+      <% string = "Mark as done" unless task.is_complete %>
       <%= link_to string, toggle_complete_path(task), method: :post  %>
     </h4></li>
     <li><h5><%= link_to 'Edit Task', edit_task_path(task) %></h5></li>

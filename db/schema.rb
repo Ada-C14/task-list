@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2020_11_02_040021) do
     t.string "completed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "is_complete"
+    t.boolean "is_complete"
   end
 
 end
