@@ -2,7 +2,7 @@
 <ul>
   <% @tasks.each do |task| %>
     <li>
-      <% task_style = task.completed_at.nil? ? 'incomplete-task' : 'completed-task'%>
+      <% task_style = task.completed_at.nil? ? 'incomplete-task' : 'completed-task' %>
       <%= link_to task.name.capitalize, task_path(task), class: task_style %>
 
       <div>
@@ -13,7 +13,12 @@
         <%= link_to "Edit", edit_task_path(task) %> |
         <%= link_to "Delete", task_path(task.id), method: :delete,
                     data: {confirm: 'Are you sure you would like to delete?'} %> |
-        <%= link_to "Mark as Complete", mark_task_path(task), method: :patch %>
+        <% if task.completed_at.nil? %>
+          <%= link_to "Mark as Complete", mark_task_path(task), method: :patch %>
+        <% else %>
+          <%= link_to "Mark as Incomplete", mark_incomplete_path(task), method: :patch %>
+        <% end %>
+
       </div>
     </li>
 

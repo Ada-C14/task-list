@@ -7,7 +7,7 @@ class TasksController < ApplicationController
     task_id = params[:id]
     @task = Task.find_by(id: task_id)
     if @task.nil?
-      redirect_to tasks_path
+      redirect_to root_path
       return
     end
   end
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: task_id)
 
     if @task.nil?
-      redirect_to tasks_path
+      redirect_to root_path
       return
     elsif @task.update(
       name: params[:task][:name],
@@ -55,7 +55,7 @@ class TasksController < ApplicationController
       started_at: params[:task][:started_at],
       completed_at: params[:task][:completed_at]
     )
-      redirect_to tasks_path # go to the index so we can see the book in the list
+      redirect_to root_path # go to the index so we can see the book in the list
       return
     else
       # save failed :(
@@ -68,7 +68,7 @@ class TasksController < ApplicationController
     task_id = params[:id]
     @task = Task.find_by(id: task_id)
     @task.destroy
-    redirect_to tasks_path
+    redirect_to root_path
   end
 
   def mark_complete
@@ -76,7 +76,15 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: task_id)
     @task.completed_at = Time.now.to_s
     @task.save
-    redirect_to tasks_path
+    redirect_to root_path
+  end
+
+  def mark_incomplete
+    task_id = params[:id]
+    @task = Task.find_by(id: task_id)
+    @task.completed_at = nil
+    @task.save
+    redirect_to root_path
   end
 
   private
