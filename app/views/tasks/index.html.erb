@@ -10,7 +10,12 @@
       <% end %>
       </div>
 
-      <%= link_to "Mark Complete", complete_task_path(task.id), method: :patch %> |
+      <% if task.completed_at.nil? || task.completed_at.empty? %>
+        <%= link_to "Mark Complete", complete_task_path(task.id), method: :patch %> |
+      <%else %>
+        <%= link_to "Unmark Complete", incomplete_task_path(task.id), method: :patch %> |
+      <% end %>
+      
       <%= link_to "Edit", edit_task_path(task.id) %> |
       <%= link_to "Delete", task_path(task.id), method: :delete , data: {confirm: "Are you sure?"}%>
     </li>
