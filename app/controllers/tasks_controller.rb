@@ -26,6 +26,7 @@ class TasksController < ApplicationController
 
     if @task.save
       redirect_to task_path(@task.id)
+      return
     else
       render :new, :bad_request
     end
@@ -51,16 +52,6 @@ class TasksController < ApplicationController
     else
       render :new, :bad_request
     end
-
-
-    # @task.name = params[:task][:name]
-    # @task.description = params[:task][:description]
-    #
-    # if @task.save
-    #   redirect_to task_path(@task.id)
-    # else
-    #   render :new, :bad_request
-    # end
   end
 
   def destroy

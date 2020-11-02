@@ -193,7 +193,7 @@ describe TasksController do
       expect(toggle_task.completed_at).must_equal Date.today
 
       must_respond_with :redirect
-      must_redirect_to task_path(toggle_task.id)
+      must_redirect_to tasks_path
     end
 
     it "can set completed_at to nil if task is completed" do
@@ -209,7 +209,7 @@ describe TasksController do
       expect(toggle_task.completed_at).must_be_nil
 
       must_respond_with :redirect
-      must_redirect_to task_path(toggle_task.id)
+      must_redirect_to tasks_path
     end
 
   end
