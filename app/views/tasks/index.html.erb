@@ -7,6 +7,15 @@
           <%= link_to 'Edit Task', edit_task_path(task.id) %>
           <%= link_to 'Delete Task', confirm_task_path(task.id) %>
       </li>
+      <% if task.completed_at.nil? || task.completed_at == "" %>
+        <li>
+          <%= link_to "Mark as Completed", complete_task_path(task.id), method: :patch %>
+        </li>
+      <% else %>
+      <li>
+        <%= link_to "Mark as Uncompleted", complete_task_path(task.id), method: :patch%>
+      </li>
+      <% end %>
     </ul>
   <% end %>
 </div>

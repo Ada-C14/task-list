@@ -68,15 +68,42 @@ class TasksController < ApplicationController
 
   def delete
     task = Task.find_by(id: params[:id])
-    if task.destroy
-      redirect_to tasks_path
-    else
-      # fill in
+
+    if task.nil?
+      redirect_to root_path
+      return
+
+    elsif task.destroy
+      redirect_to root_path
+      return
     end
   end
 
   def confirm
     @task = Task.find_by(id: params[:id])
+  end
+
+  def complete
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      redirect_to root_path
+      return
+    end
+
+    if @task[:completed_at].nil? || @task[:completed_at] == ""
+      @task.update(completed_at: Time.now)
+      redirect_to root_path
+      return
+    else
+      @task.update(completed_at: nil)
+      redirect_to root_path
+      return
+    end
+
+    redirect_to root_path
+    return
+
   end
 
 end
