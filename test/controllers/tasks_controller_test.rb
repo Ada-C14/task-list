@@ -13,11 +13,11 @@ describe TasksController do
   end
   let (:task_hash) {
     {
-      task: {
-        name: "new task",
-          description: "new task description",
-          completed_at: nil,
-      },
+        task: {
+            name: "new task",
+            description: "new task description",
+            completed_at: nil,
+        },
     }
   }
 
@@ -72,7 +72,7 @@ describe TasksController do
 
   describe "create" do
     it "can create a new task" do
-      
+
       # Act-Assert
       expect {
         post tasks_path, params: task_hash
@@ -146,6 +146,39 @@ describe TasksController do
   end
 
   describe "toggle_complete" do
+    it "can access the mark path" do
+      # Act
+      patch mark_task_path(task.id)
 
+      # Assert
+      must_redirect_to root_path
+    end
+
+    it "will not change other statistics" do
+      task = Task.first
+      expect {
+        patch mark_task_path(task.id)
+      }.wont_change "Task.count", task.name
+
+      must_redirect_to root_path
+    end
+  end
+
+  describe "toggle_incomplete" do
+    it "can access the incomplete mark path" do
+      # Act
+      patch mark_incomplete_path(task.id)
+
+      # Assert
+      must_redirect_to root_path
+    end
+    it "will not change other statistics" do
+      task = Task.first
+      expect {
+        patch mark_incomplete_path(task.id)
+      }.wont_change "Task.count", task.name
+
+      must_redirect_to root_path
+    end
   end
 end
