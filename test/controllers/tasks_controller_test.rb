@@ -109,12 +109,35 @@ describe TasksController do
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
+    before do 
+      @task_1 = Task.create(name: "original name", description: "original description", completed_at: nil)
+    end 
+
     it "can update an existing task" do
       # Your code here
+      # Arrange
+      updated_task_hash = {
+        task: {
+          name: "updated name",
+          description: "updated decription",
+          completed_at: nil,
+        },
+      }
+
+      # Act-Assert
+      expect {
+        post tasks_path, params: task_hash
+      }.wont_change 'Task.count'
+
+      #Still gotta find a way to compare updated hash to instance
+      
     end
     
     it "will redirect to the root page if given an invalid id" do
       # Your code here
+      patch task_path(656676)
+      must_respond_with :redirect
+      must_redirect_to root_path
     end
   end
   
