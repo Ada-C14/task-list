@@ -23,12 +23,12 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
         # name: params[:task][:name],
         # description: params[:task][:description])
-
     if @task.save
       redirect_to task_path(@task.id)
       return
     else
-      render :new, :bad_request
+      # render :new, :bad_request
+      redirect_to new_task_path
     end
   end
 
