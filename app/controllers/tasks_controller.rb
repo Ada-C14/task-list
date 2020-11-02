@@ -58,10 +58,21 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @book = Task.find_by(id: params[:id])
+    @task = Task.find_by(id: params[:id])
 
-    if @book
-      @book.destroy
+    if @task
+      @task.destroy
+      redirect_to tasks_path
+    else
+      head :not_found
+    end
+  end
+
+  def mark_complete
+    @task = Task.find_by(id: params[:id])
+
+    if @task
+      @task.update(completed_at: (Time.now).to_s)
       redirect_to tasks_path
     else
       head :not_found
