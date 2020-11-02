@@ -88,13 +88,20 @@ describe TasksController do
   # Unskip and complete these tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      skip
-      # Your code here
+
+      get task_path(task.id)
+
+      # Assert
+      must_respond_with :success
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+
+      # Act
+      get task_path(-1)
+
+      # Assert
+      must_respond_with :redirect
     end
   end
   
@@ -103,22 +110,73 @@ describe TasksController do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
     it "can update an existing task" do
-      # Your code here
+      # Arrange
+      task_hash = {
+          task: {
+              name: "new name",
+              description: "new description"
+          }
+      }
+      task
+      expect{
+        patch task_path(task.id), params: task_hash
+      }.must_differ "Task.count", 0
+
+      updated_task = Task.find_by(id: task.id)
+      expect(updated_task.name).must_equal task_hash[:task][:name]
+      expect(updated_task.description).must_equal task_hash[:task][:description]
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      get task_path(-1)
+
+      # Assert
+      must_respond_with :redirect
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
-    
+    it "successfully deletes an existing Task" do
+      existing_task = Task.last
+
+      expect {
+        delete task_path(existing_task.id)
+      }.must_change "Task.count", -1
+    end
+
+    it "will redirect to the root page if given an invalid id" do
+      get task_path(-1)
+
+      must_respond_with :redirect
+    end
   end
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+
+    it "changes completion date from nil to today's date when clicked" do
+      existing_task = Task.last
+
+      completed_task = {
+          task: {
+              name: "completed task",
+              description: "completed description",
+              completed_at: Time.now,
+          },
+      }
+
+      expect {
+        post complete_task_path(existing_task.id)
+      }.wont_change "Task.count"
+
+      expect(Task.find_by(id: existing_task.id).name).must_equal "completed task"
+    end
+
+    it "will redirect to the root page if given an invalid id" do
+      get task_path(-1)
+
+      must_respond_with :redirect
+    end
   end
 end
