@@ -2,8 +2,23 @@ require "test_helper"
 
 describe TasksController do
   let (:task) {
-    Task.create name: "sample task", description: "this is an example for a test",
+    Task.create name: "sample task",
+                description: "this is an example for a test",
                 completed_at: Time.now + 5.days
+  }
+  before do
+    Task.create(name: "sample task",
+                description: "this is an example for a test",
+                completed_at: Time.now + 5.days)
+  end
+  let (:task_hash) {
+    {
+      task: {
+        name: "new task",
+          description: "new task description",
+          completed_at: nil,
+      },
+    }
   }
 
   # Tests for Wave 1
@@ -25,7 +40,7 @@ describe TasksController do
     end
   end
 
-  # Unskip these tests for Wave 2
+  # Tests for Wave 2
   describe "show" do
     it "can get a valid task" do
       # Act
@@ -57,16 +72,7 @@ describe TasksController do
 
   describe "create" do
     it "can create a new task" do
-
-      # Arrange
-      task_hash = {
-        task: {
-          name: "new task",
-          description: "new task description",
-          completed_at: nil,
-        },
-      }
-
+      
       # Act-Assert
       expect {
         post tasks_path, params: task_hash
@@ -81,7 +87,7 @@ describe TasksController do
     end
   end
 
-  # Unskip and complete these tests for Wave 3
+  # Tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
       # Act
@@ -100,24 +106,16 @@ describe TasksController do
     end
   end
 
-  # Uncomment and complete these tests for Wave 3
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
-    task_hash = {
-      task: {
-        name: "new task",
-          description: "new task description",
-          completed_at: nil,
-      },
-    }
     it "can update an existing task" do
       task = Task.first
       expect {
         patch task_path(task.id), params: task_hash
       }.wont_change "Task.count"
 
-      must_redirect_to tasks_path
+      must_redirect_to root_path
 
       task = Task.find_by(id: task.id)
       expect(task.name).must_equal task_hash[:task][:name]
@@ -134,28 +132,20 @@ describe TasksController do
     end
   end
 
-  # Complete these tests for Wave 4
+  # Tests for Wave 4
   describe "destroy" do
-    task_hash = {
-      task: {
-        name: "new task",
-          description: "new task description",
-          completed_at: nil,
-      },
-    }
-    it "can destroy an existing task" do
+    it "can destroy an existing task and redirect to the root page" do
       task = Task.first
       expect {
         delete task_path(task.id)
       }.must_differ 'Task.count', -1
 
-
+      must_redirect_to root_path
     end
 
   end
 
-  # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+
   end
 end
