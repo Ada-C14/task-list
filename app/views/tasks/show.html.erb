@@ -1,0 +1,18 @@
+<h2>Task Details</h2>
+<div>
+  <h3><%= @task[:name] %></h3>
+<ul>
+  <li>
+    <%= @task[:description] %>
+  </li>
+  <li>
+    <%= @task[:completed_at] %>
+  </li>
+</ul>
+  <%= link_to 'Edit Task', edit_task_path(@task.id) %>
+  <br>
+  <%= link_to 'Delete Task', confirm_task_path(@task.id) %>
+  <br>
+  <%= link_to 'Back to Index', tasks_path %>
+</div>
+
