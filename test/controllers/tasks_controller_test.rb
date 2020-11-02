@@ -115,6 +115,7 @@ describe TasksController do
 
     it "can update an existing task" do
       # Your code here
+      skip
       # Arrange
       updated_task_hash = {
         task: {
