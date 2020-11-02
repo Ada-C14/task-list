@@ -181,7 +181,7 @@ describe TasksController do
     it "can update an existing task" do
       id = Task.first.id
       expect {
-        patch complete_task_path(id)
+        patch toggle_complete_task_path(id)
       }.wont_change "Task.count"
 
       must_respond_with :redirect
@@ -195,7 +195,7 @@ describe TasksController do
 
       id = Task.first.id
       expect {
-        patch complete_task_path(id)
+        patch toggle_complete_task_path(id)
       }.wont_change "Task.count"
 
       must_respond_with :redirect
@@ -207,7 +207,7 @@ describe TasksController do
     it "will redirect to the root page if given an invalid id" do
       # Your code here
       id = -1
-      patch complete_task_path(id)
+      patch toggle_complete_task_path(id)
       must_redirect_to tasks_path
     end
   end

@@ -2,4 +2,4 @@
 <h2><%= @task.description %></h2>
 <h3><%= display_task_completed_at(@task.completed_at) %></h3>
 <div class = "button"><%= link_to "Delete", task_path(@task), method: :delete, data: delete_confirm %></div>
-<div class = "button"><%= link_to complete_button_text(@task.completed_at), complete_task_path(@task), method: :patch%></div>
+<div class = "button"><%= link_to complete_button_text(@task.completed_at), toggle_complete_task_path(@task), method: :patch%></div>

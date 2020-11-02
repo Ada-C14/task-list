@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :tasks do
     member do
-      patch :complete
+      patch :toggle_complete
     end
   end
 end

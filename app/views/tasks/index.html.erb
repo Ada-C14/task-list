@@ -8,7 +8,7 @@
         <p><%=display_task_completed_at(task.completed_at)%> </p>
         <div class = button-wrapper>
           <div class = "button"><%= link_to "Delete", task_path(task), method: :delete, data: delete_confirm%></div>
-          <div class = "button"><%= link_to complete_button_text(task.completed_at), complete_task_path(task), method: :patch%></div>
+          <div class = "button"><%= link_to complete_button_text(task.completed_at), toggle_complete_task_path(task), method: :patch%></div>
           <div class = "button"><%= link_to "Edit", edit_task_path(task)%></div>
         </div>
       </li>
