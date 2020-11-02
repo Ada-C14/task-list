@@ -1,9 +1,9 @@
-<h1>Tasks</h1>
+<h1>Sophia's Tasks</h1>
 <ul>
 <% if @tasks.length > 0 %>
   <% @tasks.each do |task|  %>
     <li>
-      <%= task[:item] %> done?: <%= task[:status] %>
+      <%= task[:name] %>: <%= task[:description] %>
     </li>
   <% end %>
 <% else %>
