@@ -140,6 +140,22 @@ describe TasksController do
   # Complete these tests for Wave 4
   describe "destroy" do
     # Your tests go here
+    it "can destroy a task" do
+      task_to_delete = Task.create(name: "make coffee", description: "make yourself a good cup of coffee for the day")
+
+      id = task_to_delete.id
+
+      expect {
+        delete task_path(id)
+      }.must_differ "Book.count", -1
+
+      task_to_delete = Task.find_by(name: "make coffee")
+
+      expect(task_to_delete).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
     
   end
   
