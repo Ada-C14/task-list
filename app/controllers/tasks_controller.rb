@@ -105,7 +105,5 @@ class TasksController < ApplicationController
             redirect_to tasks_path
             return
         end
-
     end
-
 end

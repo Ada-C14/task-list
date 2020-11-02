@@ -102,7 +102,8 @@ describe TasksController do
   describe "edit" do
     it "can get the edit page for an existing task" do
       # Act
-      get edit_task_path
+      task = Task.create(name: 'Clean up the kitchen', description: 'Wash the sink, floors')
+      get edit_task_path(task.id)
       
       # Assert
       must_respond_with :success
@@ -110,7 +111,7 @@ describe TasksController do
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
       # Act
-      task = Task.find_by(id: -1)
+      get edit_task_path(-1)
       
       # Assert
       must_respond_with :redirect
@@ -126,6 +127,7 @@ describe TasksController do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
     it "can update an existing task" do
+      #arrange
       updated_task_hash = {
           task: {
             name: "Do nothing, relax",
@@ -134,10 +136,13 @@ describe TasksController do
           }
       }
       task = Task.first
+
+      #act
       expect {
         patch task_path(task.id), params: updated_task_hash
       }.wont_change "Task.count"
 
+      #assert
       must_redirect_to task_path
 
       task = Task.find_by(id: task.id)
@@ -193,6 +198,30 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "complete" do
-    
+    before do
+      Task.create(name: 'Completion check', description: 'If task is complete, there is a timestamp')
+    end
+    it "can add a timestamp in the completed_at field and redirect to root path" do
+      #arrange
+      task = Task.first
+
+      #act
+      expect {
+        patch complete_task_path(task.id)
+      }.wont_change "Task.count"
+
+      #assert
+      must_redirect_to tasks_path
+      task = Task.find_by(id: task.id)
+      expect(task.completed_at).must_equal Time.now.strftime("%m/%d/%Y")
+    end
+
+    it "will respond with not_found for nonexisting tasks id" do
+      expect {
+        patch complete_task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
+    end
   end
 end
