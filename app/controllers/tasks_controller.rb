@@ -25,7 +25,7 @@ class TasksController < ApplicationController
   def create
     #instantiate a new task
     @task = Task.new(
-        name: params[:task][:title],           # my table colume is saved as name, but my form has title
+        name: params[:task][:title],           # my table column is saved as name, but my form has title, good learning point
         description: params[:task][:description],
         completed_at: params[:task][:completed_at])
 
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
 
     if @task.nil?
-      head :not_found
+      redirect_to tasks_path
       return
     end
   end
@@ -53,7 +53,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find_by(id: params[:id])
     if @task.nil?
-      head :not_found
+      redirect_to tasks_path
       return
     elsif @task.update(
         name: params[:task][:title],
@@ -76,7 +76,7 @@ class TasksController < ApplicationController
       @task.destroy
       redirect_to tasks_path
     else
-      render :notfound, status: :not_found
+      head :not_found
     end
   end
 
@@ -91,6 +91,19 @@ class TasksController < ApplicationController
         return
       end
   end
+
+
+  # def incomplete
+  #   @task = Task.find_by(id: params[:id])
+  #   if @task.nil?
+  #     head :not_found
+  #     return
+  #   else
+  #     @task.update(completed_at: Time.now)
+  #     redirect_to tasks_path
+  #     return
+  #   end
+  # end
 
 end
 

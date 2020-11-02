@@ -4,7 +4,8 @@
 <ol class="tasks">
   <% @tasks.each do |task| %>
 
-    <li> Title:  <%= task.name %> <%= link_to "Edit", edit_task_path(task) %>
+    <li> Title:  <%= task.name %>
+      <%= link_to "Edit", edit_task_path(task) %>
       <%= link_to "Details", task_path(task.id) %>
       <%= link_to "Delete", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"}%>
       <%= link_to "Mark as Complete", complete_task_path(task.id), method: :patch %> </br>
