@@ -11,4 +11,7 @@
   <%= f.text_field :started_at %>
 
   <%= f.submit "Edit Task", class: "task-button" %>
+
+  <%= link_to "Task List", root_path %> or
+  <%= link_to "Delete", task_path(@task.id) %>
 <% end %>

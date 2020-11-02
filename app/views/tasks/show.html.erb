@@ -1,19 +1,21 @@
-<h1>Tasks</h1>
-<ul>
-    <li>
-      <%= @task.name %>
+
+<h1><%= @task.name %></h1>
       <ul>
+        <li>
         <%= @task.description %>
-      </ul>
-      <ul>
+        </li>
+      <li>
         <%= @task.started_at %>
-      </ul>
-      <ul>
-        <%= @task.completed_at %>
-      </ul>
-      <%= link_to "Edit", edit_task_path(@task) %> or
-      <%= link_to "Delete", task_path(@task.id), method: :delete %>
-
-    </li>
-
-</ul>
+      </li>
+      <li>
+        <% if @task.completed_at.nil? %>
+          Incomplete
+          <% else %>
+          Completed on
+        <%= @task.completed_at[0...10] %>
+          <% end %>
+      </li>
+      <li><%= link_to "Edit", edit_task_path(@task) %> or
+      <%= link_to "Delete", task_path(@task.id), method: :delete, data: {confirm: 'Are you sure you would like to delete?'} %>
+      </li>
+    </ul>

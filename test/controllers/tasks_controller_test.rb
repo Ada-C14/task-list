@@ -152,15 +152,6 @@ describe TasksController do
 
     end
 
-    it "will respond :not_found if given an invalid id" do
-      # Act
-      expect {
-        delete task_path(-1)
-      }.wont_change 'Task.count'
-      # Assert
-      must_respond_with :not_found
-    end
-
   end
 
   # Complete for Wave 4

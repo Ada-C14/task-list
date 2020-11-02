@@ -1,15 +1,21 @@
 <h1>Tasks</h1>
 <ul>
-  <% @tasks.each do |task|  %>
+  <% @tasks.each do |task| %>
     <li>
-      <%= link_to task.name, tasks_path(task) %>
-      <ul>
+      <% task_style = task.completed_at.nil? ? 'incomplete-task' : 'completed-task'%>
+      <%= link_to task.name.capitalize, task_path(task), class: task_style %>
 
-        Description: <%= task.description %> <%= link_to "Show", task_path(task.id) %>, <%= link_to "Edit", edit_task_path(task) %>, <%= link_to "Delete", task_path(task.id), method: :delete %>
-
-      </ul>
+      <div>
+        Description: <%= task.description %>
+      </div>
+      <div>
+        <%= link_to "Show", task_path(task.id) %> |
+        <%= link_to "Edit", edit_task_path(task) %> |
+        <%= link_to "Delete", task_path(task.id), method: :delete,
+                    data: {confirm: 'Are you sure you would like to delete?'} %> |
+        <%= link_to "Mark as Complete", mark_task_path(task), method: :patch %>
+      </div>
     </li>
 
   <% end %>
 </ul>
-<%= link_to "Add Task", new_task_path %>
