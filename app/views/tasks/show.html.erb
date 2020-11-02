@@ -1,0 +1,16 @@
+<h1><%= @task.name %></h1>
+
+<p><%= @task.description %></p>
+<p>Completed on: <%= @task.completed_at %></p>
+
+<% if @task.completed_at.nil? || @task.completed_at == "" %>
+  <%= link_to "Mark Complete", toggle_complete_path(@task.id), method: :patch %>
+<% else %>
+  <%= link_to "Mark Incomplete", toggle_complete_path(@task.id), method: :patch %>
+<% end %>
+
+<%= link_to "Edit Task", edit_task_path(@task) %>
+<%= link_to "Delete", task_path(@task.id), method: :delete, data: { confirm: "Are you sure you want to delete '#{@task.name}'?" } %>
+
+
+<%= link_to "All Tasks", tasks_path %>

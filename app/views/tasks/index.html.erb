@@ -1,0 +1,24 @@
+<h1>Task List</h1>
+
+
+<% if @tasks.length > 0 %>
+
+  <% @tasks.each do |task| %>
+    <h2><%= link_to task.name, task_path(task.id) %></h2>
+
+    <% if task.completed_at.nil? || task.completed_at == "" %>
+      <%= link_to "Mark Complete", toggle_complete_path(task.id), method: :patch %>
+    <% else %>
+      <%= link_to "Mark Incomplete", toggle_complete_path(task.id), method: :patch %>
+    <% end %>
+
+    <%= link_to "Edit", edit_task_path(task) %>
+    <%= link_to "Delete", task_path(task.id), method: :delete, data: { confirm: "Are you sure you want to delete '#{task.name}'?" } %>
+
+  <% end %>
+
+<% else %>
+  <p>No tasks in the system!</p>
+<% end %>
+
+<%= link_to "Add Task", new_task_path %>
