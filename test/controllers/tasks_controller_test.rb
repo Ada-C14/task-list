@@ -113,7 +113,7 @@ describe TasksController do
       edited_task_hash = {
         task: {
           name: "first task of the day",
-          description: "wake up",
+          description: "wake up and get out of bed",
           completed_at: Time.parse("9:00"),
         }
       }
@@ -144,7 +144,24 @@ describe TasksController do
   # Complete these tests for Wave 4
   describe "destroy" do
     # Your tests go here
-    
+    it "can delete an existing task and redirect to the index page" do
+      task
+
+      expect {
+        delete task_path(task.id)
+      }.must_change "Task.count", -1
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "will respond with not_found for invalid ids" do
+      expect {
+        delete task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
+    end
   end
   
   # Complete for Wave 4
