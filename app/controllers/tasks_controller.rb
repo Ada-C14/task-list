@@ -14,5 +14,20 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def create
+    @task = Task.new(
+      name: params[:task][:name],
+      description: params[:task][:description],
+      completed_at: params[:task][:completed_at]
+    )
+
+    result = @task.save
+
+    if result
+      redirect_to tasks_path
+    else
+      render :new
+    end
+  end
 end
 
