@@ -3,7 +3,7 @@
 <p><%= @task.description %></p>
 <p>Completed on: <%= @task.completed_at %></p>
 
-<% if @task.completed_at.nil? %>
+<% if @task.completed_at.nil? || @task.completed_at == "" %>
   <%= link_to "Mark Complete", toggle_complete_path(@task.id), method: :patch %>
 <% else %>
   <%= link_to "Mark Incomplete", toggle_complete_path(@task.id), method: :patch %>

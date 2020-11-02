@@ -121,16 +121,13 @@ describe TasksController do
         patch task_path(id), params: @updated_task_hash
       }.wont_change "Task.count"
 
-
-
-      must_redirect_to task_path(task.id)
+      must_redirect_to task_path(id)
 
       task.reload
 
       expect(task.name).must_equal @updated_task_hash[:task][:name]
       expect(task.description).must_equal @updated_task_hash[:task][:description]
       expect(task.completed_at).must_equal @updated_task_hash[:task][:completed_at]
-
     end
 
     it "will redirect to the root page if given an invalid id" do

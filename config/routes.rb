@@ -7,6 +7,4 @@ Rails.application.routes.draw do
   resources :tasks
 
   patch 'tasks/:id/toggle_complete', to: 'tasks#toggle_complete', as: 'toggle_complete'
-
-
 end

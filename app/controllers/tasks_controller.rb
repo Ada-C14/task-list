@@ -75,7 +75,7 @@ class TasksController < ApplicationController
     if @task.nil?
       redirect_to tasks_path
       return
-    elsif @task.completed_at.nil?
+    elsif @task.completed_at.nil? || @task.completed_at == ""
       @task.update(completed_at: "#{Time.now.strftime("%I:%M %p %m/%d/%Y")}")
     else
       @task.update(completed_at: nil)
