@@ -1,0 +1,15 @@
+// Place all the styles related to the Tasks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.completed-task {
+text-decoration: line-through;
+}
+
+div {
+background-color: whitesmoke;
+padding: 3px;
+border: 1px solid black;
+border-radius: 15px;
+width: 30%
+}

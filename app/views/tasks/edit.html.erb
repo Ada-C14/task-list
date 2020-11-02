@@ -1,0 +1,17 @@
+<%= form_with model: @task, class: 'create-task' do |f| %>
+  <p>Please provide the following information to edit task in the database:</p>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+
+  <%= f.label :start_date %>
+  <%= f.text_field :started_at %>
+
+  <%= f.submit "Edit Task", class: "task-button" %>
+
+  <%= link_to "Task List", root_path %> or
+  <%= link_to "Delete", task_path(@task.id), method: :delete, data: {confirm: 'Are you sure you would like to delete?'} %>
+<% end %>
