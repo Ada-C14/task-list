@@ -220,7 +220,6 @@ describe TasksController do
 
       # Assert
       task2.reload
-      p task2
       expect(task2.completed_at).must_equal Time.now.strftime("%Y-%m-%d at %I:%M %p")
       must_redirect_to tasks_path
     end
