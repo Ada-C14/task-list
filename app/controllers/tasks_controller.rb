@@ -15,13 +15,23 @@ class TasksController < ApplicationController
     end
   end
 
+  def new
+    @task = Task.new
+  end
+
+  def create
+    # @task = Task.new(name: params[:task])
+    @task = Task.new(task_params)
+    # save returns true if new task successfully inserted in db
+    if @task.save
+      redirect_to tasks_path # go to index to see new path
+      return
+    # save failed, task not inserted in db successfully
+    else
+      render :new # shows add new task form again to try again
+      return
+    end
+  end
+
 end
 
-# def show
-#   book_id = params[:id]
-#   @book = Book.find_by(id: book_id)
-#   if @book.nil?
-#     head :not_found
-#     return
-#   end
-# end
