@@ -13,14 +13,8 @@
 
   <div>
     <%= f.label :completed_at %>
-    <%= f.text_field :completed_at %>
+    <%= f.datetime_local_field :completed_at %>
   </div>
-
-<!--  <div>-->
-<!--  <label for="completed_at">Choose a due date for your task:</label>-->
-<!--  <input type="datetime-local" id="completed_at"-->
-<!--         name="completed_at">-->
-<!--  </div>-->
 
   <%= f.submit "Add a task!" %>
 <% end %>
