@@ -54,7 +54,7 @@ class TasksController < ApplicationController
   end
 
   private
-  #add hard params?
+  
   def action_success_check(action, redirect_path)
     if action
       redirect_to redirect_path
