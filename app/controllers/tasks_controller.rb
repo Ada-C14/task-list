@@ -78,7 +78,9 @@ class TasksController < ApplicationController
             @task.update(completed_at: nil)
         end
 
+        @task.save
         redirect_to root_path
+        return 
     end
 end
 
