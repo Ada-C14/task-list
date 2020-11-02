@@ -54,7 +54,7 @@ describe TasksController do
       get new_task_path
       
       # Assert
-      must_respond_with :success
+      must_respond_with :redirect
     end
   end
   
@@ -133,8 +133,6 @@ describe TasksController do
 
       task = Task.find_by(id: id)
 
-      # @task_1.reload 
-
       expect(@task_1.name).must_equal updated_task_hash[:task][:name]
       expect(@task_1.description).must_equal updated_task_hash[:task][:description]
       expect(@task_1.completed_at).must_equal updated_task_hash[:task][:completed_at]
@@ -153,7 +151,7 @@ describe TasksController do
   describe "destroy" do
     # Your tests go here
     before do 
-      @task_to_delete = Task.create(name: "don't need", description: "byebye", completed: nil)
+      @task_to_delete = Task.create(name: "don't need", description: "byebye", completed_at: nil)
     end 
     
     it "can destroy a model" do 
@@ -176,18 +174,18 @@ describe TasksController do
     end 
     
     it "marks an incomplete task as complete with Time instance" do 
-
-      patch complete_task_path(task.id)
+      skip 
+      patch toggle_complete_path(task.id)
       task.reload 
-      refute_nil(task.completed)
-      expect(task.completed).must_be_kind_of Time
+      refute_nil(task.completed_at)
+      expect(task.completed_at).must_be_kind_of Time
     end
   
     it "can mark completed tasks as incomplete" do 
    
-      patch complete_task_path(@task_2.id)
+      patch toggle_complete_path(@task_2.id)
       @task_2.reload
-      assert_nil(@task_2.completed)
+      assert_nil(@task_2.completed_at)
     end
   end
 end
