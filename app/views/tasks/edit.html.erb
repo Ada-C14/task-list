@@ -1,0 +1,22 @@
+<div>
+<main>
+  <h1>Current Task Information</h1>
+
+  <%= form_with model: @task, class: "edit_task" do |f| %>
+    <p>Please update information for this task</p>
+
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+
+    <%= f.submit "edit task", class: "submit_button" %>
+  <% end %>
+</main>
+  <nav>
+    <ul>
+      <%= link_to "All Tasks", tasks_path %>
+    </ul>
+  </nav>
+</div>

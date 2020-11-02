@@ -28,7 +28,7 @@ describe TasksController do
   # Unskip these tests for Wave 2
   describe "show" do
     it "can get a valid task" do
-      skip
+      # skip
       # Act
       get task_path(task.id)
       
@@ -37,7 +37,7 @@ describe TasksController do
     end
     
     it "will redirect for an invalid task" do
-      skip
+      # skip
       # Act
       get task_path(-1)
       
@@ -48,7 +48,7 @@ describe TasksController do
   
   describe "new" do
     it "can get the new task page" do
-      skip
+      # skip
       
       # Act
       get new_task_path
@@ -60,7 +60,7 @@ describe TasksController do
   
   describe "create" do
     it "can create a new task" do
-      skip
+      # skip
       
       # Arrange
       task_hash = {
@@ -88,13 +88,19 @@ describe TasksController do
   # Unskip and complete these tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      skip
-      # Your code here
+      # skip
+      get edit_task_path(task.id)
+
+      must_respond_with :success
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+      # skip
+
+      get edit_task_path(-1)
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
     end
   end
   
@@ -102,23 +108,104 @@ describe TasksController do
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
+
+    before do
+      Task.create(name: "wave 3", description: "describe 'update' do tests")
+    end
+    let (:new_task_hash) {
+      {
+          task: {
+              name: "wave 4",
+              description: "describe 'destroy' do tests"
+          }
+      }
+    }
+
     it "can update an existing task" do
-      # Your code here
+      task = Task.first
+      expect {
+        patch task_path(task.id), params: new_task_hash
+      }.wont_change "Task.count"
+
+      must_redirect_to task_path(task.id)
+
+      task = Task.find_by(id: task.id)
+      expect(task.name).must_equal new_task_hash[:task][:name]
+      expect(task.description).must_equal new_task_hash[:task][:description]
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      expect {
+        patch task_path(-1), params: new_task_hash
+      }.wont_change "Task.count"
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
+    it "will destroy a task" do
+      trash = Task.create(name: "throw this away", description: "delete this task")
+
+      expect {
+        delete task_path(trash.id)
+      }.must_change "Task.count", -1
+
+      trash = Task.find_by(name: "throw this away")
+
+      expect trash.must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "will respond not_found for invalid tasks" do
+      expect {
+        delete task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
+    end
     
   end
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+    it "will mark an incomplete task as complete" do
+      done = Task.create(name: "food", description: "eat it")
+      expect {
+        patch toggle_task_path(done.id)
+      }.wont_change "Task.count"
+
+      must_redirect_to task_path(done.id)
+
+      done = Task.find_by(name: "food")
+      expect(task.completed_at).wont_be_nil
+    end
+
+    it "will mark a complete task as incomplete" do
+      not_done = Task.create(name: "floors", description: "wash 'em'", completed_at: Time.now)
+      id = not_done.id
+
+      expect {
+        patch toggle_task_path(id)
+      }.wont_change "Task.count"
+
+      must_redirect_to task_path(id)
+
+      not_done = Task.find_by(id: id)
+      expect(not_done.completed_at).must_be_nil
+    end
+
+    it "will redirect to to index if given invalid task" do
+      expect {
+        patch toggle_task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
   end
 end

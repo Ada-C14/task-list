@@ -1,0 +1,20 @@
+<div><main>
+
+  <%= form_with model: @task, class: "create_task" do |f| %>
+    <p>What is your task?</p>
+
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+
+    <%= f.submit "enter task", class: "submit button" %>
+  <% end %>
+</main>
+  <nav>
+    <ul>
+      <%= link_to "All Tasks", tasks_path %>
+    </ul>
+  </nav>
+</div>

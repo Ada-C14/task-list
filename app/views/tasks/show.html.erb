@@ -1,0 +1,17 @@
+<div>
+  <main>
+  <h1><%= @task.name%></h1>
+
+  <p>Details: <%= @task.description %></p>
+  <p>Completed: <%= @task.completed_at[0..9] unless @task.completed_at.nil? %></p>
+</main>
+
+<nav>
+  <ul>
+    <li><%= link_to "Edit Task", edit_task_path(@task) %></li>
+    <li><%= link_to "Change Completion Status", toggle_task_path(@task), method: :patch%></li>
+    <li><%= link_to "All Tasks", tasks_path %></li>
+    <li><%= link_to "Delete Task", task_path(@task), method: :delete, data: {confirm: "Are you sure?"} %></li>
+  </ul>
+</nav>
+</div>

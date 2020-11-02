@@ -1,0 +1,17 @@
+<div><main>
+  <h1>Tasks</h1>
+    <ul>
+      <% @tasks.each do |task|  %>
+        <li class="<%= (task.completed_at.nil?) ? "not_done" : "done" %>" >
+          <%= task.name %> -
+          <%= link_to "Details", task_path(task) %> -
+          <%= link_to "Edit", edit_task_path(task) %> -
+          <%= link_to "Complete?", toggle_task_path(task), method: :patch %> -
+          <%= link_to "Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
+        </li>
+      <% end %>
+    </ul>
+
+  <%= link_to "Add a task?", new_task_path %>
+</main>
+</div>
