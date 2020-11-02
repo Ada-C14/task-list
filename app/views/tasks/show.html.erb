@@ -1,0 +1,15 @@
+<h1 class="<%= 'strike' if @task.is_complete %>"><%= @task.name %></h1>
+<h2>Description:</h2>
+<p><%= @task.description %></p>
+<h3>Completed at:</h3>
+<p><%= @task.completed_at %></p>
+
+<h3>
+  <% string = "Mark as done" if @task.is_complete %>
+  <% string = "Mark not done" unless @task.is_complete %>
+  <%= link_to string, toggle_complete_path, method: :post%>
+</h3>
+<h3><%= link_to "Edit Task", edit_task_path %></h3>
+<h3><%= link_to 'Delete Task', task_path, method: :delete,
+                data: {confirm: 'Sure you want to delete?'} %></h3>
+<h3><%= link_to "Back to Main Page", root_path %></h3>

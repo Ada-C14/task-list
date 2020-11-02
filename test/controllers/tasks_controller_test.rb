@@ -28,7 +28,6 @@ describe TasksController do
   # Unskip these tests for Wave 2
   describe "show" do
     it "can get a valid task" do
-      skip
       # Act
       get task_path(task.id)
       
@@ -37,18 +36,16 @@ describe TasksController do
     end
     
     it "will redirect for an invalid task" do
-      skip
       # Act
       get task_path(-1)
       
       # Assert
-      must_respond_with :redirect
+      must_redirect_to error_path(error: 'Task not found!')
     end
   end
   
   describe "new" do
     it "can get the new task page" do
-      skip
       
       # Act
       get new_task_path
@@ -60,7 +57,6 @@ describe TasksController do
   
   describe "create" do
     it "can create a new task" do
-      skip
       
       # Arrange
       task_hash = {
@@ -83,42 +79,192 @@ describe TasksController do
       must_respond_with :redirect
       must_redirect_to task_path(new_task.id)
     end
+
   end
   
   # Unskip and complete these tests for Wave 3
   describe "edit" do
+    before do
+      @task_hash = {
+          task: {
+              name: 'cat',
+              description: 'cat',
+              completed_at: 'cat'
+          }
+      }
+    end
+
     it "can get the edit page for an existing task" do
-      skip
-      # Your code here
+      post tasks_path, params: @task_hash
+      task_id = Task.find_by(name: 'cat').id
+
+      get edit_task_path(id: task_id)
+
+      must_respond_with :success
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+      get edit_task_path(id: -1)
+
+      must_redirect_to error_path(error: 'Task to edit not found!')
     end
   end
   
   # Uncomment and complete these tests for Wave 3
   describe "update" do
+    before do
+      @task_hash = {
+          task: {
+              name: 'cat',
+              description: 'cat',
+              completed_at: 'cat'
+          }
+      }
+      @new_hash = {
+          task: {
+              name: 'cat',
+              description: 'dog',
+              completed_at: 'dog'
+          }
+      }
+      post tasks_path, params: @task_hash
+
+    end
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
-    it "can update an existing task" do
-      # Your code here
+    it "can update an existing task (PUT)" do
+      task = Task.first
+
+      expect {
+        put task_path(task.id), params: @new_hash
+      }.wont_change "Task.count"
+
+      task.reload
+      expect(task.name).must_equal @new_hash[:task][:name]
+      expect(task.description).must_equal @new_hash[:task][:description]
+      expect(task.completed_at).must_equal @new_hash[:task][:completed_at]
+    end
+
+    it 'can update an existing task (PATCH)' do
+      task = Task.first
+
+      expect {
+        patch task_path(task.id), params: {task: { description: 'dog', completed_at: 'dog'} }
+      }.wont_change "Task.count"
+
+      task.reload
+      expect(task.name).must_equal @new_hash[:task][:name]
+      expect(task.description).must_equal @new_hash[:task][:description]
+      expect(task.completed_at).must_equal @new_hash[:task][:completed_at]
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      expect {
+        put task_path(-1), params: @new_hash
+      }.wont_change "Task.count"
+
+      must_redirect_to error_path(error: 'Task to update not found!')
     end
+
+    it 'will fail to save a task with invalid params' do
+      skip
+      # TODO: Think of a way to cause a failed save task
+      # task = Task.first
+      # put task_path(task.id), params: { task: {a: 1} }
+      # must_redirect_to error_path(error: 'Unable to update task!')
+    end
+
+
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
-    
+    before do
+      task_hash = {
+          task: {
+              name: 'cat',
+              description: 'cat',
+              completed_at: 'cat'
+          }
+      }
+
+      post tasks_path, params: task_hash
+    end
+    it 'can delete a task' do
+      @task = Task.first
+      expect {
+        delete task_path(@task.id)
+      }.must_change 'Task.count', -1
+
+      task = Task.find_by(name: 'cat')
+
+      expect(task).must_be_nil
+
+      must_redirect_to tasks_path
+    end
+
+    it 'fails to delete a nonexistent task' do
+      expect {
+        delete task_path(-1)
+      }.wont_change 'Task.count'
+
+      must_redirect_to error_path(error: 'Can\'t find task to delete!')
+    end
+
   end
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+    before do
+      task_hash = {
+          task: {
+              name: 'cat',
+              description: 'cat',
+              completed_at: 'cat',
+              is_complete: nil
+          }
+      }
+
+      post tasks_path, params: task_hash
+    end
+
+    it 'can mark a task as complete' do
+      task = Task.first
+      expect{
+        post toggle_complete_path(task)
+      }.wont_change 'Task.count'
+
+      task.reload
+      expect(task.is_complete).must_equal true
+      expect(task.completed_at).wont_equal 'cat'
+
+      must_respond_with :redirect
+    end
+
+    it 'can mark a task as uncomplete' do
+      task = Task.first
+      task.is_complete = true
+      task.save
+      expect{
+        post toggle_complete_path(task)
+      }.wont_change 'Task.count'
+
+      task.reload
+      expect(task.is_complete).must_be_nil
+      # Completed at doesn't change on toggle off
+      expect(task.completed_at).must_equal 'cat'
+
+      must_respond_with :redirect
+    end
+
+    it 'refuses to toggle nonexistent task' do
+      post toggle_complete_path(-1)
+
+      must_redirect_to error_path(error: 'Can\'t find task to toggle!')
+    end
+    it 'refuses to toggle invalid task' do
+      skip
+      # TODO: figure out how to do this
+    end
   end
 end
