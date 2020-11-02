@@ -5,7 +5,7 @@ describe TasksController do
     Task.create name: "sample task", description: "this is an example for a test",
     completed_at: Time.now + 5.days
   }
-  
+
   # Tests for Wave 1
   describe "index" do
     it "can get the index path" do
@@ -18,8 +18,8 @@ describe TasksController do
     
     it "can get the root path" do
       # Act
-      get root_path
-      
+      get root_path #"/tasks"
+
       # Assert
       must_respond_with :success
     end
@@ -28,7 +28,7 @@ describe TasksController do
   # Unskip these tests for Wave 2
   describe "show" do
     it "can get a valid task" do
-      skip
+      # skip
       # Act
       get task_path(task.id)
       
@@ -37,7 +37,7 @@ describe TasksController do
     end
     
     it "will redirect for an invalid task" do
-      skip
+      # skip
       # Act
       get task_path(-1)
       
@@ -48,7 +48,7 @@ describe TasksController do
   
   describe "new" do
     it "can get the new task page" do
-      skip
+      # skip
       
       # Act
       get new_task_path
@@ -60,7 +60,7 @@ describe TasksController do
   
   describe "create" do
     it "can create a new task" do
-      skip
+      # skip
       
       # Arrange
       task_hash = {
@@ -88,13 +88,20 @@ describe TasksController do
   # Unskip and complete these tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      skip
-      # Your code here
+      # skip
+      get edit_task_path(task.id)
+
+      # Assert
+      must_respond_with :success
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+      #skip
+      # Act
+      get task_path(-1)
+
+      # Assert
+      must_respond_with :redirect
     end
   end
   
@@ -102,19 +109,92 @@ describe TasksController do
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
+
+    before do
+      Task.create(name: "Watch halloween movie", description: "nightmare before christmas and corpse bride", completed_at: "10/30/2020 7:30pm")
+    end
+
+    let (:new_task_hash) {
+      {
+        task: {
+            name: "Dress up as boyfriend for Halloween",
+            description: "draw on eyebrows, beard, and sit in his gaming chair to surprise him",
+            completed_at: "10/30/2020 10:40pm"
+        }
+      }
+    }
+
     it "can update an existing task" do
       # Your code here
+      #
+      task = Task.first
+      expect {
+        patch task_path(task.id), params: new_task_hash
+      }.wont_change "Task.count"
+
+      must_redirect_to task_path(task.id)
+
+      task = Task.find_by(id: task.id)
+      expect(task.name).must_equal new_task_hash[:task][:name]
+      expect(task.description).must_equal new_task_hash[:task][:description]
+      expect(task.completed_at).must_equal new_task_hash[:task][:completed_at]
     end
     
     it "will redirect to the root page if given an invalid id" do
       # Your code here
+      get task_path(-1)
+
+      # Assert
+      must_respond_with :redirect
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
     # Your tests go here
-    
+    #
+
+
+    it "will redirect to the root page if given an invalid id" do
+      # Your code here
+
+      get task_path(-1)
+
+      # Assert
+      must_respond_with :redirect
+    end
+
+    it "will not change db with an invalid ID" do
+
+      expect {
+        delete task_path(-1)
+      }.wont_change 'Task.count'
+    end
+
+    it "can destroy a model" do
+      # Arrange
+      #
+      Task.create(name: "Try to see if this test works", description: "not going well so far", completed_at: "11/01/2020 5:00pm")
+
+      sacrificial_task = Task.first
+
+      id = sacrificial_task.id
+
+      # Act
+      expect {
+        delete task_path(id)
+
+        # Assert
+      }.must_change 'Task.count', -1
+
+      after_sacrifice = Task.find_by(name: "We'll See if this Works")
+
+      expect(after_sacrifice).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
   end
   
   # Complete for Wave 4

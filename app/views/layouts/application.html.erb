@@ -10,6 +10,22 @@
   </head>
 
   <body>
+  <header><h1> <%= link_to "Task List", tasks_path%></h1>
+  <h2>To Ease My Need For Control in Unpredictable Times</h2>
+  <hr>
+    <br>
+  </header>
+
+  <main>
     <%= yield %>
+  </main>
+
+  <footer>
+    <br>
+    <br>
+    <br>
+    <hr>
+    &copy 2020 Mackenzie
+  </footer>
   </body>
 </html>
