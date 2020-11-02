@@ -158,12 +158,20 @@ describe TasksController do
       }.must_change 'Task.count', -1
 
       task1 = Task.find_by(name: "Eat a snack")
-
       expect(task1).must_be_nil
 
       must_respond_with :redirect
       must_redirect_to tasks_path
     end
+
+    it "will respond with not_found for invalid ids" do
+      expect{
+        delete book_path(-1)
+      }.wont_change "Book.count"
+
+      must_respond_with :not_found
+    end
+
   end
 
 

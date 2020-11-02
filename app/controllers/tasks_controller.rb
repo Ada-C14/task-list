@@ -74,20 +74,28 @@ class TasksController < ApplicationController
   end
 
   def mark_done
-    # @task = Task.find_by(id: params[:id])
-    # if @task.nil?
-    #   redirect_to tasks_path
-    #   return
-    # elsif @task.mark_done(
-    #     name: params[:task][:name],
-    #     description: params[:task][:description],
-    #     completed_at: params[:task][:completed_at]
-    # )
-    #   redirect_to tasks_path # go to the index so we can see the task in the list
-    #   return
-    # else # save failed :(
-    # render :edit # show the new task form view again
-    # return
+    task = Task.find(params[:id])
+
+    # if(task.completed_at !=nil)
+    #   # takes a complete task and marks incomplete
+    #   task.completed_at = nil
+    # else
+    #   # taskes an incomplete task, marks complete
+    #   task.completed_at = Time.now
     # end
+
+    if(task.completed_at != "Not completed yet")
+      # takes a complete task and marks incomplete
+      task.completed_at = "Not completed yet"
+
+    else
+      # taskes an incomplete task, marks complete
+      task.completed_at = Time.now
+    end
+
+    # save
+    task.save
+
+    redirect_to tasks_path
   end
 end
