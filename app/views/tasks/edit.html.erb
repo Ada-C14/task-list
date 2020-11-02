@@ -1,6 +1,6 @@
-<h3>New Task</h3>
+<h3>Update Task</h3>
 <%= form_with model: @task, class: 'create-task' do |f| %>
-  <p>Please update your task:</p>
+  <p>Make changes to the existing task below:</p>
 
   <%= f.label :name %><br>
   <%= f.text_field :name %><br>
@@ -8,8 +8,5 @@
   <%= f.label :description %><br>
   <%= f.text_field :description %><br>
   <br>
-  <%= f.label :completed_at %><br>
-  <%= f.text_field :completed_at %><br>
-  <br>
-  <%= f.submit "Update Task", class: "task-button"%>
+  <%= f.submit "Save", class: "task-button"%>
 <% end %>

@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    @tasks = Task.all.sort
   end
 
   def show
@@ -61,5 +61,18 @@ class TasksController < ApplicationController
     # else
       #something
     end
+  end
+
+  def complete
+    @task = Task.find_by(id: params[:id])
+    if !(@task.completed_at.nil?)
+      @task.update(completed_at: nil)
+    elsif @task.completed_at.nil?
+      @task.update(completed_at: Time.now.to_s)
+    # @task.update(completed_at: Time.now.to_s)
+    end
+    redirect_to tasks_path
+
+
   end
 end

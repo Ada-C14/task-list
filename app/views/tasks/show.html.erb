@@ -1,3 +1,20 @@
-<h3><%= @task.name %></h3>
-Description: <%= @task.description %><br>
-Date completed: <%= @task.completed_at %>
+<ul>
+  <% if !(@task.completed_at.nil?) %>
+    <h5>Task: <%= @task.name %></h5>
+    ✓ Completed at: <%= @task.completed_at %>
+    <%= link_to "Undo", complete_task_path(@task), method: :patch %>
+  <% elsif @task.completed_at.nil? %>
+    <h5>Task: <%= @task.name %></h5>
+    <%#= link_to %>
+    <%= link_to "☐ Mark done!", complete_task_path(@task), method: :patch %>
+  <% end %>
+
+  <li>
+    Description: <%= @task.description %>
+    <%= link_to "Edit", edit_task_path(@task) %>
+    <%= link_to "Delete", task_path(@task), method: :delete, data: {confirm: "Are you sure you want to delete the \"#{@task.name}\" task?"} %>
+    <br>
+    <br>
+  </li>
+<%= link_to "Back to list", tasks_path %>
+</ul>
