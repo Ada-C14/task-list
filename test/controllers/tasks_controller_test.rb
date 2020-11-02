@@ -137,6 +137,7 @@ describe TasksController do
 
       patch task_path(-1), params: updated_task_hash
 
+      must_respond_with :redirect
       must_redirect_to tasks_path
     end
   end
@@ -155,19 +156,50 @@ describe TasksController do
       expect {
         delete task_path(task.id)
       }.must_change "Task.count", -1
-    #
-    #   expect(Task).must_be_nil
-    #
-    #   must_respond_with :redirect
-    #   must_redirect_to tasks.path
     end
-
-    
   end
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    
-    # Your tests go here
+    before do
+      Task.create(name: "task name", description: "task description", completed_at: nil)
+      Task.create(name: "task name", description: "task description", completed_at: "Sun Nov 01 at 11:04 PM")
+    end
+
+    it "won't change number of existing tasks" do
+      task = Task.first
+      expect {
+        patch complete_task_path(task.id)
+      }.wont_change "Task.count" # doesn't change number of existing tasks
+    end
+
+    it "will redirect to tasks_path" do
+      task = Task.first
+
+      patch complete_task_path(task.id)
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "toggles incomplete to complete" do
+      task = Task.first
+
+      patch complete_task_path(task.id)
+
+      task.reload
+
+      expect(task.completed_at).wont_be_nil
+    end
+
+    it "toggles complete to incomplete" do
+      task = Task.last
+
+      patch complete_task_path(task.id)
+
+      task.reload
+
+      expect(task.completed_at).must_be_nil
+    end
   end
 end

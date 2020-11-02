@@ -5,7 +5,7 @@
 
         <% if !(task.completed_at.nil?) %>
           <h5><%= link_to task.name, task_path(task) %></h5>
-          ✓ Completed at: <%= task.completed_at %>
+          ✓ Completed on: <%= task.completed_at %>
           <%= link_to "Undo", complete_task_path(task), method: :patch %>
         <% elsif task.completed_at.nil? %>
           <h5><%= link_to task.name, task_path(task) %></h5>

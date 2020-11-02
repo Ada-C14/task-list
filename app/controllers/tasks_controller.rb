@@ -30,7 +30,7 @@ class TasksController < ApplicationController
     if @task.nil?
       record_not_found
     end
-    return # should this be here/why
+    return
   end
 
   def update
@@ -58,8 +58,6 @@ class TasksController < ApplicationController
       return
     else task.destroy
       redirect_to tasks_path
-    # else
-      #something
     end
   end
 
@@ -68,11 +66,8 @@ class TasksController < ApplicationController
     if !(@task.completed_at.nil?)
       @task.update(completed_at: nil)
     elsif @task.completed_at.nil?
-      @task.update(completed_at: Time.now.to_s)
-    # @task.update(completed_at: Time.now.to_s)
+      @task.update(completed_at: Time.now.strftime("%a %b %d at %I:%M %p"))
     end
     redirect_to tasks_path
-
-
   end
 end
