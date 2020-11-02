@@ -1,12 +1,1 @@
-
-<%= form_with model: @task, class: 'create-task' do |f| %>
-  <p>Please provide the following info</p>
-
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-
-  <%= f.label :description %>
-  <%= f.text_field :description %>
-
-  <%= f.submit "Save task", class: 'create-task' %>
-  <% end %>
+<%= render partial: "form", locals: { action_name: "New" } %>
