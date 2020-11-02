@@ -119,8 +119,9 @@ describe TasksController do
         patch task_path(task.id), params: new_task_hash
       }.must_differ 'Task.count', 0
 
-      must_redirect_to tasks_path
+      must_redirect_to task_path(task.id)
 
+      task = Task.find_by(id: task.id)
       expect(task.name).must_equal new_task_hash[:task][:name]
       expect(task.description).must_equal new_task_hash[:task][:description]
       expect(task.completed_at).must_equal new_task_hash[:task][:completed_at]

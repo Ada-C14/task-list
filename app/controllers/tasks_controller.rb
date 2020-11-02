@@ -63,5 +63,18 @@ class TasksController < ApplicationController
     end
   end
 
+  def destroy
+    task_id = params[:id]
+    task_to_delete = Task.find_by(id: task_id) # find_by returns either a task (the model) or nil
+
+    if task_to_delete.nil?
+      head :not_found
+      return
+    else
+      task_to_delete.destroy # nil.destroy would break code
+      redirect_to tasks_path # go back to index action
+    end
+  end
+
 end
 
