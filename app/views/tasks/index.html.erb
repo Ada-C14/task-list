@@ -2,7 +2,17 @@
 <div>
   <% @tasks.each do |task| %>
     <ul>
-      <li><%= task  %></li>
+      <li>
+          <%= task.name  %>
+        <ul>
+          <li>
+            <%= task.description %>
+          </li>
+          <li>
+            <%= task.completed_at %>
+          </li>
+        </ul>
+      </li>
     </ul>
   <% end %>
 </div>
