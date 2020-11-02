@@ -155,14 +155,14 @@ describe TasksController do
   # Complete for Wave 4
   describe "toggle_complete" do
 
-    it "changes completion date from nil to today's date when clicked" do
+    it "changes completion date from nil to current time" do
       existing_task = Task.last
 
       completed_task = {
           task: {
               name: "completed task",
               description: "completed description",
-              completed_at: Time.now,
+              completed_at: nil,
           },
       }
 
@@ -170,7 +170,7 @@ describe TasksController do
         post complete_task_path(existing_task.id)
       }.wont_change "Task.count"
 
-      expect(Task.find_by(id: existing_task.id).name).must_equal "completed task"
+      expect(Task.find_by(id: existing_task.id).completed_at).must_equal Time.now.to_s
     end
 
     it "will redirect to the root page if given an invalid id" do
