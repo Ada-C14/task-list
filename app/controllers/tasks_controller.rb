@@ -6,9 +6,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    task_id = params[:id].to_i
-    @task = Task.find_by(id: task_id)
-
+    @task = find_task
     redirect_to tasks_path and return if @task.nil?
   end
 
@@ -22,14 +20,13 @@ class TasksController < ApplicationController
   end
 
   def edit
-    task_id = params[:id].to_i
-    @task = Task.find_by(id: task_id)
+    @task = find_task
 
     redirect_to tasks_path and return if @task.nil?
   end
 
   def update
-    task = Task.find_by(id: params[:id].to_i)
+    task = find_task
 
     redirect_to tasks_path and return if task.nil?
 
@@ -37,16 +34,15 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    task_id = params[:id].to_i
-    task = Task.find_by(id: task_id)
+    task = find_task
 
     redirect_to tasks_path and return if task.nil?
 
     action_success_check(task.destroy, tasks_path)
   end
 
-  def complete
-    task = Task.find_by(id: params[:id].to_i)
+  def toggle_complete
+    task = find_task
 
     redirect_to tasks_path and return if task.nil?
 
@@ -69,5 +65,9 @@ class TasksController < ApplicationController
 
   def task_params
     return params.require(:task).permit(:name, :description, :completed_at)
+  end
+
+  def find_task
+    return Task.find_by(id: params[:id].to_i)
   end
 end
