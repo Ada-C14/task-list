@@ -83,27 +83,82 @@ describe TasksController do
   
   # Unskip and complete these tests for Wave 3
   describe "edit" do
+    before do
+      @task_hash = {
+          task: {
+              name: 'cat',
+              description: 'cat',
+              completed_at: 'cat'
+          }
+      }
+    end
+
     it "can get the edit page for an existing task" do
-      skip
-      # Your code here
+      post tasks_path, params: @task_hash
+      task_id = Task.find_by(name: 'cat').id
+
+      get edit_task_path(id: task_id)
+
+      must_respond_with :success
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+      get edit_task_path(id: -1)
+
+      must_redirect_to ]}}error_path, 'New task could not be created!'
     end
   end
   
   # Uncomment and complete these tests for Wave 3
   describe "update" do
+    before do
+      @task_hash = {
+          task: {
+              name: 'cat',
+              description: 'cat',
+              completed_at: 'cat'
+          }
+      }
+      @new_hash = {
+          task: {
+              name: 'cat',
+              description: 'dog',
+              completed_at: 'dog'
+          }
+      }
+    end
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
-    it "can update an existing task" do
-      # Your code here
+    it "can update an existing task (PUT)" do
+      post tasks_path, params: @task_hash
+      task = Task.first
+
+      expect {
+        put task_path(task.id), params: @new_hash
+      }.wont_change "Task.count"
+
+      expect(task.name).must_equal @new_hash[:task][:name]
+      expect(task.description).must_equal @new_hash[:task][:description]
+      expect(task.completed_at).must_equal @new_hash[:task][:completed_at]
+    end
+
+    it 'can update an existing task (PATCH)' do
+      post tasks_path, params: @task_hash
+      task = Task.first
+
+      expect {
+        patch task_path(task.id), params: {task: { description: 'dog', completed_at: 'dog'} }
+      }.wont_change "Task.count"
+
+      expect(task.name).must_equal @new_hash[:task][:name]
+      expect(task.description).must_equal @new_hash[:task][:description]
+      expect(task.completed_at).must_equal @new_hash[:task][:completed_at]
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      put task_path(-1), params: @new_hash
+
+      must_redirect_to error_path
     end
   end
   

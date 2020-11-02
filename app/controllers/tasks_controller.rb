@@ -17,9 +17,18 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def edit
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      redirect_to error_path(error: 'Task to edit not found!')
+    end
+  end
+
   def create
-    @task = Task.new(name: params[:task][:name], description: params[:task][:description],
-                     completed_at: params[:task][:completed_at])
+    # @task = Task.new(name: params[:task][:name], description: params[:task][:description],
+    #                  completed_at: params[:task][:completed_at])
+    @task = Task.new(task_params) # Using strong params
     if @task.save
       redirect_to task_path(@task.id)
       return
@@ -27,5 +36,11 @@ class TasksController < ApplicationController
       redirect_to error_path, 'New task could not be created!'
       return
     end
+  end
+
+  private
+
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed_at)
   end
 end
