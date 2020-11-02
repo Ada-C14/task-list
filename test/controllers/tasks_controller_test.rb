@@ -166,8 +166,8 @@ describe TasksController do
 
     it "will respond with not_found for invalid ids" do
       expect{
-        delete book_path(-1)
-      }.wont_change "Book.count"
+        delete task_path(-1)
+      }.wont_change "Task.count"
 
       must_respond_with :not_found
     end
