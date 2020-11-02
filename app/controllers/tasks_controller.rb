@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     task_id = params[:id] #we'll be able to access our route parameter via a special hash provided by Rails called params. The ID sent by the browser will be stored under the key :id (remember that this is the name we gave the parameter in the routefile).
     @task = Task.find_by(id: task_id)
     if @task.nil?
-      head :not_found
+      redirect_to '/tasks'
       return
     end
   end
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
     )
     # save returns true if new task successfully inserted in db
     if @task.save
-      redirect_to tasks_path # go to index to see new path
+      redirect_to task_path(@task.id) # take the user to the show page for the task that was just added
       return
     # save failed, task not inserted in db successfully
     else
