@@ -173,7 +173,7 @@ describe TasksController do
     it "removes completed_at time and saves nil to database when marked as Incomplete" do
 
       expect {
-        patch toggle_task_complete_path(@task3), params: {id: @task3.id}
+        patch toggle_task_complete_path(@task3)
       }.wont_change "Task.count"
 
       expect(@task3.reload.completed_at).wont_equal @task3_hash[:task][:completed_at]
@@ -196,7 +196,7 @@ describe TasksController do
 
     it "will redirect to the not found page if given an invalid id" do
       expect {
-        patch toggle_task_complete_path(-1), params: @task3_hash
+        patch toggle_task_complete_path(-1)
       }.wont_change 'Task.count'
 
       must_respond_with :redirect
