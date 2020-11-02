@@ -22,14 +22,13 @@ class TasksController < ApplicationController
       name: params[:task][:name],
       completed_at: nil,
       description: params[:task][:description],
-    )  #instantiate a new task
+    ) 
 
-    if @task.save #true if the db insert succeeds
-      redirect_to task_path(@task.id) # go to the new task page
+    if @task.save 
+      redirect_to task_path(@task.id) 
       return
-    else #save failed :/
-      render :new #show new task form view again
-    end
+    else 
+      render :new 
   end
   
   def edit

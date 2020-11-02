@@ -88,7 +88,7 @@ describe TasksController do
   # Unskip and complete these tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      # skip
+      #skip
       # Act
       get edit_task_path(task.id)
     
@@ -133,7 +133,7 @@ describe TasksController do
 
       task = Task.find_by(id: id)
 
-      @task_1.reload 
+      # @task_1.reload 
 
       expect(@task_1.name).must_equal updated_task_hash[:task][:name]
       expect(@task_1.description).must_equal updated_task_hash[:task][:description]
@@ -152,12 +152,42 @@ describe TasksController do
   # Complete these tests for Wave 4
   describe "destroy" do
     # Your tests go here
+    before do 
+      @task_to_delete = Task.create(name: "don't need", description: "byebye", completed: nil)
+    end 
+    
+    it "can destroy a model" do 
+      expect { 
+      delete task_path(@task_to_delete)
+    }.must_change 'Task.count' 
+      must_respond_with :redirect 
+    
+      get task_path(@task_to_delete)
+      must_respond_with :redirect
+    end 
     
   end
   
   # Complete for Wave 4
   describe "toggle_complete" do
     # Your tests go here
+    before do 
+      @task_2 = Task.create(name: "original name", description: "original description", completed_at: Time.now)
+    end 
     
+    it "marks an incomplete task as complete with Time instance" do 
+
+      patch complete_task_path(task.id)
+      task.reload 
+      refute_nil(task.completed)
+      expect(task.completed).must_be_kind_of Time
+    end
+  
+    it "can mark completed tasks as incomplete" do 
+   
+      patch complete_task_path(@task_2.id)
+      @task_2.reload
+      assert_nil(@task_2.completed)
+    end
   end
 end
