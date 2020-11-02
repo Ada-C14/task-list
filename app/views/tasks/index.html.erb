@@ -4,6 +4,8 @@
     <ul>
       <li>
           <%= link_to task.name, task_path(task.id)  %>
+          <%= link_to 'Edit Task', edit_task_path(task.id) %>
+          <%= link_to 'Delete Task', confirm_task_path(task.id) %>
       </li>
     </ul>
   <% end %>

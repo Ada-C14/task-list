@@ -71,9 +71,14 @@ class TasksController < ApplicationController
     if task.destroy
       redirect_to tasks_path
     else
-
+      # fill in
     end
   end
 
+  def confirm
+    @task = Task.find_by(id: params[:id])
+  end
+
 end
+
 
