@@ -9,7 +9,13 @@
 
   <button><%= link_to "Edit", edit_task_path(@task)%></button>
   <button><%= link_to "Delete", task_path(@task.id), method: :delete, data: {confirm: "Are you sure?"}%></button>
-  <button><%= link_to "Mark as Complete", complete_task_path(@task.id), method: :patch %></button>
+
+  <% if @task.completed_at == nil %>
+    <button><%= link_to "Mark as Complete", complete_task_path(@task.id), method: :patch %></button>
+  <% else %>
+    <button><%= link_to "Mark as Incomplete", complete_task_path(@task.id), method: :patch %></button>
+  <%end %>
+
   <button><%= link_to "Back to Task List",tasks_path%></button>
 
 

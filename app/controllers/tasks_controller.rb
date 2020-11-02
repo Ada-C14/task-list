@@ -64,13 +64,17 @@ class TasksController < ApplicationController
 
   def complete
     if @task.nil?
-        head :not_found
-        return
-      else
-        @task.update(completed_at: Time.now)
-        redirect_to tasks_path
-        return
-      end
+      head :not_found
+      return
+    end
+
+    if @task.completed_at.nil?
+      @task.update(completed_at: Time.now)
+    else
+      @task.update(completed_at: nil)
+    end
+    redirect_to tasks_path
+    return
   end
 
 
