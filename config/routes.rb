@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
+  # Put most specific lines first
+
   root to: 'tasks#index'
 
   get '/tasks', to: 'tasks#index', as: 'tasks' # Lists all books
