@@ -1,5 +1,3 @@
-TASKS = %w[A B C D]
-
 class TasksController < ApplicationController
 
   def index
@@ -18,11 +16,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(
-      name: params[:task][:name],
-      description: params[:task][:description],
-      completed_at: params[:task][:completed_at]
-    )
+    @task = Task.new(task_params)
 
     result = @task.save
 
@@ -50,16 +44,10 @@ class TasksController < ApplicationController
       return
     end
 
-    result = @task.update(
-      {
-        name: params[:task][:name],
-        description: params[:task][:description],
-        completed_at: params[:task][:completed_at]
-      }
-    )
+    result = @task.update(task_params)
 
     if result
-      redirect_to tasks_path(@task.id) # params[:id])
+      redirect_to tasks_path(@task.id)
     else
       render :edit
     end
@@ -104,6 +92,12 @@ class TasksController < ApplicationController
     redirect_to root_path
     return
 
+  end
+
+  private
+
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed_at)
   end
 
 end
