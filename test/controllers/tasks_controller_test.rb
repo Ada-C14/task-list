@@ -82,7 +82,7 @@ describe TasksController do
   end
 
   before do
-    Task.create(name: "Wash Dishes", description: "The dirty dishes are piling up high. Please wash all dishes!", completed_at: "October 30th")
+    Task.create(name: "Wash Dishes", description: "The dirty dishes are piling up high. Please wash all dishes!", completed_at: nil)
   end
   let(:new_task) {
     {
@@ -170,5 +170,29 @@ describe TasksController do
   # Complete for Wave 4
   describe "toggle_complete" do
     # Your tests go here
+    it "can mark task complete" do
+      task = Task.last
+
+      expect {
+        patch complete_task_path(task.id)
+      }.wont_change "Task.count"
+
+      task= Task.find_by_id(task.id)
+
+      expect(task.completed_at).wont_be_nil
+
+      completed_time = Time.parse(task.completed_at)
+
+      expect(completed_time.to_i).must_be_close_to Time.now.to_i, 5
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "redirects to index page if task not found" do
+      patch complete_task_path(100)
+
+      must_redirect_to tasks_path
+    end
   end
 end

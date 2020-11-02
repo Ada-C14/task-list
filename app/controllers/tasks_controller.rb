@@ -73,9 +73,8 @@ class TasksController < ApplicationController
 
     if @task
       @task.update(completed_at: (Time.now).to_s)
-      redirect_to tasks_path
-    else
-      head :not_found
     end
+
+    redirect_to tasks_path
   end
 end
