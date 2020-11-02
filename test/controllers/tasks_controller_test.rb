@@ -40,7 +40,7 @@ describe TasksController do
       get task_path(-1)
       
       # Assert
-      must_respond_with :redirect
+      must_redirect_to error_path(error: 'Task not found!')
     end
   end
   
@@ -79,6 +79,7 @@ describe TasksController do
       must_respond_with :redirect
       must_redirect_to task_path(new_task.id)
     end
+
   end
   
   # Unskip and complete these tests for Wave 3
@@ -105,7 +106,7 @@ describe TasksController do
     it "will respond with redirect when attempting to edit a nonexistant task" do
       get edit_task_path(id: -1)
 
-      must_redirect_to ]}}error_path, 'New task could not be created!'
+      must_redirect_to error_path(error: 'Task to edit not found!')
     end
   end
   
@@ -137,6 +138,7 @@ describe TasksController do
         put task_path(task.id), params: @new_hash
       }.wont_change "Task.count"
 
+      task.reload
       expect(task.name).must_equal @new_hash[:task][:name]
       expect(task.description).must_equal @new_hash[:task][:description]
       expect(task.completed_at).must_equal @new_hash[:task][:completed_at]
@@ -150,6 +152,7 @@ describe TasksController do
         patch task_path(task.id), params: {task: { description: 'dog', completed_at: 'dog'} }
       }.wont_change "Task.count"
 
+      task.reload
       expect(task.name).must_equal @new_hash[:task][:name]
       expect(task.description).must_equal @new_hash[:task][:description]
       expect(task.completed_at).must_equal @new_hash[:task][:completed_at]
@@ -158,7 +161,7 @@ describe TasksController do
     it "will redirect to the root page if given an invalid id" do
       put task_path(-1), params: @new_hash
 
-      must_redirect_to error_path
+      must_redirect_to error_path(error: 'Task to update not found!')
     end
   end
   

@@ -33,9 +33,30 @@ class TasksController < ApplicationController
       redirect_to task_path(@task.id)
       return
     else
-      redirect_to error_path, 'New task could not be created!'
+      redirect_to error_path(error: 'New task could not be created!')
       return
     end
+  end
+
+  def update
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      redirect_to error_path(error: 'Task to update not found!')
+      return
+    # elsif @task.update(
+    #     name: params[:task][:name],
+    #     description: params[:task][:description],
+    #     completed_at: params[:task][:completed_at]
+    # )
+    elsif @task.update(task_params) # Use strong params
+      redirect_to task_path(@task.id)
+      return
+    else
+      redirect_to error_path(error: 'Unable to update task!')
+      return
+    end
+
+
   end
 
   private
