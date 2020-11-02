@@ -8,8 +8,6 @@ Rails.application.routes.draw do
   post '/tasks', to: 'tasks#create'
   get '/task/:id/edit', to: 'tasks#edit', as: 'edit_task'
   patch '/tasks/:id', to: 'tasks#update'
-  get 'tasks/:id/complete ', to: 'tasks#complete', as: 'complete_task'
-  patch '/tasks/:id', to: 'tasks#update'
-
+  patch '/tasks/:id/complete', to: 'tasks#completed_at', as: 'completed_at_task'
   delete '/tasks/:id', to: 'tasks#destroy'
 end

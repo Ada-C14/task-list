@@ -1,12 +1,3 @@
-# TASKS = [
-#     {name: "Groceries"},
-#     {name: "Laundry"},
-#     {name: "Dishes"},
-#     {name: "Pack"},
-#     {name: "Homework/Study"},
-#     {name: "Volunteer"}
-# ]
-
 class TasksController < ApplicationController
   def index
     @tasks = Task.all
@@ -64,9 +55,21 @@ class TasksController < ApplicationController
       return
     end
   end
-  # def completed
-  #
-  # end
+
+  def completed_at
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      head :not_found
+      return
+    elsif
+    @task.update(
+        completed_at: DateTime.now,
+    )
+      redirect_to tasks_path
+      return
+    end
+  end
+
   def destroy
     task_id = params[:id]
     @task = Task.find_by(id: task_id)
