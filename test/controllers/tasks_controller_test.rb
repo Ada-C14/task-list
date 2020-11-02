@@ -113,7 +113,6 @@ describe TasksController do
       }
     }
 
-
     it "can update an existing task" do
       task = Task.first
       expect {
@@ -138,12 +137,55 @@ describe TasksController do
 
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
+    before do
+      Task.create(name: 'Cake', description: "finish the leftover cake in the fridge", completed_at: nil)
+    end
+
+    it "will delete an existing task and will redirect to home page" do
+      expect {
+        delete task_path(Task.first.id)
+      }.must_change 'Task.count', -1
+
+      must_redirect_to root_path
+    end
+
+    it "will return to home page if no task is found" do
+      expect {
+        delete task_path(-1)
+      }.wont_change 'Task.count'
+
+      must_redirect_to root_path
+    end
 
   end
 
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+    before do
+      Task.create(name: 'Cake', description: "finish the leftover cake in the fridge", completed_at: nil)
+    end
+
+    it "change uncompleted task to completed" do
+      task = Task.first
+      expect {
+        patch mark_complete_path(task.id)
+      }.wont_change 'Task.count'
+
+      task.reload
+      expect (task.completed_at).must_be_instance_of String
+    end
+
+    it "change completed to uncompleted" do
+      task = Task.first
+      task.completed_at = Time.now
+      task.save
+      expect {
+        patch mark_complete_path(task.id)
+      }.wont_change 'Task.count'
+
+      task.reload
+      expect (task.completed_at).must_equal nil
+    end
+
   end
 end
