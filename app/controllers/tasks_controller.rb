@@ -57,14 +57,39 @@ class TasksController < ApplicationController
   end
   
 
-  def delete
+  def destroy
+    @task = Task.find_by(id: params[:id])
 
+    if @task.nil? 
+      redirect_to root_path
+      return
+    end
+
+    @task.destroy 
+    redirect_to root_path
+    return 
   end
+
+  def complete 
+    @task = Task.find_by(id: params[:id])
+
+    if @task.nil?
+      redirect_to root_path
+      return 
+    end
+    if @task.completed == nil
+      @task.update(completed: Time.now) 
+    else 
+      @task.update(completed: nil)
+    end 
+
+    redirect_to root_path
+    return
+  end 
 
   private
 
   def task_params
     return params.require(:task).permit(:name, :description, :completed_at)
   end
-
 end

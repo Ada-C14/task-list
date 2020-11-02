@@ -1,14 +1,15 @@
-<h1>Tasks</h1>
-<ul>
+<h3>TO DO:</h3>
+<ol>
   <% @tasks.each do |task|  %>
     <li>
-       <%= link_to task[:name], task_path(task) %> | 
-       <%= link_to "show", task_path(task)%> | 
+       <%= link_to task[:name], task_path(task) %><br>
+       
+       <%= link_to "Mark Incomplete", complete_task_path(task), method: :patch%>
        <%= link_to "edit", edit_task_path(task)%> |
-       <%= link_to "delete", task_path(task), method: :delete %>
+       <%= link_to "delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
     </li>
     <br>
   <% end %>
-</ul>
+</ol>
 
-<%= link_to "ADD NEW", new_task_path(@task) %> 
+<%= button_to "ADD NEW", new_task_path(@task) %> 

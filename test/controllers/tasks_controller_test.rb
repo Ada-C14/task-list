@@ -124,12 +124,20 @@ describe TasksController do
         },
       }
 
-      # Act-Assert
+      id = Task.first.id
       expect {
-        post tasks_path, params: task_hash
-      }.wont_change 'Task.count'
+        patch task_path(id), params: updated_task_hash
+      }.wont_change "Task.count"
 
-      #Still gotta find a way to compare updated hash to instance
+      must_redirect_to task_path(id)
+
+      task = Task.find_by(id: id)
+
+      @task_1.reload 
+
+      expect(@task_1.name).must_equal updated_task_hash[:task][:name]
+      expect(@task_1.description).must_equal updated_task_hash[:task][:description]
+      expect(@task_1.completed_at).must_equal updated_task_hash[:task][:completed_at]
       
     end
     
