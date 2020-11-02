@@ -94,14 +94,33 @@ describe TasksController do
   
   # Uncomment and complete these tests for Wave 3
   describe "update" do
-
+    before do
+      @task_hash = {
+          task: {
+              name: task[:name],
+              description: "Describe your task",
+              completed_at: task[:completed_at],
+          }
+      }
+    end
     it "can update an existing task" do
+      expect {
+        patch task_path(task.id), params: @task_hash
+      }.wont_change "Task.count"
 
+      new_task = Task.find_by(name: @task_hash[:task][:name])
+      expect(new_task.description).must_equal @task_hash[:task][:description]
 
+      must_respond_with :redirect
+      must_redirect_to task_path(task.id)
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      expect {
+        patch task_path(-1), params: @task_hash
+      }.wont_change "Task.count"
+
+      must_redirect_to root_path
     end
   end
   
