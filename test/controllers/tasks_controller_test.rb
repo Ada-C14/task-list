@@ -88,16 +88,16 @@ describe TasksController do
   # Unskip and complete these tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      before do
-        Task.create(name: "test", description: "It's a test!", completed_at: "test o'clock")
-      end
-      let (:new_task_hash)
+      get edit_task_path(task.id)
+
+      must_respond_with :success
 
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+      get edit_task_path(-1)
+
+      must_respond_with :redirect
     end
   end
   
@@ -130,18 +130,36 @@ describe TasksController do
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      id = -1
+
+      expect {
+        patch task_path(id), params: new_task_hash
+      }.wont_change "Task.count"
+
+      must_redirect_to tasks_path
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
     # Your tests go here
+    it "can destroy a task" do
+      task = Task.new(name: "test", description: "testy test", completed_at: "done done done")
+
+      task.save
+      id = task.id
+
+      expect {
+        delete task_path(id)
+      }.must_change "Task.count", -1
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
     
   end
   
   # Complete for Wave 4
-  describe "toggle_complete" do
-    # Your tests go here
-  end
+  describe "markup" do
+
+
 end

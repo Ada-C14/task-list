@@ -39,7 +39,7 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
 
     if @task.nil?
-      head :not_found
+      redirect_to task_path
       return
     end
   end
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find_by(id: params[:id])
     if @task.nil?
-      head :not_found
+      redirect_to tasks_path
       return
     elsif @task.update(task_params)
       redirect_to tasks_path # go to the index so we can see the task in the list
