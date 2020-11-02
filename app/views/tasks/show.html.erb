@@ -1,6 +1,8 @@
-<h1>Info on Task <%= @task.id %></h1>
+<h1>Task: <%= @task.name %></h1>
 
 <ul>
   <li> Task: <%= @task.name %> </li>
   <li> Details: <%= @task.description %> </li>
+  <li> <%= link_to "Update task", edit_task_path(@task) %></li>
+  <li> <%= link_to "Back to Task List", tasks_path %></li>
 </ul>

@@ -1,5 +1,3 @@
-TASKS = ["Write Jeremy happy birthday", "Find credit card", "BECU Fraud", "Apple Care"]
-
 class TasksController < ApplicationController
 
   def index
@@ -38,11 +36,31 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @task = Task.find_by(id: params[:id])
 
+    if @task.nil?
+      redirect_to root_path
+      return
+    end
   end
 
   def update
+    @task = Task.find_by(id: params[:id])
 
+    if @task.nil?
+      head :not_found
+      return
+    elsif @task.update(
+      name: params[:task][:name],
+      description: params[:task][:description],
+      completed_at: params[:task][:completed_at]
+    )
+      redirect_to task_path(@task.id) # take the user to the show page for the task that was just updated
+      return
+    else
+      render :edit # shows edit task form again to try again
+      return
+    end
   end
 
 end

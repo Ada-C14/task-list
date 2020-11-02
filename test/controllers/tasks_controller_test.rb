@@ -102,13 +102,15 @@ describe TasksController do
       Task.create(name: "Go hiking", description: "Mossy Fern Forest", completed_at: "weekend")
     end
 
-    let(:new_task_hash) {
+    let (:new_task_hash) {
+      {
       task: {
         name: "Hike",
         description: "Snow-capped alpine peaks",
         completed_at: "Sunday"
       }
     }
+  }
 
     it "can update an existing task" do
       task = Task.first
