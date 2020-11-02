@@ -1,12 +1,21 @@
-<h3>TO DO:</h3>
+<h2>TO DO:</h2>
 <ol>
   <% @tasks.each do |task|  %>
     <li>
-       <%= link_to task[:name], task_path(task) %><br>
-       
-       <%= link_to "Mark Incomplete", complete_task_path(task), method: :patch%>
-       <%= link_to "edit", edit_task_path(task)%> |
-       <%= link_to "delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
+      <% if task.completed_at.blank? %>
+        <%= link_to task[:name], task_path(task) %><br>
+
+        <%= link_to "Complete", toggle_complete_path(task.id), method: :patch %> |
+        <%= link_to "edit", edit_task_path(task)%> |
+        <%= link_to "delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
+
+      <% else %>
+        <%= link_to task[:name], task_path(task) %><br>
+
+        <%= link_to "DONE", toggle_complete_path(task.id), method: :patch %> |
+        <%= link_to "edit", edit_task_path(task)%> |
+        <%= link_to "delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
+      <% end %>
     </li>
     <br>
   <% end %>
