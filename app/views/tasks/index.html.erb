@@ -3,7 +3,10 @@
 <ol class="task-list">
   <% @tasks.each do |task| %>
     <li><%= task.name %></li>
-    <p><%= link_to "show details", task_path(task) %> | <%= link_to "edit", edit_task_path(task) %> | <%= link_to "delete", task_path(task), method: :delete %></p>
+    <p><%= link_to "show details", task_path(task) %> |
+      <%= link_to "edit", edit_task_path(task) %> |
+      <%= link_to "delete", task_path(task), method: :delete, data: { confirm: "Are you sure (or are you avoiding your responsibilities)?" } %> |
+      <%= link_to "mark complete", toggle_complete_path(task), method: :patch %></p>
   <% end %>
 </ol>
 

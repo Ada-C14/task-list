@@ -145,7 +145,7 @@ describe TasksController do
   describe "destroy" do
     # Your tests go here
     it "can delete an existing task and redirect to the index page" do
-      task
+      get task_path(task.id)
 
       expect {
         delete task_path(task.id)
@@ -167,5 +167,36 @@ describe TasksController do
   # Complete for Wave 4
   describe "toggle_complete" do
     # Your tests go here
+    it "can mark an existing task as complete" do
+      get task_path(task.id)
+      timestamp = Time.now.to_s
+
+      time_completed = {
+          task: {
+              completed_at: timestamp
+          }
+      }
+
+      # Act-Assert
+      expect {
+        patch toggle_complete_path(task.id), params: time_completed
+      }.wont_change "Task.count"
+
+      completed_task = Task.find_by(id: task.id)
+      expect(completed_task.name).must_equal task.name
+      expect(completed_task.description).must_equal task.description
+      expect(completed_task.completed_at).must_equal timestamp
+
+      must_respond_with :redirect
+      must_redirect_to task_path(task.id)
+    end
+
+    it "will redirect to the root page if given an invalid id" do
+      patch toggle_complete_path(-1)
+
+      # Assert
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
   end
 end
