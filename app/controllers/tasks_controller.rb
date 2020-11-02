@@ -1,17 +1,12 @@
-# TASKS = [
-#     { name:'create', description: 'fun video', completed_at: nil},
-#     { name: 'study', description: 'week 1 rails', completed_at: nil},
-#     { name: 'exercise', description: 'attend virtual yoga', completed_at: nil}
-# ]
-
 class TasksController < ApplicationController
+
+  before_action :find_task, except: [:index, :create]
+
   def index
     @tasks = Task.all.order("created_at")
   end
 
   def show
-    task_id = params[:id].to_i
-    @task = Task.find_by(id: task_id)
     if @task.nil?
       redirect_to tasks_path
       return
@@ -24,10 +19,7 @@ class TasksController < ApplicationController
 
   def create
     #instantiate a new task
-    @task = Task.new(
-        name: params[:task][:title],           # my table column is saved as name, but my form has title, good learning point
-        description: params[:task][:description],
-        completed_at: params[:task][:completed_at])
+    @task = Task.new(task_params)
 
     # save returns true if the database insert succeeds
     if @task.save
@@ -42,8 +34,6 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find_by(id: params[:id])
-
     if @task.nil?
       redirect_to tasks_path
       return
@@ -51,27 +41,19 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find_by(id: params[:id])
     if @task.nil?
       redirect_to tasks_path
       return
-    elsif @task.update(
-        name: params[:task][:title],
-        description: params[:task][:description],
-        completed_at: params[:task][:completed_at]
-    )
+    elsif @task.update(task_params)
       redirect_to tasks_path # go to the index so we can see the task in the list
       return
-    else              # save failed :(
+    else                # save failed
       render :edit      # show the new task form view again
       return
     end
   end
 
   def destroy
-    task_id = params[:id]
-    @task = Task.find_by(id: task_id)
-
     if @task
       @task.destroy
       redirect_to tasks_path
@@ -81,8 +63,7 @@ class TasksController < ApplicationController
   end
 
   def complete
-    @task = Task.find_by(id: params[:id])
-      if @task.nil?
+    if @task.nil?
         head :not_found
         return
       else
@@ -93,17 +74,15 @@ class TasksController < ApplicationController
   end
 
 
-  # def incomplete
-  #   @task = Task.find_by(id: params[:id])
-  #   if @task.nil?
-  #     head :not_found
-  #     return
-  #   else
-  #     @task.update(completed_at: Time.now)
-  #     redirect_to tasks_path
-  #     return
-  #   end
-  # end
+  private
+
+  def find_task
+    @task = Task.find_by(id: params[:id].to_i)
+  end
+
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed_at)
+  end
 
 end
 

@@ -77,7 +77,7 @@ describe TasksController do
       }.must_change "Task.count", 1
 
       pp Task.all
-      new_task = Task.find_by(name: task_hash[:task][:title]) ## stored under title label not name
+      new_task = Task.find_by(name: task_hash[:task][:name]) ## used to be stored under title label not name
       expect(new_task.description).must_equal task_hash[:task][:description]
       expect(new_task.completed_at).must_equal task_hash[:task][:completed_at]
       
@@ -129,7 +129,7 @@ describe TasksController do
 
       after_updating = Task.find_by(id: newest_task_id)
 
-      expect( after_updating.name ).must_equal updated_newest_task[:task][:title]
+      expect( after_updating.name ).must_equal updated_newest_task[:task][:name]
       expect( after_updating.description ).must_equal updated_newest_task[:task][:description]
       expect( after_updating.completed_at ).must_equal updated_newest_task[:task][:completed_at]
 
@@ -161,7 +161,7 @@ describe TasksController do
       # Act
       delete destroy_task_path(-1)
 
-      # Assert - showing error here
+      # Assert
       must_respond_with :not_found
 
     end

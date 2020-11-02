@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+
+.button-alignment {
+    display:inline-block;
+}
+
+body {
+    background-color: lightsalmon;
+
+}

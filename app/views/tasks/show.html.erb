@@ -2,16 +2,15 @@
 <ol class="task-detail">
 
     <li>
-      Title: <%= @task.name %>
-      Description: <%= @task.description %>
-      completed at: <%= @task.completed_at %>
+      Title: <%= @task.name %></br>
+      Description: <%= @task.description %></br>
+      completed at: <%= @task.completed_at %></br>
     </li>
 
-    <%= link_to "Back to Task List",tasks_path%>
-    <%= link_to "Edit", edit_task_path(@task) %>
-    <%= link_to "Delete", task_path(@task), method: :delete, data: {confirm: "Are you sure?"} %>
-    <%= link_to "Mark as Complete", task_path(@task), method: :patch %> </br>
-
+  <button><%= link_to "Edit", edit_task_path(@task)%></button>
+  <button><%= link_to "Delete", task_path(@task.id), method: :delete, data: {confirm: "Are you sure?"}%></button>
+  <button><%= link_to "Mark as Complete", complete_task_path(@task.id), method: :patch %></button>
+  <button><%= link_to "Back to Task List",tasks_path%></button>
 
 
 </ol>
