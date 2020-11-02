@@ -1,0 +1,23 @@
+// Place all the styles related to the Tasks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+#tasks_container {
+  margin-left: 60px;
+}
+
+.p-3 {
+  padding: 0 !important;
+}
+
+.form-group {
+  max-width: 600px;
+}
+
+.completed-task {
+  text-decoration: black line-through;
+}
+
+.completed-task:hover {
+  text-decoration: black line-through;
+}

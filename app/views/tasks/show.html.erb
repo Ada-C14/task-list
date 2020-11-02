@@ -1,0 +1,8 @@
+<div id="tasks_container">
+  <h3>Task: <%= @task.name %></h3>
+  <ul>
+    <li><strong>Description: </strong><%= @task.description %></li>
+    <li><strong>Completed at: </strong><%= @task.completed_at %></li>
+  </ul>
+  <%= link_to "All Tasks", tasks_path, :class => "action-btn btn btn-primary" %>
+</div>
