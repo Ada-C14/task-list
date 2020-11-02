@@ -208,7 +208,7 @@ describe TasksController do
       must_redirect_to tasks_path
     end
 
-    it "will redirect if task to complete is nonexistant" do
+    it "will respond with 404 if task to complete is nonexistant" do
       id = -1
 
       put task_complete_path(id)
