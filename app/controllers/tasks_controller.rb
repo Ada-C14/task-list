@@ -8,7 +8,7 @@ class TasksController < ApplicationController
         task_id = params[:id]
         @task = Task.find_by(id: task_id)
         if @task.nil?
-            redirect_to tasks_path
+            redirect_to root_path
             return
         end
     end
@@ -33,7 +33,12 @@ class TasksController < ApplicationController
     end
 
     def edit
-        @task = Task.find(params[:id])
+        task_id = params[:id]
+        @task = Task.find_by(id: task_id)
+        if @task.nil?
+            redirect_to root_path
+            return
+        end
     end
 
     def update
@@ -47,26 +52,30 @@ class TasksController < ApplicationController
         if result
             redirect_to task_path(@task.id)
         else
-            render :edit
+            redirect_to root_path
         end
     end
 
     def delete
         task = Task.find(params[:id])
         if task.destroy
-            redirect_to tasks_path
+            redirect_to root_path
         end
     end
 
     def complete
         @task = Task.find(params[:id])
         update = @task.update(completed_at: Time.now)
-        redirect_to tasks_path
+        redirect_to root_path
     end
 
     def uncomplete
         @task = Task.find(params[:id])
         update = @task.update(completed_at: nil)
-        redirect_to tasks_path
+        redirect_to root_path
+    end
+
+    def count 
+        count = Task.count
     end
 end
