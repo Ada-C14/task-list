@@ -2,14 +2,12 @@
 <ul>
   <% @tasks.each do |task|  %>
     <li>
-      <%#= link_to task.name, task_path(task) %>
-      <%#= button_to "Finished!", markup(task)  %>
       <% if task.completed_at != ""%>
         <strike><%= link_to task.name, task_path(task) %></strike>
 
         <% else %>
       <%= link_to task.name, task_path(task) %>
-        <%= link_to "Mark Complete", markup_task_path(task.id), method: :patch %>
+        <%= link_to "Finished!", markup_task_path(task.id), method: :patch %>
         <% end %>
 
     </li>
