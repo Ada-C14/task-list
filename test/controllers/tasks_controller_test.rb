@@ -84,13 +84,19 @@ describe TasksController do
   # Unskip and complete these tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      skip
-      # Your code here
+      #Act
+      get edit_task_path(task.id)
+
+      #Assert
+      must_respond_with :success
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+      #Act
+      get edit_task_path(-1)
+
+      #Assert
+      must_respond_with :redirect
     end
   end
   
@@ -98,19 +104,68 @@ describe TasksController do
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
+    before do
+      Task.create(name: "Say hi to Emma", description: "Say hi when entering the room", completed_at: "11/1/20")
+    end
+
+    let (:new_task_hash) {
+      {
+        task: {
+          name: "Say bye to Emma",
+          description: "Say bye when leaving the room",
+          completed_at: "11/2/20"
+        }
+      }
+    }
+
     it "can update an existing task" do
-      # Your code here
+      id = Task.first.id
+      expect {
+        patch task_path(id), params: new_task_hash
+    }.wont_change "Task.count"
+
+    must_respond_with :redirect
+
+    task = Task.find_by(id: id)
+    expect(task.name).must_equal new_task_hash[:task][:name]
+    expect(task.description).must_equal new_task_hash[:task][:description]
+    expect(task.completed_at).must_equal new_task_hash[:task][:completed_at]
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      id = -1
+
+      expect {
+        patch task_path(id), params: new_task_hash
+    }.wont_change "Task.count"
+
+    must_redirect_to tasks_path
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
     # Your tests go here
-    
+    it "can destroy a task" do
+      task = Task.new(name: "watch game", description: "watch redzone", completed_at: "11/1/20")
+
+      task.save
+      id = task.id
+      
+      expect {
+        delete task_path(id)
+      }.must_change "Task.count", -1
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "will respond with not_found for invalid task id" do
+      expect{
+        delete task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
+    end
   end
   
   # Complete for Wave 4
