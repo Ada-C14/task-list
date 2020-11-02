@@ -1,0 +1,18 @@
+
+<%= form_with model: @task, class: 'create-task' do |task|%>
+  <p>Enter your information to edit the task:</p>
+
+  <p><%= task.label :name %>
+    <%= task.text_field :name %></p>
+
+  <p><%= task.label :description %>
+    <%= task.text_field :description %></p>
+
+  <p><%= task.label :completed_at %>
+    <%= task.text_field :completed_at %></p>
+
+  <p><%= task.submit "Edit Task", class: "task-botton" %></p>
+<%end %>
+
+
+<p><%= link_to "Home", root_path, class: "home_button" %></p>

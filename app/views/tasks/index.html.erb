@@ -1,0 +1,21 @@
+<h1>Welcome!</h1>
+<h2>Let's checkout our tasks:</h2>
+<ol>
+  <% @tasks.each do |task| %>
+  <li>
+    <%= link_to task.name, task_path(task)%> || <%=task.description %> || <%= task.completed_at %>
+    <p>
+      <%if task.completed_at == nil || task.completed_at == "" %>
+        <%= link_to "Mark Complete", mark_complete_path(task), class: "list_button"%>
+      <%else %>
+        <%= link_to "Unmark Complete", mark_complete_path(task), class: "list_button"%>
+      <%end %>
+        |
+      <%= link_to "Edit", edit_task_path(task), class: "list_button" %> |
+      <%= link_to "Delete", task_path(task), method: :delete, data: {confirm: "Confirm to delete"} %> </p>
+  </li>
+    <%end %>
+</ol>
+
+<p><%= link_to "Home", root_path, class: "home_button" %></p>
+<%= link_to "Add A Task", new_task_path, class: "task_button" %>

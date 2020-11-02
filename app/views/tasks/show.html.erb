@@ -1,0 +1,9 @@
+<div>
+  <h1><%= @task.name %></h1>
+  <h3><%= @task.description %></h3>
+  <p><%= @task.completed_at %></p>
+</div>
+<p><%= link_to "Complete", mark_complete_path(@task), class: "list_button"%></p>
+<p><%= link_to "Edit", edit_task_path, class: "" %></p>
+<p><%= link_to "Delete", task_path(@task), method: :delete, data: {confirm: "Confirm to delete"} %></p>
+<p><%= link_to "Home", root_path, class: "home_button" %></p>
