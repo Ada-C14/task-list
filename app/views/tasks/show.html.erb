@@ -1,4 +1,8 @@
-<h3>TASK: <%= @task.name %></h3>
+
+
+<div class="container">
+
+<h3><%= @task.name %></h3>
 <p><%=@task.description %></p>
 <p>Status: <%= @task.completed_at.nil? ? "in progress" : "completed on #{@task.completed_at}" %> </p>
 
@@ -12,4 +16,6 @@
 
 <div class="button">
   <%= button_to "Delete task", task_path(@task.id), method: :delete, data: {confirm: "Are you sure you want to delete this task?" } %>
+</div>
+
 </div>

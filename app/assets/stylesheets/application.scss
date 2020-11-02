@@ -16,3 +16,19 @@
 @import "bootstrap";
 
 @import "**/*";
+
+
+body {
+  margin: 30px;
+  border: 5px solid black;
+  border-radius: 20px;
+  width: 500px;
+  align-content: center;
+}
+
+header, footer {
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+
