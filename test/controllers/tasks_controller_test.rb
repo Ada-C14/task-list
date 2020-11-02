@@ -147,7 +147,7 @@ describe TasksController do
 
       expect {
         delete task_path(id)
-      }.must_differ "Book.count", -1
+      }.must_differ "Task.count", -1
 
       task_to_delete = Task.find_by(name: "make coffee")
 
@@ -155,6 +155,14 @@ describe TasksController do
 
       must_respond_with :redirect
       must_redirect_to tasks_path
+    end
+
+    it "will respond with not_found for invalid ids" do
+      expect {
+        delete task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
     end
     
   end
