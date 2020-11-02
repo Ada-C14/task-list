@@ -5,4 +5,6 @@
 <p><%= @task.completed_at %></p>
 
 <h3><%= link_to "Edit Task", edit_task_path %></h3>
+<h3><%= link_to 'Delete Task', task_path, method: :delete,
+                data: {confirm: 'Sure you want to delete?'} %></h3>
 <h3><%= link_to "Back to Main Page", root_path %></h3>

@@ -56,7 +56,17 @@ class TasksController < ApplicationController
       return
     end
 
+  end
 
+  def destroy
+    @task = Task.find_by(id: params[:id])
+
+    if @task
+      @task.destroy
+      redirect_to tasks_path
+    else
+      redirect_to error_path(error: 'Can\'t find task to delete!')
+    end
   end
 
   private

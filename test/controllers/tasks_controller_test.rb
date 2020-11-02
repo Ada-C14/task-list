@@ -127,11 +127,12 @@ describe TasksController do
               completed_at: 'dog'
           }
       }
+      post tasks_path, params: @task_hash
+
     end
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
     it "can update an existing task (PUT)" do
-      post tasks_path, params: @task_hash
       task = Task.first
 
       expect {
@@ -145,7 +146,6 @@ describe TasksController do
     end
 
     it 'can update an existing task (PATCH)' do
-      post tasks_path, params: @task_hash
       task = Task.first
 
       expect {
@@ -159,16 +159,58 @@ describe TasksController do
     end
     
     it "will redirect to the root page if given an invalid id" do
-      put task_path(-1), params: @new_hash
+      expect {
+        put task_path(-1), params: @new_hash
+      }.wont_change "Task.count"
 
       must_redirect_to error_path(error: 'Task to update not found!')
     end
+
+    it 'will fail to save a task with invalid params' do
+      skip
+      # TODO: Think of a way to cause a failed save task
+      # task = Task.first
+      # put task_path(task.id), params: { task: {a: 1} }
+      # must_redirect_to error_path(error: 'Unable to update task!')
+    end
+
+
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
-    
+    before do
+      task_hash = {
+          task: {
+              name: 'cat',
+              description: 'cat',
+              completed_at: 'cat'
+          }
+      }
+
+      post tasks_path, params: task_hash
+    end
+    it 'can delete a task' do
+      @task = Task.first
+      expect {
+        delete task_path(@task.id)
+      }.must_change 'Task.count', -1
+
+      task = Task.find_by(name: 'cat')
+
+      expect(task).must_be_nil
+
+      must_redirect_to tasks_path
+    end
+
+    it 'fails to delete a nonexistent task' do
+      expect {
+        delete task_path(-1)
+      }.wont_change 'Task.count'
+
+      must_redirect_to error_path(error: 'Can\'t find task to delete!')
+    end
+
   end
   
   # Complete for Wave 4

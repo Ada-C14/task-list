@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: 'tasks#index'
 
   get '/error', to: 'tasks#error', as: :error
-  resources :tasks, except: [:destroy]
+  resources :tasks
   # # Routes that operate on the task collection
   # get '/tasks', to: 'tasks#index', as: :tasks
   # get '/tasks/new', to: 'tasks#new', as: :new_task
