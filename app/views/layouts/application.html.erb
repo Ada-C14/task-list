@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TaskList</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <header>
+    <h3>Task List</h3>
+  </header>
+    <%= yield %>
+    <footer>All other work, copy, and code on this site are created and owned by Christabel Sebastian(c), unless otherwise stated.</footer>
+  </body>
+</html>
