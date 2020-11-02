@@ -152,17 +152,6 @@ describe TasksController do
   # Complete these tests for Wave 4
   describe "destroy" do
     # Your tests go here
-    #
-
-
-    it "will redirect to the root page if given an invalid id" do
-      # Your code here
-
-      get task_path(-1)
-
-      # Assert
-      must_respond_with :redirect
-    end
 
     it "will not change db with an invalid ID" do
 
@@ -200,5 +189,52 @@ describe TasksController do
   # Complete for Wave 4
   describe "toggle_complete" do
     # Your tests go here
+    #
+    it "will not change db with an invalid ID" do
+
+      expect {
+        complete_task_path(-1)
+      }.wont_change 'Task.count'
+
+      expect {
+        incomplete_task_path(-1)
+      }.wont_change 'Task.count'
+    end
+
+    it "will not change count with a valid ID - verifying patch" do
+      Task.create(name: "Task starting at complete", description: "task_a", completed_at: "complete")
+      Task.create(name: "Task starting at incomplete", description: "task_b", completed_at: "")
+
+
+      task_a = Task.find_by(description: "task_a")
+      task_b = Task.find_by(description: "task_b")
+
+      expect {
+        patch incomplete_task_path(task_a.id)
+      }.wont_change 'Task.count'
+
+      expect {
+        patch complete_task_path(task_b.id)
+      }.wont_change 'Task.count'
+
+
+      post_incomplete = Task.find_by(description: "task_a")
+      post_complete = Task.find_by(description: "task_b")
+
+      puts "task_a after"
+      puts post_incomplete.completed_at
+      puts "task_b after"
+      puts post_complete.completed_at
+
+      expect(post_complete).wont_be_nil
+      expect(post_incomplete).wont_be_nil
+
+      # expect(post_complete.completed_at).must_not_equal ""
+      expect(post_incomplete.completed_at).must_equal ""
+      expect(post_complete.completed_at).wont_equal ""
+    end
+
+
+
   end
 end
