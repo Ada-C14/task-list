@@ -14,7 +14,7 @@
               <p>
                 <%= link_to (task.completed_at.nil? || task.completed_at.empty? ? "Mark Complete" : "Mark Incomplete"), toggle_complete_task_path(task), :method => :patch %> |
                 <%= link_to "Edit", edit_task_path(task) %> |
-                <%= link_to "Delete", task, data: {confirm: "Are you sure you want to delete this task?"}, :method => :delete %>
+                <%= link_to "Delete", task_path(task), data: {confirm: "Are you sure you want to delete this task?"}, :method => :delete %>
               </p>
             </li>
           <% end %>

@@ -85,7 +85,7 @@ class TasksController < ApplicationController
       return
     else
       if @task.completed_at.nil?
-        @task.update(completed_at: Time.now.strftime("%B %e, %Y"))
+        @task.update(completed_at: Time.now.strftime("%B %e, %Y %I:%M%p"))
       else
         @task.update(completed_at: nil)
       end
