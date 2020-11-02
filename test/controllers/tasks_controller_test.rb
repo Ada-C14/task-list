@@ -115,13 +115,15 @@ describe TasksController do
     end
 
     it "can update an existing task" do
-
+      id = task.id
 
       expect{
-        patch task_path(task), params: @updated_task_hash
-      }.wont_change Task.count
+        patch task_path(id), params: @updated_task_hash
+      }.wont_change "Task.count"
 
-      must_redirect_to task_path(task)
+
+
+      must_redirect_to task_path(task.id)
 
       task.reload
 
@@ -143,12 +145,73 @@ describe TasksController do
 
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
+    it "removes an existing task" do
+      id = task.id
+
+      expect{
+        delete task_path(id)
+      }.must_change "Task.count", -1
+
+      deleted_task = Task.find_by(name: "sample task")
+
+      expect(deleted_task).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "will redirect when attempting to delete an invalid task" do
+      expect{
+        delete task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
 
   end
 
+
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+    it "marks an incomplete task complete and updates task's completed_at date" do
+      incomplete_task = Task.create(
+        name: "incomplete task",
+        description: "this is an example for an incomplete test"
+      )
+
+      id = incomplete_task.id
+
+      patch toggle_complete_path(id)
+
+      completed_task = Task.find_by(id: id)
+
+      expect(completed_task.completed_at).must_be_kind_of String
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "marks a completed task incomplete and updates task's completed_at date to nil" do
+      id = task.id
+
+      patch toggle_complete_path(id)
+
+      incomplete_task = Task.find_by(id: id)
+
+      expect(incomplete_task.completed_at).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "will redirect when attempting mark an invalid task complete" do
+      expect{
+        patch toggle_complete_path(-1)
+      }.wont_change "Task.all"
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
   end
 end
