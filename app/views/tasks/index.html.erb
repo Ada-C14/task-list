@@ -1,25 +1,26 @@
-<h3><%= "Check this everyday!".upcase %></h3>
+<h3 class="main-header"><%= "Your Tasks".upcase %></h3>
 
 <% if @tasks.count > 0 %>
-  <ul>
+  <ol>
     <% @tasks.each do |task| %>
       <li>
-        <% if task.completed_at.nil? %>
-          <%= form_with model: @task, :url => complete_task_path(task), method: :patch do |f| %>  
-            <%= link_to task.name, task_path(task.id) %>: <%= task.description %> 
-            <%= f.submit "Mark complete", class: 'task-button' %> /
-            <%= link_to " Edit", edit_task_path(task) %> / <%= link_to " Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
-          <% end %>
+        <% if task.completed_at.nil? %> 
+          <%= link_to task.name, task_path(task.id) %><br/>
+          <%= task.description %><br/> 
+          <%= link_to "Mark complete", complete_task_path(task), method: :patch %> |
+          <%= link_to " Edit", edit_task_path(task) %> | 
+          <%= link_to " Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
         <% else %>  
-          <%= form_with model: @task, :url => complete_task_path(task), method: :patch do |f| %>
-            <s><%= link_to task.name, task_path(task.id) %>: <%= task.description %> -- Completed at <%= task.completed_at %></s>
-            <%= f.submit "Unmark complete", class: 'task-button' %> /
-            <%= link_to " Edit", edit_task_path(task) %> / <%= link_to " Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
-          <% end %> 
+          <%= link_to task.name, task_path(task.id), class: 'cross-out' %><br/>
+          <%= task.description %><br/> 
+          -- Completed at <%= task.completed_at %> --<br/>
+          <%= link_to "Unmark complete", complete_task_path(task), method: :patch %> |
+          <%= link_to " Edit", edit_task_path(task) %> | 
+          <%= link_to " Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
         <% end %>
       </li>
     <% end %>
-  </ul>
+  </ol>
 <% else %>
   <h3>No tasks in the list!</h3>
 <% end %>

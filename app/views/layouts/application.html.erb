@@ -10,21 +10,24 @@
   </head>
 
   <body>
-    <header>
-      <section class="title"><h1>Task List</h1></section>
-      <nav>
-        <ul>
-          <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "Task list", tasks_path %></li>
-          <li><%= link_to "Add new task", new_task_path %></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <%= yield %>
-    </main>
-    <footer>
-      All rights Reserved
-    </footer>
+    <div class="main-container grid-content">
+      <header>
+        <h2><%= link_to "TASK LIST", root_path %></h2>
+      </header>
+      <main>
+        <%= yield %>
+      </main>
+      <aside>
+        <nav>
+          <ul>
+            <li class="aside-button"><%= link_to "Add Task", new_task_path %></li>
+            <li class="aside-button"><%= link_to "All Tasks", tasks_path %></li>
+          </ul>
+        </nav>
+      </aside>
+      <footer>
+        <p class="footer-border">copywrite 2020 @Ada Developers Academy</>
+      </footer>
+    </div>
   </body>
 </html>

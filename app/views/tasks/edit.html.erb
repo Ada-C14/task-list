@@ -1,8 +1,6 @@
-<h2>Task List</h2>
+<h2>Edit Your Task</h2>
 
-<%= "Check this everyday!".upcase %>
-
-<%= form_with model: @task, class: "task_form" do |f| %>
+<%= form_with model: @task do |f| %>
     <p>Please provide the following information to update a task in our database:</p>
     <div>
         <%= f.label :name %>
@@ -12,5 +10,5 @@
         <%= f.label :description %>
         <%= f.text_area :description %>
     </div>
-    <%= f.submit "Update a task", class: 'task-button' %>
+    <br/><%= f.submit "Update a task" %>
 <% end %>

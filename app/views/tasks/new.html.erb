@@ -1,8 +1,6 @@
-<h2>Task List</h2>
+<h2>Add a new Task</h2>
 
-<%= "Check this everyday!".upcase %>
-
-<%= form_with model: @task, class: "task_form" do |t| %>
+<%= form_with model: @task do |t| %>
     <p>Please provide the following information to create a new task in our database:</p>
     <div>
         <%= t.label :name %>
@@ -12,5 +10,5 @@
         <%= t.label :description %>
         <%= t.text_area :description %>
     </div>
-    <%= t.submit "Add a task", class: 'task-button' %>
+    <br/><%= t.submit "Add a task" %>
 <% end %>
