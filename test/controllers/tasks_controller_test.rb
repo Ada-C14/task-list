@@ -82,14 +82,14 @@ describe TasksController do
   end
 
   before do
-    Task.create(name: "Wash Dishes", description: "The dirty dishes are piling up high. Please wash all dishes!", completed_at: Time.now + 3.days)
+    Task.create(name: "Wash Dishes", description: "The dirty dishes are piling up high. Please wash all dishes!", completed_at: "October 30th")
   end
   let(:new_task) {
     {
         task: {
             name: "new task",
             description: "new task description",
-            completed_at: Time.now + 5.days,
+            completed_at: "October 31st",
         },
     }
   }
@@ -117,7 +117,6 @@ describe TasksController do
 
 
     it "can update an existing task" do
-      skip
       task = Task.first
       expect {
         patch task_path(task.id), params: new_task
@@ -128,11 +127,10 @@ describe TasksController do
       task = Task.find_by(id: task.id)
       expect(task.name).must_equal new_task[:task][:name]
       expect(task.description).must_equal new_task[:task][:description]
-      expect(task.complete_at).must_equal new_task[:task][:completed_at]
+      expect(task.completed_at).must_equal new_task[:task][:completed_at]
     end
     
     it "will redirect to the root page if given an invalid id" do
-      skip
       patch task_path(-1)
 
       must_redirect_to root_path
