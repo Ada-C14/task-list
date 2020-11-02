@@ -22,9 +22,10 @@ class TasksController < ApplicationController
   def create
     # @task = Task.new(name: params[:task])
     @task = Task.new(
-    name: params[:task][:name],
-    description: params[:task][:description],
-    complete_by: params[:task][:complete_by])
+      name: params[:task][:name],
+      description: params[:task][:description],
+      completed_at: params[:task][:completed_at]
+    )
     # save returns true if new task successfully inserted in db
     if @task.save
       redirect_to tasks_path # go to index to see new path

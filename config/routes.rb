@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   post '/tasks', to: 'tasks#create'
 
 
-  get '/tasks/:id', to: 'tasks#show', as: 'show_task' # Show single task
+  get '/tasks/:id', to: 'tasks#show', as: 'task' # Show single task
 end
