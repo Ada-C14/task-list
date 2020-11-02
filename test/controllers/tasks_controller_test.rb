@@ -99,11 +99,45 @@ describe TasksController do
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great thing to test.
     it "can update an existing task" do
-      # Your code here
+      Task.create(name: "Go hiking", description: "Mossy Fern Forest", completed_at: "weekend")
+
+      new_task_hash =
+          task: {
+          name: "Hike",
+          description: "Snow-capped alpine peaks",
+          completed_at: "Sunday"
+      }
+
+      task = Task.first
+
+      expect {
+        patch task_path(task.id), params: new_task_hash
+      }.wont_change 'Task.count', 1
+
+      must_redirect_to tasks_path
+
+      expect(task.name).must_equal new_task_hash[:task][:name]
+      expect(task.description).must_equal new_task_hash[:task][:description]
+      expect(task.completed_at).must_equal new_task_hash[:task][:completed_at]
     end
 
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      Task.create(name: "Go hiking", description: "Mossy Fern Forest", completed_at: "weekend")
+
+      new_task_hash =
+          task: {
+          name: "Hike",
+          description: "Snow-capped alpine peaks",
+          completed_at: "Sunday"
+      }
+
+      invalid_task_id = -1
+
+      expect {
+        patch task_path(invalid_task_id), params: new_task_hash
+      }.wont_change 'Task.count'
+
+      must_respond_with :not_found
     end
   end
 #
