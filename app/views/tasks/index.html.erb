@@ -1,42 +1,54 @@
-<h1>HOME PAGE: TASK APP OF ALL TASK APPS</h1>
-<h2>DO YOU HAVE A LIST?</h2>
-<h2>THIS APP WILL STORE YOUR LIST</h2>
+<h1>TASKS</h1>
 
+<div class="grid-wrapper">
+  <div class="left-column">
+    <div class="new-task-button">
+      <%= button_to "Create New Task", new_task_path, method: :get %>
+    </div>
+    <%= button_to "All Tasks", tasks_path %>
+  </div>
 
-<% if @tasks.length > 0 %>
-  <ul>
-    <% @tasks.each do |task| %>
-    <li>
-      <% if task.completed_at.nil? %>
-        <%= link_to task.name, task_path(task.id) %><%=" - " + task.description %>
-        <br />
-        <div class="task-buttons">
-          <%= button_to "🔲 Mark Complete?", complete_task_path(task.id), method: :patch %>
-        </div>
-      <% else %>
-        <s><%= link_to task.name, task_path(task.id) %><%=" - " + task.description %></s>
-        <br />
-        <div class="task-buttons">
-          <%= button_to "✅ Unmark Complete?", complete_task_path(task.id), method: :patch %>
-        </div>
-      <% end %>
+  <div class="right-column">
+    <% if @tasks.length > 0 %>
+      <ul>
+        <% @tasks.each do |task| %>
+          <li>
+            <% if task.completed_at.nil? %>
+              <%= link_to task.name, task_path(task.id) %><%=" - " + task.description %>
+              <br />
+              <div class="task-buttons">
+                <%= button_to "🔲 Mark Complete?", complete_task_path(task.id), method: :patch %>
+              </div>
+            <% else %>
+              <s><%= link_to task.name, task_path(task.id) %><%=" - " + task.description %></s>
+              <br />
+              <div class="task-buttons">
+                <%= button_to "✅ Unmark Complete?", complete_task_path(task.id), method: :patch %>
+              </div>
+            <% end %>
 
-      <div class="task-buttons">
-        <%= button_to "Edit", edit_task_path(task.id), method: :get %>
-      </div>
-      <div class="task-buttons">
-        <%= button_to "Delete", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"}%>
-      </div>
-<!--      new if statement so that this will print on a new line under the flex box of buttons-->
-      <% if !task.completed_at.nil? %>
-        <br />
-        <%= "Completed: " + task.completed_at %>
-      <% end %>
-    </li>
+            <div class="task-buttons">
+              <%= button_to "Edit", edit_task_path(task.id), method: :get %>
+            </div>
+            <div class="task-buttons">
+              <%= button_to "Delete", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"}%>
+            </div>
+            <!--      new if statement so that this will print on a new line under the flex box of buttons-->
+            <% if !task.completed_at.nil? %>
+              <br />
+              <%= "Completed: " + task.completed_at %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <h3>No tasks in the system yet😥 time to add some tasks!</h3>
     <% end %>
-  </ul>
-<% else %>
-  <h3>No tasks in the system yet😥 time to add some tasks!</h3>
-<% end %>
+  </div>
 
-<%= button_to "Create New Task", new_task_path, method: :get %>
+</div>
+
+
+
+
+
