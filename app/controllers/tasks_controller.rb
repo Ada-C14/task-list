@@ -82,13 +82,13 @@ class TasksController < ApplicationController
     elsif @task.completed_at.nil?
       if @task.update(completed_at: Time.now.to_s) # #if true
         redirect_to tasks_path
-      return
+        return
       else #save failed
         render :edit
         return
       end
     else @task.update(completed_at: nil)
-    redirect_to tasks_path
+      redirect_to tasks_path
     end
   end
 end

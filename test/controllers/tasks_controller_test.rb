@@ -174,6 +174,38 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+     before do
+        Task.create(name: "Task #1", description: "details for the stuff to do")
+        @task1 = Task.first
+     end
+
+     it "can complete and uncomplete an existing task" do
+
+       expect @task1.completed_at.must_be_nil
+
+       expect {
+         patch complete_task_path(@task1)
+       }.wont_change "Task.count"
+
+       expect (@task1.reload.completed_at).must_be_kind_of String
+
+       #revert back to nil
+       expect {
+         patch complete_task_path(@task1)
+       }.wont_change "Task.count"
+
+       expect (@task1.reload.completed_at).must_be_nil
+     end
+
+     it "will redirect to the root page if given an invalid id" do
+       id = -1
+
+       expect {
+         patch complete_task_path(id)
+       }.wont_change "Task.count"
+
+       must_respond_with :redirect
+       must_redirect_to root_path
+     end
   end
 end
