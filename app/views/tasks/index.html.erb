@@ -1,0 +1,27 @@
+<h1>TASKS</h1>
+<button><%= link_to "Create New Task", new_task_path %></button>
+
+<ol class="tasks">
+  <% @tasks.each do |task| %>
+
+    <li> Title: <%= link_to task.name, task_path(task.id) %>
+      <div class = "button-alignment">
+        <button><%= link_to "Edit", edit_task_path(task)%></button>
+        <button><%= link_to "Delete", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"}%></button>
+
+        <% if task.completed_at == nil %>
+          <button><%= link_to "Mark as Complete", complete_task_path(task.id), method: :patch %></button>
+        <% else %>
+          <button><%= link_to "Mark as Incomplete", complete_task_path(task.id), method: :patch %></button>
+        <%end %>
+
+      </div>
+      <p> Description: <%= task.description %> </p>
+      <p> Completed at: <%= task.completed_at %> </br>
+
+    </li>
+<% end %>
+
+</ol>
+
+
