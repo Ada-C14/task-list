@@ -1,8 +1,12 @@
-<h1> <%= @task.name.titleize %></h1>
+<h2> <%= @task.name.titleize %></h2>
 
-<h2> Which means: <%= @task.description %></h2>
+<br>
 
-<p><h3> Did we complete it? </h3>
+<h3> Details: <%= @task.description %></h3>
+
+<br>
+
+<h4> Did we complete it? </h4>
 
 <% if @task.completed_at == "" || @task.completed_at == nil %>
   <h4> NOPE </h4>
@@ -10,4 +14,3 @@
   <h4> Yes! At <%= @task.completed_at %> </h4>
   <%end %>
 
-</p>

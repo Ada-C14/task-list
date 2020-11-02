@@ -201,7 +201,7 @@ describe TasksController do
       }.wont_change 'Task.count'
     end
 
-    it "will not change count with a valid ID - verifying patch" do
+    it "will not change count, but will edit corerctly " do
       Task.create(name: "Task starting at complete", description: "task_a", completed_at: "complete")
       Task.create(name: "Task starting at incomplete", description: "task_b", completed_at: "")
 
@@ -217,24 +217,18 @@ describe TasksController do
         patch complete_task_path(task_b.id)
       }.wont_change 'Task.count'
 
-
       post_incomplete = Task.find_by(description: "task_a")
       post_complete = Task.find_by(description: "task_b")
-
-      puts "task_a after"
-      puts post_incomplete.completed_at
-      puts "task_b after"
-      puts post_complete.completed_at
 
       expect(post_complete).wont_be_nil
       expect(post_incomplete).wont_be_nil
 
-      # expect(post_complete.completed_at).must_not_equal ""
       expect(post_incomplete.completed_at).must_equal ""
       expect(post_complete.completed_at).wont_equal ""
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
     end
-
-
 
   end
 end
