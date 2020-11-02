@@ -16,3 +16,58 @@
 @import "bootstrap";
 
 @import "**/*";
+
+body {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+    "header main main main"
+    "header main main main "
+    "footer footer footer footer"
+}
+
+header {
+    grid-area: header;
+}
+
+main {
+    grid-area: main;
+    border-style: solid;
+    /*border-radius gets it to be rounded*/
+    border-radius: 25px;
+    padding: 10px;
+    background-color: yellow;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.nav-button {
+    font-size: 25px;
+    list-style-type: none;
+}
+
+.nav-button button {
+    border-style: solid;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.nav-button a:hover {
+    color: darkgrey;
+}
+
+.nav-button a {
+    text-decoration: none;
+}
+
+footer {
+    grid-area: footer;
+    margin-top: 20px;
+    border-top: solid;
+    text-align: center;
+}
+
+
+
