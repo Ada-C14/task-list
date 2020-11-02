@@ -4,13 +4,13 @@
     <ul>
         <li>Name: <%= @task.name %> </li>
         <br>
-        <li> Description: <%= @task.description %></li> 
+        <li>Description: <%= @task.description %></li> 
         <br>
-        <li>Completed At: <%= @task.completed_at %></li> 
+        <li>Status: <%= @task.complete %></li> 
         <br>
-        <li><%= link_to "Update #{@task.name}", edit_task_path(@task.id) %></li> <%# @task or @task.id is both accepted %>
+        <li><%= link_to "Edit #{@task.name}", edit_task_path(@task.id) %></li> <%# @task or @task.id is both accepted %>
         <br>
-        <li><%= link_to "Delete #{@task.name}", task_path(@task), method: :delete %></li>
+        <li><%= link_to "Delete #{@task.name}", task_path(@task), method: :delete, data: { confirm: "Are you sure?"} %></li>
     </ul>
 </div>
 

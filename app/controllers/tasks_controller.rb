@@ -1,3 +1,4 @@
+require 'date'
 
 class TasksController < ApplicationController
 
@@ -38,6 +39,23 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
     if @task.nil?
       head :not_found
+      return
+    end
+  end
+
+  def mark_complete
+    @task = Task.find_by(id: params[:id])
+    if @task.complete?
+      redirect_to tasks_path 
+      #if not complete, mark complete
+      # update db to current date(override complete_at)
+    
+    else
+      @task.update(
+        complete: true,
+        completed_at: DateTime.now
+      )
+      redirect_to tasks_path 
       return
     end
   end
