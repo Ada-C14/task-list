@@ -63,7 +63,7 @@ describe TasksController do
         task: {
           name: "new task",
           description: "new task description",
-          completed_at: nil,
+          completed_at: "October 10th",
         },
       }
       
@@ -80,21 +80,31 @@ describe TasksController do
       must_redirect_to task_path(new_task.id)
     end
   end
-  
+
+  before do
+    Task.create(name: "Wash Dishes", description: "The dirty dishes are piling up high. Please wash all dishes!", completed_at: Time.now + 3.days)
+  end
+  let(:new_task) {
+    {
+        task: {
+            name: "new task",
+            description: "new task description",
+            completed_at: Time.now + 5.days,
+        },
+    }
+  }
   # Unskip and complete these tests for Wave 3
   describe "edit" do
 
     it "can get the edit page for an existing task" do
-      skip
       # Act
-      get edit_task_path
+      get edit_task_path(1)
 
       # Assert
-      must_respond_with :success
+      must_respond_with :found
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
       get edit_task_path(-1)
       must_respond_with :redirect
     end
@@ -105,26 +115,27 @@ describe TasksController do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
 
-    before do
-      Task.create(name: "Wash Dishes", description: "The dirty dishes are piling up high. Please wash all dishes!", completed_at: nil)
-    end
-    let(:new_task) {
-      {
-        task: {
-            name: "new task",
-            description: "new task description",
-            completed_at: nil,
-        },
-      }
-    }
+
     it "can update an existing task" do
       skip
-      # Your code here
+      task = Task.first
+      expect {
+        patch task_path(task.id), params: new_task
+      }.wont_change "Task.count"
+
+      must_redirect_to task_path(task.id)
+
+      task = Task.find_by(id: task.id)
+      expect(task.name).must_equal new_task[:task][:name]
+      expect(task.description).must_equal new_task[:task][:description]
+      expect(task.complete_at).must_equal new_task[:task][:completed_at]
     end
     
     it "will redirect to the root page if given an invalid id" do
       skip
-      # Your code here
+      patch task_path(-1)
+
+      must_redirect_to root_path
     end
   end
   
