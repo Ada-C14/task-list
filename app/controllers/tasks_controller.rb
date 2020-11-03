@@ -74,10 +74,17 @@ class TasksController < ApplicationController
     if @task.nil?
       redirect_to root_path
       return
-    else @task.update(
-        completed_at: Time.now
+    end
+    if @task.completed_at.nil?
+      @task.update(
+      completed_at: Time.now
     )
       redirect_to task_path(@task.id)
+      return
+    else
+      @task.update(
+        completed_at: nil
+      )
       return
     end
   end
