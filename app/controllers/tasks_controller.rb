@@ -61,14 +61,31 @@ class TasksController < ApplicationController
       render :new, :bad_request
     end
   end
+
+  def complete
+    task_id = params[:id].to_i
+    task = Task.find_by(id: task_id)
+    task.completed = true
+    time = Time.new
+    task.completed_at = time.inspect
+    task.save
+      redirect_to tasks_path
+  end
+
+  def incomplete
+    task_id = params[:id].to_i
+    task = Task.find_by(id: task_id)
+    task.completed = false
+    task.save
+    redirect_to tasks_path
+  end
+
+  private
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed_at)
+  end
+
 end
 
-private
-def task_params
-  return params.require(:task).permit(:name, :description, :completed_at)
-end
 
-def are_you_sure
-  puts "Are you sure you would like to delete #{@task.name}?"
 
-end

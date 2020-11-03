@@ -102,8 +102,6 @@ describe TasksController do
 
     end
   end
-
-  
   # Uncomment and complete these tests for Wave 3
   describe "update" do
 
@@ -160,7 +158,17 @@ describe TasksController do
   end
   
   # Complete for Wave 4
-  describe "toggle_complete" do
-    # Your tests go here
+  describe "tasks_complete" do
+    it "will update the controller with 'completed' to true" do
+    task = Task.create(name: "Finish Rails homework", description: "Somewhat challenging.", completed_at: "")
+    id = task.id.to_i
+
+    get tasks_complete_path(id)
+      must_respond_with :redirect
+
+      completed_task = Task.find_by(id: id)
+      expect(completed_task.completed).must_equal true
+    end
   end
 end
+
