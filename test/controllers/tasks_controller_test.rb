@@ -28,7 +28,7 @@ describe TasksController do
   # Unskip these tests for Wave 2
   describe "show" do
     it "can get a valid task" do
-      skip
+      # skip
       # Act
       get task_path(task.id)
       
@@ -37,7 +37,7 @@ describe TasksController do
     end
     
     it "will redirect for an invalid task" do
-      skip
+      # skip
       # Act
       get task_path(-1)
       
@@ -48,7 +48,7 @@ describe TasksController do
   
   describe "new" do
     it "can get the new task page" do
-      skip
+      # skip
       
       # Act
       get new_task_path
@@ -60,7 +60,7 @@ describe TasksController do
   
   describe "create" do
     it "can create a new task" do
-      skip
+      # skip
       
       # Arrange
       task_hash = {
@@ -88,13 +88,18 @@ describe TasksController do
   # Unskip and complete these tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      skip
-      # Your code here
+      # skip
+      get edit_task_path(task.id)
+
+      must_respond_with :success
     end
     
-    it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+    it "will respond with redirect when attempting to edit a nonexistent task" do
+      # skip
+      get edit_task_path(-1)
+
+      # Assert
+      must_respond_with :redirect
     end
   end
   
@@ -103,22 +108,92 @@ describe TasksController do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
     it "can update an existing task" do
-      # Your code here
+      get edit_task_path(task.id)
+
+      edited_task_hash = {
+        task: {
+          name: "first task of the day",
+          description: "wake up and get out of bed",
+          completed_at: Time.parse("9:00"),
+        }
+      }
+
+      # Act-Assert
+      expect {
+        patch task_path(task.id), params: edited_task_hash
+      }.wont_change "Task.count"
+
+      edited_task = Task.find_by(id: task.id)
+      expect(edited_task.name).must_equal edited_task_hash[:task][:name]
+      expect(edited_task.description).must_equal edited_task_hash[:task][:description]
+      expect(edited_task.completed_at).must_equal edited_task_hash[:task][:completed_at]
+
+      must_respond_with :redirect
+      must_redirect_to task_path(task.id)
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      patch task_path(-1)
+
+      # Assert
+      must_respond_with :redirect
+      must_redirect_to root_path
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
     # Your tests go here
-    
+    it "can delete an existing task and redirect to the index page" do
+      get task_path(task.id)
+
+      expect {
+        delete task_path(task.id)
+      }.must_change "Task.count", -1
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "will respond with not_found for invalid ids" do
+      expect {
+        delete task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
+    end
   end
   
   # Complete for Wave 4
   describe "toggle_complete" do
     # Your tests go here
+    it "can mark an existing task as complete" do
+      task_id = task.id
+
+      # Act-Assert
+      expect {
+        patch toggle_complete_path(task_id)
+      }.wont_change "Task.count"
+
+      completed_task = Task.find_by(id: task.id)
+      expect(completed_task.name).must_equal task.name
+      expect(completed_task.description).must_equal task.description
+      expect(completed_task.completed_at).wont_be_nil
+
+      time_completed = Time.parse(completed_task.completed_at)
+      # to_i converts instance of Time into seconds
+      expect(time_completed.to_i).must_be_close_to Time.now.to_i, 1
+
+      must_respond_with :redirect
+      must_redirect_to task_path(task.id)
+    end
+
+    it "will redirect to the root page if given an invalid id" do
+      patch toggle_complete_path(-1)
+
+      # Assert
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
   end
 end

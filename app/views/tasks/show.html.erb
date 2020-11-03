@@ -1,0 +1,9 @@
+<h2>Task Details</h2>
+
+<ul class="task-details">
+  <li>Name: <%= @task.name %></li>
+  <li>Description: <%= @task.description %></li>
+  <li>Completed at: <%= @task.completed_at %></li>
+</ul>
+
+<%= link_to "edit task", edit_task_path %>
