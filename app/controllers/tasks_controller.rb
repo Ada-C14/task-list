@@ -30,7 +30,7 @@ class TasksController < ApplicationController
 
     def edit
         @task = Task.find_by(id: params[:id])
-        if @task.nil? == true
+        if @task.nil?
             head :temporary_redirect
             return
         end
@@ -38,11 +38,12 @@ class TasksController < ApplicationController
 
     def update
         @task = Task.find_by(id: params[:id])
-        if @task.nil? == true
+        if @task.nil?
             head :temporary_redirect
         elsif @task.update(
             name: params[:task][:name],
-            description: params[:task][:description]
+            description: params[:task][:description],
+            completed_at: nil
         )
             redirect_to task_path(id: @task[:id])
             return
