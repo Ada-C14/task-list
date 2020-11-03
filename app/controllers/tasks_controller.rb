@@ -81,7 +81,9 @@ class TasksController < ApplicationController
         redirect_to tasks_path
         return
       else #save failed
-        render :edit
+        # #maybe this should be some custom error text to try to complete the task again
+        #render :edit - doing this or something like this does not make sense, there is no form
+        redirect_to tasks_path
         return
       end
     else @task.update(completed_at: nil)

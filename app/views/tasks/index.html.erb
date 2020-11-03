@@ -2,10 +2,12 @@
 
 <div class="grid-wrapper">
   <div class="left-column">
-    <div class="new-task-button">
-      <%= button_to "Create New Task", new_task_path, method: :get %>
+    <div class="left-buttons">
+      <%= link_to "Create New Task", new_task_path, method: :get %>
     </div>
-    <%= button_to "All Tasks", tasks_path %>
+    <div class="left-buttons">
+      <%= link_to "All Tasks", tasks_path %>
+    </div>
   </div>
 
   <div class="right-column">
@@ -14,13 +16,13 @@
         <% @tasks.each do |task| %>
           <li>
             <% if task.completed_at.nil? %>
-              <%= link_to task.name, task_path(task.id) %><%=" - " + task.description %>
+              <hr><%= link_to task.name, task_path(task.id) %><%=" - " + task.description %>
               <br />
               <div class="task-buttons">
                 <%= button_to "🔲 Mark Complete?", complete_task_path(task.id), method: :patch %>
               </div>
             <% else %>
-              <s><%= link_to task.name, task_path(task.id) %><%=" - " + task.description %></s>
+              <hr><s><%= link_to task.name, task_path(task.id) %><%=" - " + task.description %></s>
               <br />
               <div class="task-buttons">
                 <%= button_to "✅ Unmark Complete?", complete_task_path(task.id), method: :patch %>

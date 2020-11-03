@@ -23,6 +23,7 @@ h1, h2, h3, h4 {
 
 body {
     background: #FFFEF2;
+    padding: 5px 5px;
 }
 
 nav, .title {
@@ -38,14 +39,31 @@ nav, .title {
     display: inline-block;
 }
 
+.left-buttons {
+    background-color: #E2AEB4;
+    padding: 10px 10px;
+    border-radius: 10px;
+    margin: 5px 5px;
+}
+
+.left-buttons a {
+    color: black
+}
+
 ul {
-    padding: 10px 10%;
-    border: thick double #32a1ce;
-    border-radius: 30px;
+    padding: 10px 0 10px 20px;
+//     border: thick double #32a1ce;
+//     border-radius: 30px;
 }
 
 li {
     padding: 10px 0;
+}
+
+hr {
+    margin: 0;
+    padding: 0;
+    background: #32a1ce;
 }
 
 // ul {
