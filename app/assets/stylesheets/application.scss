@@ -1,0 +1,73 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+
+/* Custom bootstrap variables must be set or imported *before* bootstrap. */
+@import "bootstrap";
+
+@import "**/*";
+
+h1, h2, h3, h4 {
+    color: #008080;
+}
+
+body {
+    background: #FFFEF2;
+    padding: 5px 5px;
+}
+
+nav, .title {
+    background: #B5D3E7;
+}
+
+.grid-wrapper {
+    display: grid;
+    grid-template-columns: 175px auto;
+}
+
+.task-buttons {
+    display: inline-block;
+}
+
+.left-buttons {
+    background-color: #E2AEB4;
+    padding: 10px 10px;
+    border-radius: 10px;
+    margin: 5px 5px;
+}
+
+.left-buttons a {
+    color: black
+}
+
+ul {
+    padding: 10px 0 10px 20px;
+//     border: thick double #32a1ce;
+//     border-radius: 30px;
+}
+
+li {
+    padding: 10px 0;
+}
+
+hr {
+    margin: 0;
+    padding: 0;
+    background: #32a1ce;
+}
+
+// ul {
+//     background-image: url("/assets/images/linedpaper.jpg");
+//     width: 1000px;
+//     height: 1080px;
+// }
