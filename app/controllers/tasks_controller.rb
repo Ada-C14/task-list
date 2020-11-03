@@ -54,8 +54,35 @@ class TasksController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy_confirmation
 
+  end
+
+  def destroy
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      redirect_to root_path
+      return
+    else
+      @task.destroy
+      redirect_to tasks_path
+    end
+  end
+
+  def mark_complete
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      redirect_to root_path
+      return
+    elsif @task.update(
+        completed_at: Time.now
+    )
+      redirect_to task_path(@task.id)
+      return
+    else
+      render :edit, :bad_request
+      return
+    end
   end
 
 end

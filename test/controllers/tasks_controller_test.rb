@@ -106,11 +106,11 @@ describe TasksController do
       # Arrange
       old_task = task
       edit_task = {
-          task: {
-              name: "edit name",
-              description: "edit description",
-              completed_at: nil,
-          },
+        task: {
+          name: "edit name",
+          description: "edit description",
+          completed_at: nil
+        }
       }
 
       # Act-Assert
@@ -137,9 +137,10 @@ describe TasksController do
   # Complete these tests for Wave 4
   describe "destroy" do
     it "can destroy a model" do
+      current_task = task
       # Act
       expect {
-        delete task_path(task.id)
+        delete task_path(current_task.id)
 
         # Assert
       }.must_change 'Task.count', -1
@@ -161,6 +162,35 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
+    it "can update an existing task" do
+      # Arrange
+      old_task = task
+      edit_task = {
+          task: {
+              name: "edit name",
+              description: "edit description",
+              completed_at: nil
+          }
+      }
+
+      # Act-Assert
+      expect {
+        patch task_path(old_task.id), params: edit_task
+      }.wont_differ "Task.count"
+
+      new_task = Task.find_by(name: edit_task[:task][:name])
+      expect(new_task.description).must_equal edit_task[:task][:description]
+      expect(new_task.completed_at).must_equal edit_task[:task][:completed_at]
+
+      must_respond_with :redirect
+      must_redirect_to task_path(old_task.id)
+
+    end
+
+    it "will redirect to the root page if given an invalid id" do
+      patch task_path(-1)
+
+      must_respond_with :redirect
+    end
   end
 end

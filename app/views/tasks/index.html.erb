@@ -3,7 +3,9 @@
   <% @tasks.each do |task|  %>
     <li>
       <%= link_to task.name, task_path(task.id) %>
+      <span> | </span>
       <%= link_to "Delete Task", task_path(task.id), method: :delete %>
+      <%= button_to "Mark Complete", task_complete_path(task.id) %>
     </li>
   <% end %>
 </ul>
