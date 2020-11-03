@@ -128,13 +128,13 @@ describe TasksController do
     it 'will destroy to permanently remove a task' do
       task
       expect {
-        delete task_path(task.id)
+        destroy task_path(task.id)
       }.must_change 'Task.count', -1
     end
 
     it 'will redirect to root if task does not exist' do
       expect {
-        delete task_path(-1)
+        destroy task_path(-1)
       }.wont_change 'Task.count'
 
       must_respond_with :redirect

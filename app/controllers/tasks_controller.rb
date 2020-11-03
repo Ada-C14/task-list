@@ -58,5 +58,40 @@ class TasksController < ApplicationController
       return
     end
   end
+
+  def destroy
+    @task = Task.find_by(id: params[:id])
+    task_params = params.require(:task).permit(:name, :description, :completed_at)
+    if task.nil?
+      redirect_to root_path
+      return
+
+    elsif @task.destroy(task_params)
+      redirect_to root_path
+      return
+    end
+  end
+
+  def confirm
+    @task = Task.find_by(id: params[:id])
+  end
+
+  def complete
+    @task = Task.find_by(id: params[:id])
+    if @task.nil?
+      redirect_to root_path
+      return
+    end
+    if @task[:completed_at].nil? || @task[:completed_at] == ""
+      @task.update(completed_at: Time.now)
+      redirect_to root_path
+      return
+    else
+      @task.update(completed_at: nil)
+      redirect_to root_path
+      return
+    end
+
+  end
 end
 
