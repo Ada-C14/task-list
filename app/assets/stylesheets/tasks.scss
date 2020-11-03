@@ -1,0 +1,37 @@
+// Place all the styles related to the tasks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+body{
+    margin: 10px;
+    color: rgb(252, 240, 172);
+    background-color: rgb(44, 44, 37);
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+h2, ul, .buttons {
+    color: rgb(252, 91, 185);
+}
+
+.buttons{
+    border-radius: 25px;
+    border-style: solid;
+    width:33%;
+    text-align: center;
+}
+
+.completed_task{
+    text-decoration: line-through;
+}
+
+a:link, a:visited{
+    color: rgb(252, 240, 172);
+}
+
+span.index_task_edit a{
+    font-size: 0.7em;
+    color: rgb(252, 91, 185);
+}
+
+#delete_task a{
+    color: red;
+}
