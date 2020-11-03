@@ -8,7 +8,7 @@ class TasksController < ApplicationController
     task_id = params[:id].to_i
     @task = Task.find_by(id: task_id)
     if @task.nil?
-      redirect_to tasks_path
+      redirect_to root_path
     end
   end
 
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
   def edit
     @task = Task.find_by(id: params[:id])
     if @task.nil?
-      redirect_to tasks_path
+      redirect_to root_path
       return
     end
   end
@@ -39,7 +39,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find_by(id: params[:id])
     if @task.nil?
-      redirect_to tasks_path
+      redirect_to root_path
       return
     elsif @task.update(
         name: params[:task][:name],

@@ -104,7 +104,8 @@ describe TasksController do
     #        thing to test.
     it "can update an existing task" do
       # Arrange
-      task_hash = {
+      old_task = task
+      edit_task = {
           task: {
               name: "edit name",
               description: "edit description",
@@ -114,15 +115,15 @@ describe TasksController do
 
       # Act-Assert
       expect {
-        patch task_path(task.id), params: task_hash
-      }.wont_change "Task.count"
+        patch task_path(old_task.id), params: edit_task
+      }.wont_differ "Task.count"
 
-      new_task = Task.find_by(name: task_hash[:task][:name])
-      expect(new_task.description).must_equal task_hash[:task][:description]
-      expect(new_task.completed_at).must_equal task_hash[:task][:completed_at]
+      new_task = Task.find_by(name: edit_task[:task][:name])
+      expect(new_task.description).must_equal edit_task[:task][:description]
+      expect(new_task.completed_at).must_equal edit_task[:task][:completed_at]
 
       must_respond_with :redirect
-      must_redirect_to task_path(task.id)
+      must_redirect_to task_path(old_task.id)
 
     end
     
@@ -136,25 +137,25 @@ describe TasksController do
   # Complete these tests for Wave 4
   describe "destroy" do
     it "can destroy a model" do
-      # Arrange
-      poodr = Book.new title: "Practical Object Oriented Programming in Ruby", author: "Sandi Metz"
-
-      poodr.save
-      id = poodr.id
-
       # Act
       expect {
-        delete book_path(id)
+        delete task_path(task.id)
 
         # Assert
-      }.must_change 'Book.count', -1
+      }.must_change 'Task.count', -1
 
-      poodr = Book.find_by(title: "Practical Object Oriented Programming in Ruby")
+      deleted_task = Task.find_by(name: "sample task")
 
-      expect(poodr).must_be_nil
+      expect(deleted_task).must_be_nil
 
       must_respond_with :redirect
-      must_redirect_to books_path
+      must_redirect_to tasks_path
+    end
+
+    it "will redirect to the root page if given an invalid id" do
+      delete task_path(-1)
+
+      must_respond_with :redirect
     end
   end
   
