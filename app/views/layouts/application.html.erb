@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TaskList</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <header>
+    <h1>Solo's List</h1>
+    <nav>
+      <p><a href="<%= tasks_path %>">List all tasks</a></p>
+      <p><%= link_to "Add new task", new_task_path(@task) %></p>        
+    </nav>
+  </header>
+  <body>
+    <%# The actual page, look into the controller folder to find the file 
+    and run the matching view-html file that can be found in the 
+    view folder for that controller %>
+    <%= yield %> 
+  </body>
+  <footer>
+    <p>Hanh Solo @2020</p>
+  </footer>
+</html>
