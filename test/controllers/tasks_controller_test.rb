@@ -137,15 +137,49 @@ describe TasksController do
       must_respond_with :not_found
     end
   end
-#
-#   # Complete these tests for Wave 4
-#   describe "destroy" do
-#     # Your tests go here
-#
-#   end
-#
-#   # Complete for Wave 4
-#   describe "toggle_complete" do
-#     # Your tests go here
-#   end
+
+  # Tests for Wave 4
+  describe "destroy" do
+    it "should delete existing task and redirect to index" do
+
+      # Arrange
+      name_for_deletion = "Move Body"
+      task_to_delete = Task.new(name: name_for_deletion, description: "Yoga", completed_at: "EOD") # Makes new task
+      task_to_delete.save
+
+      # Act
+      expect {
+        delete task_path(task_to_delete.id)
+      }.must_change 'Task.count', -1
+
+      # Assert
+      deleted_task = Task.find_by(name: name_for_deletion) # find that deleted task again after actual delete completed. Delete the task than find_by and make new variable. Necessary bc task_to_delete won't work
+
+      expect(deleted_task).must_be_nil # deleted task should be nil
+
+      must_redirect_to tasks_path # should redirect to index page
+    end
+
+    it "if task doesn't exist, no deletion and return 404 status code" do
+
+      # Arrange
+      # Nothing to arrange
+
+      # Act
+      delete task_path(-1)
+
+      # Assert
+      expect {
+        delete task_path(-1)
+      }.wont_change 'Task.count'
+
+      must_respond_with :not_found
+      # must_respond_with 404 Other option
+    end
+  end
+
+  # Complete for Wave 4
+  describe "toggle_complete" do
+    # Your tests go here
+  end
 end

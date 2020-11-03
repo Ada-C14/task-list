@@ -8,7 +8,7 @@ class TasksController < ApplicationController
     task_id = params[:id] #we'll be able to access our route parameter via a special hash provided by Rails called params. The ID sent by the browser will be stored under the key :id (remember that this is the name we gave the parameter in the routefile).
     @task = Task.find_by(id: task_id)
     if @task.nil?
-      redirect_to '/tasks'
+      redirect_to tasks_path
       return
     end
   end
@@ -63,15 +63,30 @@ class TasksController < ApplicationController
     end
   end
 
-  def destroy
-    task_id = params[:id]
-    task_to_delete = Task.find_by(id: task_id) # find_by returns either a task (the model) or nil
+  def toggle
+    @task = Task.find_by(id: params[:id])
 
-    if task_to_delete.nil?
+    if @task.nil?
       head :not_found
       return
     else
-      task_to_delete.destroy # nil.destroy would break code
+      if @task.completed_at.nil?
+        @task.update(completed_at: Date.today)
+      else
+        @task.update(completed_at: nil)
+      end
+      redirect_to tasks_path
+    end
+  end
+
+  def destroy
+    @task = Task.find_by(id: params[:id]) # find_by returns either a task (the model) or nil
+
+    if @task.nil?
+      head :not_found
+      return
+    else
+      @task.destroy # nil.destroy would break code
       redirect_to tasks_path # go back to index action
     end
   end
