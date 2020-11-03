@@ -1,0 +1,30 @@
+<%= stylesheet_link_tag "application.css" %>
+<div class="paper">
+  <div class="paper-content">
+
+    <h4>TO DO:</h4>
+
+    <ol>
+      <% @tasks.each do |task|  %>
+        <li>
+          <% if task.completed_at.blank? %>
+            <div class="row"><input type="checkbox"> <span> <%= link_to task[:name], task_path(task) %></span></div> <br>
+
+            <%= link_to "Complete", toggle_complete_path(task.id), method: :patch %> |
+            <%= link_to "edit", edit_task_path(task)%> |
+            <%= link_to "delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
+          <% else %>
+            <%= link_to task[:name], task_path(task) %><br>
+
+            <%= link_to "DONE", toggle_complete_path(task.id), method: :patch %> |
+            <%= link_to "edit", edit_task_path(task)%> |
+            <%= link_to "delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
+          <% end %>
+        </li>
+        <br>
+      <% end %>
+    </ol>
+
+<%= button_to "ADD NEW", new_task_path(@task) %>
+</div>
+</div>
