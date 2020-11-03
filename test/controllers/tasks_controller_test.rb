@@ -162,6 +162,11 @@ describe TasksController do
     patch uncomplete_task_path(task.id)
     task = Task.find_by(id: task.id)
     expect(task.completed_at).must_be_nil
-  end
+
+    patch complete_task_path(task.id)
+    task = Task.find_by(id: task.id)
+    expect(task.completed_at).wont_be_nil
+    
+    end
   end
 end

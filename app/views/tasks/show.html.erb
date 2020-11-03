@@ -4,16 +4,12 @@
 <p><strong>Description: </strong><%= @task.description %></p>
 <p><strong>Completed at:</strong> <%= @task.completed_at %></p>
 
-<%= link_to "Edit Task", edit_task_path(@task.id) %>
-<br>
-<%= link_to "Delete Task", delete_task_path(@task.id), method: :delete, data: {confirm: "Are you sure you want to delete this task?"} %>
-<br>
+<p class="buttons"><%= link_to "Edit Task", edit_task_path(@task.id) %></p>
+<p class="buttons" id="delete_task"><%= link_to "Delete Task", delete_task_path(@task.id), method: :delete, data: {confirm: "Are you sure you want to delete this task?"} %></p>
 <% if @task.completed_at.nil? %>
-    <%= link_to "Mark as Complete", complete_task_path(@task.id), method: :patch %>
+    <p class="buttons"><%= link_to "Mark as Complete", complete_task_path(@task.id), method: :patch %></p>
 <% else %>
-    <%= link_to "Unmark as Complete", uncomplete_task_path(@task.id), method: :patch %>
+    <p class="buttons"><%= link_to "Unmark as Complete", uncomplete_task_path(@task.id), method: :patch %></p>
 <% end %>
 
-<br>
-<%= link_to "Back to Index", tasks_path %>
-</div>
+<p class="buttons"><%= link_to "Back to Index", tasks_path %></p>
