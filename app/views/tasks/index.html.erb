@@ -2,7 +2,11 @@
 
 <ol class="task-list">
   <% @tasks.each do |task| %>
-    <li><%= task.name %></li>
+    <% if task.completed_at.empty? || task.completed_at.nil? %>
+      <li><%= task.name %></li>
+    <% else %>
+      <li><s><%= task.name %></s></li>
+    <% end %>
 
     <%= link_to "show details", task_path(task) %> |
     <%= link_to "edit", edit_task_path(task) %> |

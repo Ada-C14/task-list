@@ -168,24 +168,21 @@ describe TasksController do
   describe "toggle_complete" do
     # Your tests go here
     it "can mark an existing task as complete" do
-      get task_path(task.id)
-      timestamp = Time.now.to_s
-
-      time_completed = {
-          task: {
-              completed_at: timestamp
-          }
-      }
+      task_id = task.id
 
       # Act-Assert
       expect {
-        patch toggle_complete_path(task.id), params: time_completed
+        patch toggle_complete_path(task_id)
       }.wont_change "Task.count"
 
       completed_task = Task.find_by(id: task.id)
       expect(completed_task.name).must_equal task.name
       expect(completed_task.description).must_equal task.description
-      expect(completed_task.completed_at).must_equal timestamp
+      expect(completed_task.completed_at).wont_be_nil
+
+      time_completed = Time.parse(completed_task.completed_at)
+      # to_i converts instance of Time into seconds
+      expect(time_completed.to_i).must_be_close_to Time.now.to_i, 1
 
       must_respond_with :redirect
       must_redirect_to task_path(task.id)
