@@ -2,6 +2,7 @@
 <h3><%= @task.description %></h3>
 <p><%= @task.completed_at %></p>
 
-<div>
-  <%= link_to "Edit this Task", edit_task_path %>
-</div>
+<ul>
+  <li><%= link_to "Edit this Task", edit_task_path %></li>
+  <li><%= link_to "Mark this Task Completed", task_complete_path %></li>
+</ul>
