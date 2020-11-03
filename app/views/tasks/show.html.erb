@@ -4,6 +4,6 @@
 
 <ul>
   <li><%= link_to "Edit this Task", edit_task_path %></li>
-  <li><%= link_to "Delete Task", task_path, method: :delete %></li>
+  <li><%= link_to "Delete this Task", task_path, method: :delete, data: {confirm: 'Are you sure?'} %></li>
   <li><%= link_to "Mark this Task Completed", task_complete_path %></li>
 </ul>
