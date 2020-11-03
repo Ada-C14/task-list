@@ -1,0 +1,31 @@
+
+<h3>Currently tasked:</h3>
+
+<% if @tasks.length > 0 %>
+  <ol>
+    <% @tasks.each do |task| %>
+      <li>
+
+
+
+        <% if task.completed %>
+         <s><strong><%= link_to task.name, task_path(task)%></strong></s>| completed at: <%= task.completed_at %> <br>
+          <%= link_to 'Unmark Complete', tasks_incomplete_path(task.id), method: :get   %> |
+        <% else %>
+          <strong><%= link_to task.name, task_path(task)%></strong><br>
+          <%= link_to 'Mark Complete', tasks_complete_path(task.id), method: :get   %> |
+        <% end %>
+
+         <%= link_to 'Edit', edit_task_path(task.id) %> |
+         <%= link_to 'Delete Task', task_path(task.id), method: :delete, data: {confirm: "Are you sure?"} %>
+      </li>
+    <% end %>
+  </ol>
+  <% else %>
+    <h3>No tasks in system!</h3>
+  <% end %>
+
+  <ul>
+    <li><%= link_to "Add New Task", new_task_path %></li>
+  </ul>
+
