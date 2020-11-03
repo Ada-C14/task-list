@@ -10,6 +10,8 @@ require("channels")
 
 import "bootstrap"
 
+const images = require.context('.../images', true)
+
 console.log('Hello from application.js')
 $("li").click(function(event){
   $("li").removeClass("selected");

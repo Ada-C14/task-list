@@ -169,24 +169,25 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    # Your tests go here
-    before do 
-      @task_2 = Task.create(name: "original name", description: "original description", completed_at: Time.now)
+    before do
+      @task_2 = Task.create(name: "original name", description: "original description", completed_at: nil)
+      @task_3 = Task.create(name: "original name", description: "original description", completed_at: Time.now)
+
     end 
     
     it "marks an incomplete task as complete with Time instance" do 
-      skip 
-      patch toggle_complete_path(task.id)
-      task.reload 
-      refute_nil(task.completed_at)
-      expect(task.completed_at).must_be_kind_of Time
+
+      patch toggle_complete_path(@task_2.id)
+      @task_2.reload
+      expect(@task_2.completed_at).wont_be_nil
+      expect(@task_2.completed_at).must_be_kind_of Time
     end
   
     it "can mark completed tasks as incomplete" do 
    
-      patch toggle_complete_path(@task_2.id)
-      @task_2.reload
-      assert_nil(@task_2.completed_at)
+      patch toggle_complete_path(@task_3.id)
+      @task_3.reload
+      expect(@task_3.completed_at).must_be_nil
     end
   end
 end
