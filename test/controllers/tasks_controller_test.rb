@@ -162,29 +162,32 @@ describe TasksController do
   
   # Complete for Wave 4
   describe "toggle_complete" do
-    it "can update an existing task" do
-      # Arrange
-      old_task = task
-      edit_task = {
-          task: {
-              name: "edit name",
-              description: "edit description",
-              completed_at: nil
-          }
-      }
-
-      # Act-Assert
+    it "can mark a complete task incomplete" do
+      sample_task = task
       expect {
-        patch task_path(old_task.id), params: edit_task
+        patch task_complete_path(sample_task.id)
       }.wont_differ "Task.count"
 
-      new_task = Task.find_by(name: edit_task[:task][:name])
-      expect(new_task.description).must_equal edit_task[:task][:description]
-      expect(new_task.completed_at).must_equal edit_task[:task][:completed_at]
+      new_task = Task.find_by(name: sample_task.name)
+      expect(new_task.description).must_equal sample_task.description
+      expect(new_task.completed_at).must_be_nil
 
       must_respond_with :redirect
-      must_redirect_to task_path(old_task.id)
+      must_redirect_to task_path(sample_task.id)
+    end
 
+    it "can mark an incomplete task complete" do
+      sample_task = Task.create(name: 'test', description: 'test', completed_at: nil)
+      expect {
+        patch task_complete_path(sample_task.id)
+      }.wont_differ "Task.count"
+
+      new_task = Task.find_by(name: sample_task.name)
+      expect(new_task.description).must_equal sample_task.description
+      expect(new_task.completed_at).must_equal Time.now.to_s
+
+      must_respond_with :redirect
+      must_redirect_to task_path(sample_task.id)
     end
 
     it "will redirect to the root page if given an invalid id" do

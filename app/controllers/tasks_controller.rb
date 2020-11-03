@@ -85,6 +85,7 @@ class TasksController < ApplicationController
       @task.update(
         completed_at: nil
       )
+      redirect_to task_path(@task.id)
       return
     end
   end
