@@ -41,7 +41,8 @@ class TasksController < ApplicationController
   def update
     @task = Task.find_by(id: params[:id])
     if @task.nil?
-      head :not_found #, status: :not_found
+      redirect_to tasks_path
+      # head :not_found #, status: :not_found
       return
     elsif
       @task.update(
