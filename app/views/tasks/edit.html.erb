@@ -1,13 +1,2 @@
-<%= form_with model: @task, class: 'edit-task' do |f| %>
-
-  <h4>Edit the task on your list:</h4>
-    
-    <%= f.label :name %>
-    <%= f.text_field :name%>
-    <br>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-    <br>
-    <br>
-    <%= f.submit "Edit Task", class: "task-button" %>
-<% end %> 
+<h2>EDIT TASK</h2>
+<%= render partial: "form", locals: { action_name: "Edit" } %>
