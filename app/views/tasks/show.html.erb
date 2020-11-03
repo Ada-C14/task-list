@@ -1,8 +1,7 @@
 <h1>Task</h1>
 <p>
   <%= @task.name %>
-  <%= task[:name] %>
-  <%= task[:description] %>
+  <%= @task.description %>
 </p>
-
-<%#= link_to "View #{book.title}", book_path(book.id) %>
+<p><%= link_to "All Tasks", tasks_path %></p>
+<p><%= link_to "Edit Tasks", edit_task_path %></p>

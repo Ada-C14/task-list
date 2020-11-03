@@ -1,1 +1,11 @@
-<%#= button_to "Edit #{book.title}", edit_book_path(book.id) %>
+<h1>Edit A Task</h1>
+<%= form_with model: @task, class: 'create-task' do |f| %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+
+  <%= f.submit "Save", class: "task-button" %>
+<% end %>

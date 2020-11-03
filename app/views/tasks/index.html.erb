@@ -2,12 +2,13 @@
 <ol>
   <% @tasks.each do |task| %>
     <li>
-      <%= task[:name] %> -
-      <%= task[:description] %> |
+      <%= task.name %> -
+      <%= task.description %> |
       <%#= task[:completed_at].nil? ? "in-progress" : "complete" %>
+      <%= link_to "Completed", task_path(task), method: :toggle_completed %>
+      <%= link_to "Edit", edit_task_path(task) %>
+      <%= link_to "Delete", task_path(task), method: :delete, data: {confirm: "Are you sure"} %>
     </li>
   <% end %>
 </ol>
-<button><% link_to "New task", new_task_path %>Add Task</button>
-
-<%#= link_to "All Books", books_path %>
+<%= link_to "New ", new_task_path %>
