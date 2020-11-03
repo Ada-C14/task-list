@@ -24,23 +24,21 @@ describe TasksController do
       must_respond_with :success
     end
   end
-  
+
   # Unskip these tests for Wave 2
   describe "show" do
     it "can get a valid task" do
-      skip
       # Act
       get task_path(task.id)
-      
+
       # Assert
       must_respond_with :success
     end
-    
+
     it "will redirect for an invalid task" do
-      skip
       # Act
       get task_path(-1)
-      
+
       # Assert
       must_respond_with :redirect
     end
@@ -48,8 +46,6 @@ describe TasksController do
   
   describe "new" do
     it "can get the new task page" do
-      skip
-      
       # Act
       get new_task_path
       
@@ -60,8 +56,6 @@ describe TasksController do
   
   describe "create" do
     it "can create a new task" do
-      skip
-      
       # Arrange
       task_hash = {
         task: {
@@ -88,32 +82,85 @@ describe TasksController do
   # Unskip and complete these tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      skip
-      # Your code here
+      # Act
+      get edit_task_path(task.id)
+
+      # Assert
+      must_respond_with :success
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+      # Act
+      get edit_task_path(-1)
+
+      # Assert
+      must_respond_with :redirect
     end
   end
-  
-  # Uncomment and complete these tests for Wave 3
+
   describe "update" do
     # Note:  If there was a way to fail to save the changes to a task, that would be a great
     #        thing to test.
+    before do
+      Task.create(name: "new task", description: "don't know what to do")
+    end
+    let (:new_task_hash) {
+      {
+          task: {
+              name: "so other new task",
+              description: "with some other thing we don't know to do",
+          },
+      }
+    }
     it "can update an existing task" do
-      # Your code here
+      id = Task.first.id
+      expect {
+        patch task_path(id), params: new_task_hash
+      }.wont_change "Task.count"
+
+      must_redirect_to tasks_path
+
+      task = Task.find_by(id: id)
+      expect(task.name).must_equal new_task_hash[:task][:name]
+      expect(task.description).must_equal new_task_hash[:task][:description]
     end
     
     it "will redirect to the root page if given an invalid id" do
-      # Your code here
+      id = -1
+
+      expect {
+        patch task_path(id), params: new_task_hash
+      }.wont_change "Task.count"
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
     end
   end
   
   # Complete these tests for Wave 4
   describe "destroy" do
-    # Your tests go here
+    # First, read through the implemented controller action. Make a list of every line of code that you could test.
+    #     Go through your list of possible things to test. Revise your list so you only have a few things to test that "prove the controller action is working."
+    # Then, write your first draft of two tests for the destroy action. One test should be the "nominal case" and one should be an "edge case," that anticipates something atypical happening. Feel free to use the code samples above
+    it "can delete an existing task" do
+      task_id = task.id
+      # Act-Assert
+      expect {
+        delete task_path(task_id)
+      }.must_change "Task.count", -1
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "will respond with redirect when attempting to delete a nonexistant task" do
+      # Act
+      delete task_path(-1)
+
+      # Assert
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
     
   end
   

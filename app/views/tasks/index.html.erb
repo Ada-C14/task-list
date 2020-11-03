@@ -1,0 +1,14 @@
+<h1>All Tasks</h1>
+<ol>
+  <% @tasks.each do |task| %>
+    <li>
+      <%= task.name %> -
+      <%= task.description %> |
+      <%#= task[:completed_at].nil? ? "in-progress" : "complete" %>
+      <%= link_to "Completed", task_path(task), method: :toggle_completed %>
+      <%= link_to "Edit", edit_task_path(task) %>
+      <%= link_to "Delete", task_path(task), method: :delete, data: {confirm: "Are you sure"} %>
+    </li>
+  <% end %>
+</ol>
+<%= link_to "New ", new_task_path %>
