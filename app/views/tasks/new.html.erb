@@ -1,14 +1,4 @@
 <h2>Add a new Task</h2>
+<p>Please provide the following information to create a new task in our database:</p>
 
-<%= form_with model: @task do |t| %>
-    <p>Please provide the following information to create a new task in our database:</p>
-    <div>
-        <%= t.label :name %>
-        <%= t.text_field :name %>
-    </div>
-    <div>
-        <%= t.label :description %>
-        <%= t.text_area :description %>
-    </div>
-    <br/><%= t.submit "Add a task" %>
-<% end %>
+<%= render partial: "form", locals: { action_name: "New" } %>
