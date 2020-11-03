@@ -123,15 +123,50 @@ describe TasksController do
       must_redirect_to root_path
     end
   end
-  
-  # # Complete these tests for Wave 4
-  # describe "destroy" do
-  #   # Your tests go here
-    
-  # end
-  
-  # # Complete for Wave 4
-  # describe "toggle_complete" do
-  #   # Your tests go here
-  # end
+
+  describe 'destroy' do
+    it 'will destroy to permanently remove a task' do
+      task
+      expect {
+        delete task_path(task.id)
+      }.must_change 'Task.count', -1
+    end
+
+    it 'will redirect to root if task does not exist' do
+      expect {
+        delete task_path(-1)
+      }.wont_change 'Task.count'
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+
+  end
+
+  # Complete for Wave 4
+  describe 'toggle_complete' do
+    before do
+
+      @task_incomplete = Task.create(
+          name: 'a new task',
+          description: 'its time for a nap',
+          completed_at: nil
+      )
+
+    end
+
+    it 'can mark a task as complete' do
+      expect {
+        patch complete_task_path(@task_incomplete.id)
+      }.wont_change 'Task.count'
+
+      expect {
+        patch complete_task_path(@task_incomplete.completed_at)
+      }.wont_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+
+  end
 end
