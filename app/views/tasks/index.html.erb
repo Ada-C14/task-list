@@ -1,0 +1,15 @@
+<h1>Tasks</h1>
+<ul>
+  <% @tasks.each do |task|  %>
+    <li>
+      <%= link_to task.name, task_path(task.id) %> <br>
+      <%= link_to task.completed_at.nil? ? "Mark Complete" : "Mark Incomplete", toggle_task_path(task.id), method: :patch %> <br>
+      <%= link_to "Edit Task", edit_task_path(task.id) %> <br>
+      <%= link_to "Delete Task", task_path(task.id), method: :delete %> <br>
+    </li>
+  <% end %>
+
+  <li> <%= link_to "Add another task", new_task_path %> </li>
+</ul>
+
+

@@ -1,0 +1,10 @@
+<h1>Task: <%= @task.name %></h1>
+
+<ul>
+  <li> Task: <%= @task.name %> </li>
+  <li> Details: <%= @task.description %> </li>
+  <li> <%= link_to "Update task", edit_task_path(@task) %></li>
+  <li> <%= link_to "Delete task", task_path(@task), method: :delete %></li>
+  <li><%= link_to @task.completed_at.nil? ? "Mark Complete" : "Mark Incomplete", toggle_task_path(@task), method: :patch %></li>
+  <li> <%= link_to "Back to Task List", tasks_path %></li>
+</ul>

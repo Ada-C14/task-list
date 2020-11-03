@@ -25,43 +25,39 @@ describe TasksController do
     end
   end
   
-  # Unskip these tests for Wave 2
+  # Tests for Wave 2
   describe "show" do
     it "can get a valid task" do
-      skip
       # Act
       get task_path(task.id)
-      
+
       # Assert
       must_respond_with :success
     end
-    
+
     it "will redirect for an invalid task" do
-      skip
       # Act
       get task_path(-1)
-      
+
       # Assert
       must_respond_with :redirect
     end
   end
-  
+
   describe "new" do
     it "can get the new task page" do
-      skip
-      
+
       # Act
       get new_task_path
-      
+
       # Assert
       must_respond_with :success
     end
   end
-  
+
   describe "create" do
     it "can create a new task" do
-      skip
-      
+
       # Arrange
       task_hash = {
         task: {
@@ -70,53 +66,118 @@ describe TasksController do
           completed_at: nil,
         },
       }
-      
+
       # Act-Assert
       expect {
         post tasks_path, params: task_hash
       }.must_change "Task.count", 1
-      
+
       new_task = Task.find_by(name: task_hash[:task][:name])
       expect(new_task.description).must_equal task_hash[:task][:description]
       expect(new_task.completed_at).must_equal task_hash[:task][:completed_at]
-      
+
       must_respond_with :redirect
       must_redirect_to task_path(new_task.id)
     end
   end
   
-  # Unskip and complete these tests for Wave 3
+#   Tests for Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      skip
-      # Your code here
+      get edit_task_path(task)
+      must_respond_with :success
     end
-    
+
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
-      # Your code here
+      nonexistent_task_id = -1
+
+      get edit_task_path(nonexistent_task_id)
+      must_respond_with :redirect
     end
   end
-  
-  # Uncomment and complete these tests for Wave 3
+
   describe "update" do
-    # Note:  If there was a way to fail to save the changes to a task, that would be a great
-    #        thing to test.
+    # Note:  If there was a way to fail to save the changes to a task, that would be a great thing to test.
+    before do
+      Task.create(name: "Go hiking", description: "Mossy Fern Forest", completed_at: "weekend")
+    end
+
+    let (:new_task_hash) {
+      {
+      task: {
+        name: "Hike",
+        description: "Snow-capped alpine peaks",
+        completed_at: "Sunday"
+      }
+    }
+  }
+
     it "can update an existing task" do
-      # Your code here
+      task = Task.first
+
+      expect {
+        patch task_path(task.id), params: new_task_hash
+      }.must_differ 'Task.count', 0
+
+      must_redirect_to task_path(task.id)
+
+      task = Task.find_by(id: task.id)
+      expect(task.name).must_equal new_task_hash[:task][:name]
+      expect(task.description).must_equal new_task_hash[:task][:description]
+      expect(task.completed_at).must_equal new_task_hash[:task][:completed_at]
     end
-    
-    it "will redirect to the root page if given an invalid id" do
-      # Your code here
+
+    it "will redirect to the root page if given an invalid id but valid params" do
+      invalid_task_id = -1
+
+      expect {
+        patch task_path(invalid_task_id), params: new_task_hash
+      }.must_differ 'Task.count', 0
+
+      must_respond_with :not_found
     end
   end
-  
-  # Complete these tests for Wave 4
+
+  # Tests for Wave 4
   describe "destroy" do
-    # Your tests go here
-    
+    it "should delete existing task and redirect to index" do
+
+      # Arrange
+      name_for_deletion = "Move Body"
+      task_to_delete = Task.new(name: name_for_deletion, description: "Yoga", completed_at: "EOD") # Makes new task
+      task_to_delete.save
+
+      # Act
+      expect {
+        delete task_path(task_to_delete.id)
+      }.must_change 'Task.count', -1
+
+      # Assert
+      deleted_task = Task.find_by(name: name_for_deletion) # find that deleted task again after actual delete completed. Delete the task than find_by and make new variable. Necessary bc task_to_delete won't work
+
+      expect(deleted_task).must_be_nil # deleted task should be nil
+
+      must_redirect_to tasks_path # should redirect to index page
+    end
+
+    it "if task doesn't exist, no deletion and return 404 status code" do
+
+      # Arrange
+      # Nothing to arrange
+
+      # Act
+      delete task_path(-1)
+
+      # Assert
+      expect {
+        delete task_path(-1)
+      }.wont_change 'Task.count'
+
+      must_respond_with :not_found
+      # must_respond_with 404 Other option
+    end
   end
-  
+
   # Complete for Wave 4
   describe "toggle_complete" do
     # Your tests go here
