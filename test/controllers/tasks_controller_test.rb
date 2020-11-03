@@ -194,5 +194,20 @@ describe TasksController do
 
       must_redirect_to tasks_path
     end
+
+    it "can unmark task complete" do
+      task = Task.last
+
+      expect {
+        patch incomplete_task_path(task.id)
+      }.wont_change "Task.count"
+
+      task= Task.find_by_id(task.id)
+
+      expect(task.completed_at).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
   end
 end
