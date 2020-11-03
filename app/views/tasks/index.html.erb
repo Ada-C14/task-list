@@ -1,5 +1,6 @@
 <h1>Sophia's Tasks</h1>
 <%= link_to "Add a new Task", new_task_path %>
+
 <ul>
 <% if @tasks.length > 0 %>
   <% @tasks.each do |task|  %>
