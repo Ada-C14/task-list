@@ -6,12 +6,21 @@
         <br>
         <li>Description: <%= @task.description %></li> 
         <br>
-        <li>Status: <%= @task.complete %></li> 
+        <li>Complete status: <%= @task.complete? %></li> 
         <br>
-        <li><%= link_to "Edit #{@task.name}", edit_task_path(@task.id) %></li> <%# @task or @task.id is both accepted %>
+        <li>Complete at: <%= @task.completed_at %></li> 
         <br>
-        <li><%= link_to "Delete #{@task.name}", task_path(@task), method: :delete, data: { confirm: "Are you sure?"} %></li>
     </ul>
+     <% if @task.complete? %>
+            <div><%= link_to "Unmark Complete", unmark_complete_path(@task.id), method: :patch %></div>
+        <% else  %>
+            <div><%= link_to "Mark Complete", mark_complete_path(@task.id), method: :patch %></div>
+        <% end %>
+        <br>
+        <div><%= link_to "Edit #{@task.name}", edit_task_path(@task.id) %></div> <%# @task or @task.id is both accepted %>
+        <br> 
+        <div><%= link_to "Delete #{@task.name}", task_path(@task), method: :delete, data: { confirm: "Are you sure?"} %></div>
+        <br>
 </div>
 
  <p><%= link_to "Return to Task List", tasks_path %></p>

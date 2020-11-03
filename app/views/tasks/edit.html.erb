@@ -4,17 +4,20 @@
 
 <%= form_with model: @task, class: 'create-task' do |f| %>
   <p>Please provide the following information to edit your task:</p>
-
+<div>
   <%= f.label :name %>
   <%= f.text_field :name %>
+</div>
 
+<div>
   <%= f.label :description %>
   <%= f.text_field :description %>
-  
-  <%= link_to "Mark Complete", mark_complete_path(@task.id) %> 
+</div>
 
+<div>
   <%= f.label :completed_at %>
   <%= f.text_field :completed_at %>
+</div>
 
   <%= f.submit "Edit Task", class: "task-button" %>
 <% end %>

@@ -29,7 +29,7 @@ describe TasksController do
   describe 'show' do
     it 'can get a valid task' do
       # Act
-      get task_path(task.id)
+      get task_path(task.id) # calling id on the return of the let method up top. 
 
       # Assert
       must_respond_with :success
@@ -68,7 +68,7 @@ describe TasksController do
       # Act-Assert
       expect {
         post tasks_path, params: task_hash
-      }.must_change 'Task.count', 1
+      }.must_differ 'Task.count', 1 # revert back to otherwise must_change
 
       new_task = Task.find_by(name: task_hash[:task][:name])
       expect(new_task.description).must_equal task_hash[:task][:description]
@@ -97,86 +97,115 @@ describe TasksController do
   end
 
   describe 'update' do
-    # Note:  If there was a way to fail to save the changes to a task, that would be a great
-    #        thing to test.
-      it 'can update an existing task' do
-
-          let (:new_task_hash) {
-            {
-              task: {
-                name: 'A Wrinkle in Time',
-                description: 'A fabulous adventure',
-                completed_at: '10/10/2020'
-              }
-            }
+    # Note:  If there was a way to fail to save the changes to a task, 
+    # that would be a great thing to test.
+    before do
+      Task.create(name: "We're all wonders", description: " R.J. Palacio", completed_at: "11/1/2020")
+    end
+      let (:new_task_hash) {
+        {
+          task: {
+            name: 'A Wrinkle in Time',
+            description: 'A fabulous adventure',
+            completed_at: '10/10/2020'
           }
-        
-        expect {
-          patch task_path(task.id), params: new_task_hash
+        }
+      }
+      it 'can update an existing task' do
+      # Arrange
+      task = Task.first
+
+      # Act-Assert
+      expect {
+        patch task_path(task.id), params: new_task_hash # the params method set the data structure 
         }.wont_change 'Task.count'
 
-        must_redirect_to tasks_path
+      task = Task.find_by(id: task.id)
+      expect(task.name).must_equal new_task_hash[:task][:name]
+      expect(task.description).must_equal new_task_hash[:task][:description]
+      expect(task.completed_at).must_equal new_task_hash[:task][:completed_at]
 
-        updated_task = Task.find_by(id: original_task.id)
-        expect(updated_task.name).must_equal new_task_hash[:task][:name]
-        expect(updated_task.description).must_equal new_task_hash[:task][:description]
-        expect(updated_task.completed_at).must_equal new_task_hash[:task][:completed_at]
-        end
+      must_redirect_to tasks_path
     end
 
-  it 'will redirect to the root page if given an invalid id' do
-     # Act
-    get task_path(-1)
+    it 'will redirect to the root page if given an invalid id' do
+      # Act
+      patch task_path(-1) # This will take to update 
 
-     # Assert
-     must_respond_with :redirect
-     must_redirect_to tasks_path
-  end
+      # Assert
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
   end
 
   # Tests for Wave 4
-describe 'destroy' do
+  describe 'destroy' do
 
-  it 'can destroy a model' do
-    # Arrange
-    test_task = Task.new name: 'Shopping', description: 'Holiday Shopping', completed_at: '11/1/2020'
+    it 'can destroy a model' do
+      # Arrange
+      test_task = Task.new name: 'Shopping', description: 'Holiday Shopping', completed_at: '11/1/2020'
 
-    test_task.save
-    id = test_task.id
+      test_task.save
+      id = test_task.id
 
-    # Act
-    expect {
-      delete task_path(id)
+      # Act
+      expect {
+        delete task_path(id)
 
       # Assert
-    }.must_change 'Task.count', -1
+      }.must_change 'Task.count', -1
     
-    test_task = Task.find_by(name: 'Shopping')
+      test_task = Task.find_by(name: 'Shopping')
 
-    expect(test_task).must_be_nil
+      expect(test_task).must_be_nil
 
-    must_respond_with :redirect
-    must_redirect_to tasks_path
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+
+    end
+
+    it 'will respond with redirect for invalid ids' do
+      expect {
+        delete task_path(-1)
+      }.wont_change 'Task.count'
+
+      must_respond_with :redirect
+    end
 
   end
 
-  it 'will respond with not_found for invalid ids' do
-    expect {
-      delete task_path(-1)
-    }.wont_change 'Task.count'
+  describe "mark_complete" do
 
-    must_respond_with :not_found
+    it "complete at will return current date if mark complete " do
+   
+      test_task = Task.new name: 'Shopping', description: 'Holiday Shopping', completed_at: nil
+
+      test_task.save
+      id = test_task.id
+
+      patch mark_complete_path(test_task.id)
+      task = Task.find_by(id: test_task.id)
+      expect(task.completed_at).must_equal "#{Time.now}"
+  
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+
+    end 
+
+    it "complete at will return nil if unmark complete" do
+      test_task = Task.new name: 'Shopping', description: 'Holiday Shopping', completed_at: "11/1/2020"
+
+      test_task.save
+      id = test_task.id
+
+      patch unmark_complete_path(test_task.id)
+      task = Task.find_by(id: test_task.id)
+      expect(task.completed_at).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+ 
   end
 
 end
-  # Complete for Wave 4
-  # describe "mark_complete" do
-  #   it "" do
-  #   # is true
-  #   # test for time
-  #
-  #   # Your tests go here
-  #   end
-  # end
-
-# end
