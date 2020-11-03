@@ -1,0 +1,19 @@
+
+<main>
+  <ul class = items>
+    <h1>Tasks</h1>
+    <% @tasks.each do |task|  %>
+      <li>
+        <h4><%= link_to task.name, task_path(task.id) %> </h4>
+        <p> Description: <%= task.description %></p>
+        <p><%=display_task_completed_at(task.completed_at)%> </p>
+        <div class = button-wrapper>
+          <div class = "button"><%= link_to "Delete", task_path(task), method: :delete, data: delete_confirm%></div>
+          <div class = "button"><%= link_to complete_button_text(task.completed_at), toggle_complete_task_path(task), method: :patch%></div>
+          <div class = "button"><%= link_to "Edit", edit_task_path(task)%></div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</main>
+

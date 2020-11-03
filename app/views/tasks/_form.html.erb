@@ -1,0 +1,19 @@
+<main>
+  <ul class = items>
+    <li>
+      <%= form_with model: @task, class: 'edit-task' do |f| %>
+        <h1><%=action_name%> Task</h1>
+        <h4>Please provide the following information to <%=action_name.downcase%>  your task:</h4>
+        <div>
+          <p><%= f.label :name %></p>
+          <p><%= f.text_field :name %></p>
+
+          <p><%= f.label :description %></p>
+          <p><%= f.text_area :description %></p>
+        </div>
+
+        <div class = "button"><%= f.submit "Save Task", class: "task-button" %></div>
+      <% end %>
+    </li>
+  </ul>
+</main>
