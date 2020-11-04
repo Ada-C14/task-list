@@ -36,10 +36,7 @@ class TasksController < ApplicationController
     if @task.nil?
       redirect_to tasks_path
       return
-    elsif @task.update(
-        name: params[:task][:name],
-        description: params[:task][:description]
-    )
+    elsif @task.update(task_params)
       redirect_to task_path(@task.id) # add task path helper!
       return
     else
