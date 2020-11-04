@@ -37,7 +37,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path
       return
     elsif @task.update(task_params)
-      redirect_to task_path(@task.id) # add task path helper!
+      redirect_to task_path(@task.id)
       return
     else
       render :edit
