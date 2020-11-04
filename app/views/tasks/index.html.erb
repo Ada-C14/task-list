@@ -1,8 +1,7 @@
 <h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
 
 <ul class="book-list">
   <% @tasks.each do |task| %>
-    <li><%= task[:name] %></li>
+    <li><%= task.name %></li>
   <% end %>
 </ul>
