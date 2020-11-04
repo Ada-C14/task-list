@@ -56,7 +56,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    task_id = find_by
     @task = find_by
 
     if @task
