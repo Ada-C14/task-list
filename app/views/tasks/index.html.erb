@@ -1,0 +1,56 @@
+<header>
+  <h1>For When You Finish Your Homework</h1>
+</header>
+
+<main>
+  <section>
+  <h2>List of Tasks</h2>
+
+    <ul>
+
+      <% @tasks.each do |task| %>
+
+        <li>
+
+            <div>
+
+              <% if task.completed_at != nil %>
+                <div>
+                  <strike><%= link_to task.name, task_path(task), class:"text", id:"strike" %></strike>
+                  <span class="text" id="completed">completed: </span>
+                  <span id="time-completed"><%= task.completed_at %></span>
+                </div>
+
+              <% else %>
+                <div>
+                  <%= link_to task.name, task_path(task), class:"text", id:"task-link" %>
+                  <% end %>
+                </div>
+
+            </div>
+
+            <div class="button-list">
+              <%= button_to "DELETE", task_path(task.id), method: :delete, data: { confirm: "Are you sure?" }, :class => 'button' %>
+              <%= button_to "FINISHED?", complete_task_path(task.id), action: 'complete', method: :patch, data: {disable_with: "COMPLETED!"}, :class => 'button' %>
+            </div>
+
+        </li>
+
+      <% end %>
+
+    </ul>
+
+  </section>
+
+  <section>
+    <div><%= button_to  "NEW TASK", new_task_path, method: :get, :class => 'button', :id => 'big-button' %></div>
+
+  </section>
+
+</main>
+
+<footer>
+  <div id="footer">
+    <h2>&#169; SCHANEN 2020</h2>
+  </div>
+</footer>

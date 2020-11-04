@@ -1,0 +1,98 @@
+// Place all the styles related to the Tasks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.button-list {
+    display: inline-flex;
+}
+
+.button {
+    margin-right: 10px;
+    margin-bottom: 20px;
+    background-color: violet;
+    font-size: 10px;
+    border: none;
+    color: white;
+    border-radius: 25px;
+}
+
+.button:hover {
+    background-color: red;
+}
+
+h1 {
+    text-align: center;
+    -webkit-text-stroke: 1px red;
+}
+
+h2 {
+    color: white;
+        -webkit-text-stroke: 1px red;
+}
+
+.list-buttons {
+    display: inline;
+    padding-left: 50%;
+    padding-right: 50%;
+}
+
+main {
+    margin: 0px;
+    padding: 20px;
+    background: #7aeb96;
+}
+
+header {
+    color: white;
+    background-color: yellow;
+    margin: 0;
+    padding: 40px;
+}
+
+.text {
+    color: white;
+}
+
+#strike {
+    color: red;
+    font-color: red;
+}
+
+#strike:hover, #task-link:hover {
+    text-decoration: none;
+    color: yellow;
+}
+
+#completed {
+  font-size: 10px;
+  padding-left: 10px;
+}
+
+#big-button {
+    padding: 15px;
+    margin: 15px;
+}
+
+#time-completed {
+    color: white;
+    font-size: 14px;
+}
+
+footer {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #7aeb96;
+    margin-bottom: 0;
+}
+
+.header-link-text {
+    color: white;
+    -webkit-text-stroke: 1px red;
+}
+
+.header-link-text:hover {
+    text-decoration: none;
+    -webkit-text-stroke: 1.5px red;
+    color: white;
+}
+
