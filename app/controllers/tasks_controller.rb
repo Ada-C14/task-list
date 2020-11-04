@@ -40,7 +40,7 @@ class TasksController < ApplicationController
         name: params[:task][:name],
         description: params[:task][:description]
     )
-      redirect_to task_path(@task.id)
+      redirect_to task_path(@task.id) # add task path helper!
       return
     else
       render :edit
@@ -56,8 +56,6 @@ class TasksController < ApplicationController
       return
     end
 
-    @task.id = @task.id
-    @task.description = @task.description
   end
 
   def destroy
@@ -88,10 +86,7 @@ class TasksController < ApplicationController
     end
   end
 
-  def find_by
-    task_id = params[:id].to_i
-    task = Task.find_by(id: task_id)
-  end
+
 
   private
 
@@ -99,4 +94,8 @@ class TasksController < ApplicationController
     return params.require(:task).permit(:name, :description)
   end
 
+  def find_by
+    task_id = params[:id].to_i
+    task = Task.find_by(id: task_id)
+  end
 end
