@@ -1,0 +1,29 @@
+<h1>Task List</h1>
+<nav>
+
+</nav>
+<div>
+  <%@tasks.each do |task|%>
+
+    <ul>
+      <li>
+        <strong><%= link_to task.name.capitalize, task_path(task.id) %></strong> : <%= task.description&.capitalize %> <%= link_to "Add a new task", new_task_path%></>| <%= link_to "Edit Task", edit_task_path(task.id) %> | <%= link_to "Delete Task", task_path(task.id), method: :delete, data: {confirm: "Are you sure?"} %> | <%= link_to "Mark Completed", completed_at_task_path(task.id), method: :patch%> </>
+      <%if task.completed_at %>
+      <input type="checkbox" id="scales" name="scales"
+             checked disabled>
+     <%else%>
+      <input type="checkbox" id="scales" name="scales"
+             disabled>
+      <%end%>
+    <%= task.completed_at.localtime %>
+    <%#= task[:completed_at] %>
+      </li>
+    </ul>
+  <% end %>
+</div>
+<p>  </p>
+
+
+
+
+<%#= link_to "delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>

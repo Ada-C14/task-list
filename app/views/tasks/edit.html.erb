@@ -1,0 +1,12 @@
+<%= form_with model: @task, class: 'edit-task' do |f| %>
+  <p>Please provide the following information to edit your task:</p>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+
+  <%= f.submit "Edit Task", class: "task-button" %>
+<% end %>
+<p><%= link_to "Return Task List", tasks_path %></p>
