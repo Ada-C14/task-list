@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+
   def index
     @tasks = Task.all
   end
@@ -31,7 +32,6 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find_by(id: params[:id])
-
     if @task.nil?
       redirect_to tasks_path
       return

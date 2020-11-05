@@ -173,17 +173,17 @@ describe TasksController do
   # Complete for Wave 4
   describe "toggle_complete" do
     it "can mark an existing task complete" do
-      #This works, but I don't think it's testing what I want tested.
-      toggle_task = task
-      # # Act-Assert
-      expect {
-        patch completed_at_task_path(toggle_task.id)
-      }.wont_change "Task.count" # won't change runs before the expect block
-
-      expect(toggle_task.completed_at).wont_be_nil
-
-      must_respond_with :redirect
-      must_redirect_to tasks_path
+      # #This works, but I don't think it's testing what I want tested.
+      # toggle_task = task
+      # # # Act-Assert
+      # expect {
+      #   patch completed_at_task_path(toggle_task.id)
+      # }.wont_change "Task.count" # won't change runs before the expect block
+      #
+      # expect(toggle_task.completed_at).wont_be_nil
+      #
+      # must_respond_with :redirect
+      # must_redirect_to tasks_path
 
       # # Arrange
       # incomplete_task_hash = {
