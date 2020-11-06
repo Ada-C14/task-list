@@ -15,9 +15,9 @@ class TasksController < ApplicationController
     end
   end
 
-  def new
-    @task = Task.new
-  end
+  # def new
+  #   @task = Task.new
+  # end
 
   def create
     @task = Task.new(task_params)
@@ -45,7 +45,6 @@ class TasksController < ApplicationController
       redirect_to tasks_path
       return
     elsif @task.update(task_params)
-
       redirect_to tasks_path
       return
     else
