@@ -1,0 +1,20 @@
+<h1>Task List</h1>
+<ol>
+  <% @tasks.each do |task|  %>
+    <li>
+        <% if task.completed %>
+        <h3><s><%= link_to task.name, task_path(task) %></s></h3>
+          <%= link_to "Unmark Complete", task_incomplete_path(task), method: :patch %> |
+        <% else %>
+        <h3><%= link_to task.name, task_path(task) %></h3>
+          <%= link_to "Mark Complete", task_complete_path(task), method: :patch %> |
+      <% end %>
+
+      <%= link_to "Edit", edit_task_path(task) %> |
+      <%= link_to "Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"}%>
+    </li>
+  <% end %>
+</ol>
+
+<button><%= link_to "Add Task", new_task_path %></button>
+<footer>copyright 2020</footer>
