@@ -6,12 +6,11 @@ describe TasksController do
     completed_at: Time.now + 5.days
   }
   
-  # Tests for Wave 1
+  #  Wave 1
   describe "index" do
     it "can get the index path" do
       # Act
       get tasks_path
-      
       # Assert
       must_respond_with :success
     end
@@ -19,16 +18,15 @@ describe TasksController do
     it "can get the root path" do
       # Act
       get root_path
-      
       # Assert
       must_respond_with :success
     end
   end
   
-  # Unskip these tests for Wave 2
+  #  Wave 2
   describe "show" do
     it "can get a valid task" do
-      skip
+      #skip
       # Act
       get task_path(task.id)
       
@@ -37,7 +35,7 @@ describe TasksController do
     end
     
     it "will redirect for an invalid task" do
-      skip
+      #skip
       # Act
       get task_path(-1)
       
@@ -48,8 +46,7 @@ describe TasksController do
   
   describe "new" do
     it "can get the new task page" do
-      skip
-      
+      #skip
       # Act
       get new_task_path
       
@@ -60,8 +57,7 @@ describe TasksController do
   
   describe "create" do
     it "can create a new task" do
-      skip
-      
+      #skip
       # Arrange
       task_hash = {
         task: {
@@ -85,40 +81,141 @@ describe TasksController do
     end
   end
   
-  # Unskip and complete these tests for Wave 3
+  #  Wave 3
   describe "edit" do
     it "can get the edit page for an existing task" do
-      skip
+      #skip
       # Your code here
     end
     
     it "will respond with redirect when attempting to edit a nonexistant task" do
-      skip
+      #skip
       # Your code here
     end
   end
+
   
-  # Uncomment and complete these tests for Wave 3
+  describe "edit" do
+    it "can get the edit page for an existing task" do
+      # Act
+      task = Task.create(name: 'Clean up the kitchen', description: 'Wash the sink, floors')
+      get edit_task_path(task.id)
+
+      # Assert
+      must_respond_with :success
+    end
+
+    it "will respond with not_found when attempting to edit a nonexistant task" do
+      # Act
+      get edit_task_path(-1)
+
+      # Assert
+      must_respond_with :not_found
+    end
+  end
+
+  # Wave 3
   describe "update" do
-    # Note:  If there was a way to fail to save the changes to a task, that would be a great
-    #        thing to test.
+    before do
+      Task.create(name: 'Clean up the kitchen', description: 'Wash the sink, floors')
+    end
+
     it "can update an existing task" do
-      # Your code here
+      #arrange
+      updated_task_hash = {
+          task: {
+              name: "Do nothing, relax",
+              description: "You deserve it",
+              completed_at: "never",
+          }
+      }
+      task = Task.first
+
+      #act
+      expect {
+        patch task_path(task.id), params: updated_task_hash
+      }.wont_change "Task.count"
+
+      #assert
+      must_redirect_to task_path
+
+      task = Task.find_by(id: task.id)
+      expect(task.name).must_equal updated_task_hash[:task][:name]
     end
-    
-    it "will redirect to the root page if given an invalid id" do
-      # Your code here
+
+    it "will responde with not found if given an invalid id" do
+      updated_task_hash = {
+          task: {
+              name: 'Do nothing, relax',
+              description: 'You deserve it',
+              completed_at: 'never',
+          }
+      }
+      expect {
+        patch task_path(-1), params: updated_task_hash
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
     end
   end
-  
-  # Complete these tests for Wave 4
+
+  #  Wave 4
   describe "destroy" do
-    # Your tests go here
-    
+    it "can destroy a model and redirect to the index page" do
+      #arrange
+
+      task_to_delete = Task.new(name: "Task for tests")
+      task_to_delete.save
+      id = task_to_delete.id
+
+      #act
+      expect {
+        delete task_path(id)
+        #assert
+      }.must_change 'Task.count', -1
+
+      task_to_delete = Task.find_by(name: "Task for tests")
+      expect(task_to_delete).must_be_nil
+
+      must_respond_with :redirect
+      must_redirect_to tasks_path
+    end
+
+    it "will respond with not_found for nonexisting tasks id" do
+      expect {
+        delete task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
+    end
   end
-  
-  # Complete for Wave 4
-  describe "toggle_complete" do
-    # Your tests go here
+
+  #  Wave 4
+  describe "complete" do
+    before do
+      Task.create(name: 'Completion check', description: 'If task is complete, there is a timestamp')
+    end
+    it "can add a timestamp in the completed_at field and redirect to root path" do
+      #arrange
+      task = Task.first
+
+      #act
+      expect {
+        patch complete_task_path(task.id)
+      }.wont_change "Task.count"
+
+      #assert
+      must_redirect_to tasks_path
+      task = Task.find_by(id: task.id)
+      expect(task.completed_at).must_equal Time.now.strftime("%m/%d/%Y")
+    end
+
+    it "will respond with not_found for nonexisting tasks id" do
+      expect {
+        patch complete_task_path(-1)
+      }.wont_change "Task.count"
+
+      must_respond_with :not_found
+    end
   end
 end
