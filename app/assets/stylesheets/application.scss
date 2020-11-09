@@ -1,0 +1,77 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+
+/* Custom bootstrap variables must be set or imported *before* bootstrap. */
+@import "bootstrap";
+
+@import "**/*";
+
+body {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+    "header main main main"
+    "header main main main "
+    "footer footer footer footer"
+
+
+}
+
+header {
+  grid-area: header;
+  color: blue;
+
+}
+
+main {
+  grid-area: main;
+  border-style: solid;
+  /*border-radius gets it to be rounded*/
+  border-radius: 25px;
+  padding: 10px;
+  background-color: yellow;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.nav-button {
+  font-size: 25px;
+  list-style-type: none;
+}
+
+.nav-button button {
+  border-style: solid;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.nav-button a:hover {
+    color: darkgrey;
+}
+
+.nav-button a {
+    text-decoration: none;
+}
+
+footer {
+    grid-area: footer;
+    margin-top: 20px;
+    border-top: solid;
+    text-align: center;
+}
+
+
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TaskList</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+    <header>
+      <h1> TASKLIST </h1>
+      <nav>
+        <ul class="nav-button">
+          <li><button><%= link_to "All Tasks", tasks_path %></button></li>
+          <li><button><%= link_to "Add Task", new_task_path %></button></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="flash">
+        <% flash.each do |name, message| %>
+          <strong class="<%= name %>">
+            <%= message %>
+          </strong>
+        <% end %>
+      </section>
+
+      <%= yield %>
+    </main>
+
+    <footer>
+      <p>All rights reserved</p>
+    </footer>
+
+  </body>
+</html>
