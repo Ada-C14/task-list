@@ -97,15 +97,16 @@ class TasksController < ApplicationController
 
     @task = Task.find_by(id: params[:id])
 
-    if @task.completed_at != nil
-      @task.update(completed_at: nil)
+    if @task.nil?
+      redirect_to root_path
     else
       # task.completed_at = Time.now.strftime("%m/%d/%Y")
       @task.update(completed_at: Time.now.strftime("%m/%d/%Y"))
+      redirect_to tasks_path
     end
 
 
-    redirect_to tasks_path
+    # redirect_to tasks_path
 
   end
 

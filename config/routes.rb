@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   # mark completed custom path
   get '/tasks/:id/mark_complete', to: "tasks#mark_complete", as: "get_mark_complete"
-  patch '/tasks/:id', to: "tasks#mark_complete", as: "mark_complete"
+  post '/tasks/:id', to: "tasks#mark_complete", as: "mark_complete"
 
 
 end
