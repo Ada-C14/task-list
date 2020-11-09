@@ -8,7 +8,7 @@ class TasksController < ApplicationController
     task_id = params[:id].to_i
     @task = Task.find_by(id: task_id)
     if @task.nil?
-      redirect_to tasks_path
+      redirect_to root_path
       return
     end
   end
@@ -39,14 +39,14 @@ class TasksController < ApplicationController
   def update
     @task = Task.find_by(id: params[:id])
     if @task.nil?
-      head :not_found
-      return
+      redirect_to root_path
+    return
     elsif @task.update(
       name: params[:task][:name], 
       description: params[:task][:description], 
       completed_at: params[:task][:completed_at]
     )
-      redirect_to tasks_path # go to the index so we can see the task in the list
+      redirect_to task_path(@task.id) # go to the index so we can see the task in the list
       return
     else # save failed :(
       render :edit # show the new task form view again
