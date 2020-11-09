@@ -74,7 +74,7 @@ describe TasksController do
       # Act-Assert
       expect {
         post tasks_path, params: task_hash
-      }.must_change "Task.count", 1
+      }.must_differ "Task.count", 1
       
       new_task = Task.find_by(name: task_hash[:task][:name])
       expect(new_task.description).must_equal task_hash[:task][:description]

@@ -26,32 +26,36 @@ body {
     "header main main main"
     "header main main main "
     "footer footer footer footer"
+
+
 }
 
 header {
-    grid-area: header;
+  grid-area: header;
+  color: blue;
+
 }
 
 main {
-    grid-area: main;
-    border-style: solid;
-    /*border-radius gets it to be rounded*/
-    border-radius: 25px;
-    padding: 10px;
-    background-color: yellow;
-    margin-left: 100px;
-    margin-right: 100px;
+  grid-area: main;
+  border-style: solid;
+  /*border-radius gets it to be rounded*/
+  border-radius: 25px;
+  padding: 10px;
+  background-color: yellow;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 .nav-button {
-    font-size: 25px;
-    list-style-type: none;
+  font-size: 25px;
+  list-style-type: none;
 }
 
 .nav-button button {
-    border-style: solid;
-    border-radius: 10px;
-    font-size: 20px;
+  border-style: solid;
+  border-radius: 10px;
+  font-size: 20px;
 }
 
 .nav-button a:hover {

@@ -22,6 +22,14 @@
     </header>
 
     <main>
+      <section class="flash">
+        <% flash.each do |name, message| %>
+          <strong class="<%= name %>">
+            <%= message %>
+          </strong>
+        <% end %>
+      </section>
+
       <%= yield %>
     </main>
 

@@ -30,8 +30,10 @@ class TasksController < ApplicationController
     # )
     @task = Task.new(task_params)
     if @task.save
+      flash[:success] = "Task was successfully added!"
       redirect_to task_path(@task.id)
     else
+      flash.now[:error] = "Task was NOT successfully added :("
       render :new, :bad_request
     end
   end
@@ -80,17 +82,30 @@ class TasksController < ApplicationController
     # Add a button to the list of tasks on the home page, that will mark the task completed
     # Update the DB with the task's completed_at date
 
+    # @task = Task.find_by(id: params[:id])
+    #
+    # if @task.nil?
+    #   # redirect to the root page if given an invalid id
+    #   redirect_to root_path
+    #   return
+    # else
+    #   @task.update(completed_at: Time.now.strftime("%m/%d/%Y"))
+    #   redirect_to tasks_path
+    #   return
+    # end
+
+
     @task = Task.find_by(id: params[:id])
 
-    if @task.nil?
-      # redirect to the root page if given an invalid id
-      redirect_to root_path
-      return
+    if @task.completed_at != nil
+      @task.update(completed_at: nil)
     else
+      # task.completed_at = Time.now.strftime("%m/%d/%Y")
       @task.update(completed_at: Time.now.strftime("%m/%d/%Y"))
-      redirect_to tasks_path
-      return
     end
+
+
+    redirect_to tasks_path
 
   end
 
