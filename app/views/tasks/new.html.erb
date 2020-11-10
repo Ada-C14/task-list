@@ -1,0 +1,10 @@
+<div class="list" id="form-page">
+  <h2>add a new task</h2>
+  <%= form_with model: @task, class: 'create-task' do |f| %>
+    <%= f.text_field :name, placeholder: "task name" %><br>
+    <%= f.text_field :description, placeholder: "task description" %><br>
+
+    <%= f.button :submit, value: "save task", class: "task-save-button" %>
+  <% end %>
+  <div class="button"><%= link_to "go back", tasks_path %></div>
+</div>

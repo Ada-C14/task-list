@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TaskList</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="body-container">
+      <header>
+        <div class="header-content"><h2>tasklist</h2></div>
+      </header>
+      <%= yield %>
+      <footer>created: oct mmxx</footer>
+    </div>
+  </body>
+</html>
