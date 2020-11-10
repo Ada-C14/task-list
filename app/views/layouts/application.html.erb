@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TaskList</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="main-container grid-content">
+      <header>
+        <h2><%= link_to "TASK LIST", root_path %></h2>
+      </header>
+      <main>
+        <%= yield %>
+      </main>
+      <aside>
+        <nav>
+          <ul>
+            <li class="aside-button"><%= link_to "Add Task", new_task_path %></li>
+            <li class="aside-button"><%= link_to "All Tasks", tasks_path %></li>
+          </ul>
+        </nav>
+      </aside>
+      <footer>
+        <p class="footer-border">copywrite 2020 @Ada Developers Academy</>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+<div>
+  <% if @task.completed_at.nil? %> 
+    <h4><%= @task.name %>:</h4>
+    <h5><%= @task.description %></h5>
+  <% else %>
+    <h4 class="cross-out"><%= @task.name %>:</h4>
+    <p><%= @task.description %></p>
+    <p>-- Completed at <%= @task.completed_at %> -- </p>
+  <% end %> 
+  <%= link_to " Edit", edit_task_path(@task) %> | 
+  <%= link_to " Delete", task_path(@task), method: :delete, data: {confirm: "Are you sure?"} %>
+</div>

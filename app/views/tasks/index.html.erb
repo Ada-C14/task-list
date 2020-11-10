@@ -1,0 +1,26 @@
+<h3 class="main-header"><%= "Your Tasks".upcase %></h3>
+
+<% if @tasks.count > 0 %>
+  <ol>
+    <% @tasks.each do |task| %>
+      <li>
+        <% if task.completed_at.nil? %> 
+          <%= link_to task.name, task_path(task.id) %><br/>
+          <%= task.description %><br/> 
+          <%= link_to "Mark complete", complete_task_path(task), method: :patch %> |
+          <%= link_to " Edit", edit_task_path(task) %> | 
+          <%= link_to " Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
+        <% else %>  
+          <%= link_to task.name, task_path(task.id), class: 'cross-out' %><br/>
+          <%= task.description %><br/> 
+          -- Completed at <%= task.completed_at %> --<br/>
+          <%= link_to "Unmark complete", complete_task_path(task), method: :patch %> |
+          <%= link_to " Edit", edit_task_path(task) %> | 
+          <%= link_to " Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %>
+        <% end %>
+      </li>
+    <% end %>
+  </ol>
+<% else %>
+  <h3>No tasks in the list!</h3>
+<% end %>
