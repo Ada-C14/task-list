@@ -8,29 +8,27 @@
 
 require 'csv'
 
-WORK_FILE = Rails.root.join('db', 'works_seeds.csv')
-puts "Loading works data from #{WORK_FILE}"
+TASK_FILE = Rails.root.join('db', 'tasks_seeds.csv')
+puts "Loading tasks data from #{TASK_FILE}"
 
-work_upload_failures = []
-CSV.foreach(WORK_FILE, :headers => true) do |row|
-  work = Work.new
+task_upload_failures = []
+CSV.foreach(TASK_FILE, :headers => true) do |row|
+  task = Task.new
 
-  work.category = row['category']
-  work.title = row['title']
-  work.creator = row['creator']
-  work.publication_year = row['publication_year']
-  work.description = row['description']
+  task.name = row['name']
+  task.description = row['description']
+  task.completed_at = row['completed_at']
 
-  successful = work.save
+  successful = task.save
   if !successful
-    work_upload_failures << work
-    puts "Failed to save work: #{work.inspect}"
+    task_upload_failures << task
+    puts "Failed to save task: #{task.inspect}"
   else
-    puts "Created work: #{work.inspect}"
+    puts "Created task: #{task.inspect}"
   end
 end
 
-puts "Added #{Work.count} work records"
-puts "#{work_upload_failures.size} works failed to save"
+puts "Added #{Task.count} task records"
+puts "#{task_upload_failures.size} tasks failed to save"
 
 puts "done"
